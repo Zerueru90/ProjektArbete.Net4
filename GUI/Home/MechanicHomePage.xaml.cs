@@ -11,21 +11,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GUI
+namespace GUI.Home
 {
     /// <summary>
-    /// Interaction logic for RegistrationPage.xaml
+    /// Interaction logic for MechanicHomePage.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class MechanicHomePage : Page
     {
-        public RegistrationPage()
+        public MechanicHomePage()
         {
             InitializeComponent();
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

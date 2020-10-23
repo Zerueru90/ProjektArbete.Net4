@@ -14,21 +14,33 @@ using System.Windows.Shapes;
 namespace GUI.Home
 {
     /// <summary>
-    /// Interaction logic for HomePage.xaml
+    /// Interaction logic for BosseHomePage.xaml
     /// </summary>
-    public partial class HomePage : Page
+    public partial class BosseHomePage : Page
     {
-        public HomePage()
+        public BosseHomePage()
         {
             InitializeComponent();
         }
 
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
+
+
+        private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnSaveNewUser(object sender, ContextMenuEventArgs e)
         {
 
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
 
         }

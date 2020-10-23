@@ -43,7 +43,7 @@ namespace GUI.Login
             if (successful)
             {
 
-                HomePage homePage = new HomePage();
+                BosseHomePage homePage = new BosseHomePage();
 
                 this.NavigationService.Navigate(homePage);
             }
@@ -54,12 +54,6 @@ namespace GUI.Login
                 this.txtBoxUserName.Clear();
                 this.txtBoxPassword.Clear();
             }
-        }
-
-        private void BtnMechanicHomePage_Click(object sender, RoutedEventArgs e)
-        {
-            RegistrationPage regPage = new RegistrationPage();
-            this.NavigationService.Navigate(regPage);
         }
     }
 }

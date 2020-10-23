@@ -1,12 +1,12 @@
-﻿<Page x:Class="GUI.RegistrationPage"
+﻿<Page x:Class="GUI.Home.MechanicHomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:GUI"
+      xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RegistrationPage">
+      Title="MechanicHomePage">
 
     <Grid Background="#FFE5E5E5" Height="336" Margin="0,0,-1,0">
         <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -17,7 +17,7 @@
         <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
         <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
         <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="BtnSave" Content="Spara" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnSave_Click"/>
+        <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click"/>
         <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="190,8,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Bromsar" HorizontalAlignment="Left" Margin="210,53,0,0" VerticalAlignment="Top"/>
         <CheckBox Content="Motor" HorizontalAlignment="Left" Margin="210,79,0,0" VerticalAlignment="Top"/>
