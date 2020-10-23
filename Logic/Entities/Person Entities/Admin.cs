@@ -9,28 +9,28 @@ namespace Logic.Entities.Person_Entities
 
         
         
-            public List<Mechanic> MekanikSystem { get; set; } //skapar list för mekanikernas system så att man kan adda, ta bort osv
+            public List<Mechanic> MechanicList { get; set; } //skapar list för mekanikernas system så att man kan adda, ta bort osv
 
             public Admin()
             {
-                MekanikSystem = new List<Mechanic>(); // Konstruktorn funkar när man bygger admin, som har list,   
+                MechanicList = new List<Mechanic>(); // Konstruktorn funkar när man bygger admin, som har list,   
             }
 
-            public void AddMekanik(Mechanic NewMekaniker)
+            public void AddMechanic(Mechanic NewMechanic)
             {
-                MekanikSystem.Add(NewMekaniker);
+                MechanicList.Add(NewMechanic);
             }
 
-            public void RemoveMekanik(Mechanic NewMekaniker)
+            public void RemoveMechanic(Mechanic NewMechanic)
             {
-                MekanikSystem.Remove(NewMekaniker);
+                MechanicList.Remove(NewMechanic);
             }
 
-            public void AddMekanikSkill(int _id, string skill)
+            public void AddMekchanicSkill(int _id, string skill)
             {
                 Mechanic mekaniker = new Mechanic();
 
-                foreach (var item in MekanikSystem)
+                foreach (var item in MechanicList)
                 {
                     if (item.Id == _id)
                     {
@@ -42,11 +42,11 @@ namespace Logic.Entities.Person_Entities
 
             }
 
-            public void RemoveMekanikSkill(int _id, string skill)
+            public void RemoveMechanicSkill(int _id, string skill)
             {
                 Mechanic mekaniker = new Mechanic();
 
-                foreach (var item in MekanikSystem)
+                foreach (var item in MechanicList)
                 {
                     if (item.Id == _id)
                     {
@@ -62,7 +62,7 @@ namespace Logic.Entities.Person_Entities
             {
                 Mechanic mekanik = new Mechanic();
 
-                foreach (var item in MekanikSystem)
+                foreach (var item in MechanicList)
                 {
 
                     if (item.Id == user.MekanikerId)
@@ -77,7 +77,7 @@ namespace Logic.Entities.Person_Entities
             {
                 Mechanic mekanik = new Mechanic();
 
-                foreach (var item in MekanikSystem)
+                foreach (var item in MechanicList)
                 {
 
                     if (item.Id == user.MekanikerId)
