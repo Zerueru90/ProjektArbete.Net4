@@ -9,26 +9,26 @@ namespace Logic.Entities.Person_Entities
 
         
         
-            public List<Mekanik> MekanikSystem { get; set; } //skapar list för mekanikernas system så att man kan adda, ta bort osv
+            public List<Mechanic> MekanikSystem { get; set; } //skapar list för mekanikernas system så att man kan adda, ta bort osv
 
             public Admin()
             {
-                MekanikSystem = new List<Mekanik>(); // Konstruktorn funkar när man bygger admin, som har list,   
+                MekanikSystem = new List<Mechanic>(); // Konstruktorn funkar när man bygger admin, som har list,   
             }
 
-            public void AddMekanik(Mekanik NewMekaniker)
+            public void AddMekanik(Mechanic NewMekaniker)
             {
                 MekanikSystem.Add(NewMekaniker);
             }
 
-            public void RemoveMekanik(Mekanik NewMekaniker)
+            public void RemoveMekanik(Mechanic NewMekaniker)
             {
                 MekanikSystem.Remove(NewMekaniker);
             }
 
             public void AddMekanikSkill(int _id, string skill)
             {
-                Mekanik mekaniker = new Mekanik();
+                Mechanic mekaniker = new Mechanic();
 
                 foreach (var item in MekanikSystem)
                 {
@@ -44,7 +44,7 @@ namespace Logic.Entities.Person_Entities
 
             public void RemoveMekanikSkill(int _id, string skill)
             {
-                Mekanik mekaniker = new Mekanik();
+                Mechanic mekaniker = new Mechanic();
 
                 foreach (var item in MekanikSystem)
                 {
@@ -60,7 +60,7 @@ namespace Logic.Entities.Person_Entities
 
             public void AddUser(User user)   //skapade uuser i mekanik listen som finns på mekanik class
             {
-                Mekanik mekanik = new Mekanik();
+                Mechanic mekanik = new Mechanic();
 
                 foreach (var item in MekanikSystem)
                 {
@@ -75,7 +75,7 @@ namespace Logic.Entities.Person_Entities
             }
             public void RemoveUser(User user)   //skapade uuser i mekanik listen som finns på mekanik class
             {
-                Mekanik mekanik = new Mekanik();
+                Mechanic mekanik = new Mechanic();
 
                 foreach (var item in MekanikSystem)
                 {

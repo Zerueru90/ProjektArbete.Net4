@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Logic.Entities.Person_Entities
 {
-    public class Mekanik
+    public class Mechanic
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -15,5 +15,7 @@ namespace Logic.Entities.Person_Entities
         public List<string> Skills { get; set; }
 
         public List<User> users { get; set; }
+
+
     }
 }
