@@ -6,5 +6,7 @@ namespace Logic.Entities.Vehicles_Entities
 {
     class Bus :Vehicles
     {
+        List<Bus> buses { get; set; }
+        private int _maxtotalPassengers;
     }
 }

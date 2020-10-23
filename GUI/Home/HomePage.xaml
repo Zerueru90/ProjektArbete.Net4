@@ -43,22 +43,24 @@
             <TabItem Header="Uppdatera">
                 <Grid Background="#FFE5E5E5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="13*"/>
-                        <ColumnDefinition Width="224*"/>
+                        <ColumnDefinition Width="17*"/>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="52*"/>
+                        <ColumnDefinition Width="396*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox Margin="269,26,0,0" Grid.Column="1"/>
-                    <Label Content="Anställda" HorizontalAlignment="Left" Margin="269,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <TextBox x:Name="txtUpdateName" HorizontalAlignment="Left" Margin="100,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <TextBox x:Name="txtUpdatePassword" HorizontalAlignment="Left" Margin="100,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <TextBox x:Name="txtUpdateBirthday" HorizontalAlignment="Left" Margin="100,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <TextBox x:Name="txtUpdateEmployementday" HorizontalAlignment="Left" Margin="100,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <TextBox x:Name="txtUpdateUnEnmploymentday" HorizontalAlignment="Left" Margin="100,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-                    <Label Content="Namn" HorizontalAlignment="Left" Margin="100,8,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="100,52,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="100,96,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="100,138,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="100,182,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Button x:Name="BtnUpdate" Content="Uppdatera" HorizontalAlignment="Left" Margin="123,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnSave_Click" Grid.Column="1"/>
+                    <ListBox Margin="217,26,0,0" Grid.Column="3"/>
+                    <Label Content="Anställda" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <TextBox x:Name="txtUpdateName" HorizontalAlignment="Left" Margin="48,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+                    <TextBox x:Name="txtUpdatePassword" HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+                    <TextBox x:Name="txtUpdateBirthday" HorizontalAlignment="Left" Margin="48,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+                    <TextBox x:Name="txtUpdateEmployementday" HorizontalAlignment="Left" Margin="48,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+                    <TextBox x:Name="txtUpdateUnEnmploymentday" HorizontalAlignment="Left" Margin="48,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
+                    <Label Content="Namn" HorizontalAlignment="Left" Margin="48,8,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="48,52,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="48,96,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="48,138,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="48,182,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Button x:Name="BtnUpdate" Content="Uppdatera" HorizontalAlignment="Left" Margin="71,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnSave_Click" Grid.Column="3"/>
                 </Grid>
             </TabItem>
         </TabControl>
