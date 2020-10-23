@@ -13,19 +13,28 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <TabControl Margin="0,0,0,-339">
+            <TabItem Header="Skapa ny mekaniker">
+                <Grid>
+                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Namn" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
             <TabItem Header="Lägg till">
                 <Grid Background="#FFE5E5E5">
-                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="126,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="126,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="126,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="126,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="126,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Namn" HorizontalAlignment="Left" Margin="126,8,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="126,52,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="126,96,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="126,138,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="126,182,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="BtnSave" Content="Spara" HorizontalAlignment="Left" Margin="149,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnSave_Click"/>
+                    <Label Content="Klicka på den mekanikern du vill ge User privilegier och ge hen ett lösenord" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Top"/>
+                    <ListBox Margin="217,26,0,0" Grid.Column="3"/>
+                    <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="BtnSave" Content="Spara" HorizontalAlignment="Left" Margin="33,0,0,0" VerticalAlignment="Center" Height="26" Width="74" Click="BtnSave_Click"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="10,151,0,0" VerticalAlignment="Top" Width="2"/>
+                    <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ta bort">
@@ -35,7 +44,7 @@
                         <ColumnDefinition Width="170*"/>
                     </Grid.ColumnDefinitions>
                     <ListBox Margin="161,26,0,0" Grid.Column="1"/>
-                    <Label Content="Anställda" HorizontalAlignment="Left" Margin="161,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="161,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Button x:Name="BtnDelete" Content="Radera" HorizontalAlignment="Left" Margin="118,114,0,0" VerticalAlignment="Top" Height="28" Width="81" Click="BtnDelete_Click" Grid.ColumnSpan="2"/>
                     <Label Content="Välj en anställd från listan och tryck sen på knappen" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                 </Grid>
@@ -49,7 +58,7 @@
                         <ColumnDefinition Width="396*"/>
                     </Grid.ColumnDefinitions>
                     <ListBox Margin="217,26,0,0" Grid.Column="3"/>
-                    <Label Content="Anställda" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdateName" HorizontalAlignment="Left" Margin="48,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdatePassword" HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdateBirthday" HorizontalAlignment="Left" Margin="48,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>

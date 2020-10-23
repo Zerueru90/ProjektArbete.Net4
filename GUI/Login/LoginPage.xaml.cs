@@ -28,12 +28,15 @@ namespace GUI.Login
             InitializeComponent();
 
             _loginService = new LoginService();
+
+            txtBoxUserName.Text = "Bosse";
+            txtBoxPassword.Password = "Meckarn123";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            string username = this.tbUsernam.Text;
-            string password = this.pbPassword.Password;
+            string username = this.txtBoxUserName.Text;
+            string password = this.txtBoxPassword.Password;
 
             bool successful = _loginService.Login(username, password);
 
@@ -48,9 +51,15 @@ namespace GUI.Login
             {
 
                 MessageBox.Show(_errorMsg);
-                this.tbUsernam.Clear();
-                this.pbPassword.Clear();
+                this.txtBoxUserName.Clear();
+                this.txtBoxPassword.Clear();
             }
+        }
+
+        private void BtnMechanicHomePage_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationPage regPage = new RegistrationPage();
+            this.NavigationService.Navigate(regPage);
         }
     }
 }
