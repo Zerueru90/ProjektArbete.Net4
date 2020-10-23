@@ -6,5 +6,6 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Vehicles
     {
+
     }
 }

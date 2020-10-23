@@ -13,6 +13,9 @@ namespace Logic.DAL
     {
         private const string path = @"DAL\User.json";
 
+        // EN RELATIV SÖKVÄG!
+        string startupPath = Directory.GetCurrentDirectory();
+
         /// <summary>
         /// https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to
         /// </summary>
@@ -25,5 +28,19 @@ namespace Logic.DAL
 
             return users;
         }
+        //// Från c# till Json fil!
+        //string json = JsonSerializer.Serialize(bs);
+        //FileStream fs = File.OpenWrite($"{startupPath}/Boksamlingar.json");
+        //StreamWriter sw = new StreamWriter(fs);
+        //sw.WriteLine(json);
+        //    sw.Close();
+
+        //    // Från Json-fil tillbaka till c#
+        //fs = File.OpenRead($"{startupPath}/Boksamlingar.json");
+        //StreamReader sr = new StreamReader(fs);
+        //json = sr.ReadToEnd();
+        //Boksamling upplast = JsonSerializer.Deserialize<Boksamling>(json);
+        //sr.Close();
+     
     }
 }
