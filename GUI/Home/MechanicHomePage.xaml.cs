@@ -23,5 +23,9 @@ namespace GUI.Home
             InitializeComponent();
         }
 
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
