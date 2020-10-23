@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Logic.Entities
 {
+    //Om Bosse väljer att ge en mekaniker admin privilegium, så går detta igenom.
     public class User
     {
         public string Username { get; set; }
