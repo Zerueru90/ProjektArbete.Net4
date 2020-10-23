@@ -22,5 +22,15 @@ namespace GUI.Home
         {
             InitializeComponent();
         }
+
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
