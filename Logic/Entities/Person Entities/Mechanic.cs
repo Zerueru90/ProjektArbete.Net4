@@ -5,12 +5,14 @@ namespace Logic.Entities.Person_Entities
 {
     public class Mechanic
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
         public DateTime DateOfBirthday { get; set; }
 
-        public DateTime dateOfEnd { get; set; }
+        public DateTime DateOfEmployment { get; set; }
+
+        public DateTime DateOfEnd { get; set; }
 
         public List<string> Skills { get; set; }
 

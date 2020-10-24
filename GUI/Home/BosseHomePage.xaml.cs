@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.Entities.Person_Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -23,10 +24,20 @@ namespace GUI.Home
             InitializeComponent();
         }
 
+        private Mechanic _mechanic;
+        private string _brakes;
+        private string _engine;
+        private string _carbody;
+        private string _windshield;
+        private string _tires;
 
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
         {
+            _mechanic = new Mechanic();
+            _mechanic.Name = txtName.Text;
+            _mechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
+            _mechanic.
 
         }
 
