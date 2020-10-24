@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="586" d:DesignWidth="861"
       Title="BosseHomePage">
 
     <Grid>
@@ -22,11 +22,11 @@
                     <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic"/>
                     <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="190,8,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Bromsar" HorizontalAlignment="Left" Margin="210,53,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Motor" HorizontalAlignment="Left" Margin="210,79,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Kaross" HorizontalAlignment="Left" Margin="210,102,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Vindrutor" HorizontalAlignment="Left" Margin="210,125,0,0" VerticalAlignment="Top"/>
-                    <CheckBox Content="Däck" HorizontalAlignment="Left" Margin="210,149,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxBreaks" Content="Bromsar" HorizontalAlignment="Left" Margin="210,53,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxEngine" Content="Motor" HorizontalAlignment="Left" Margin="210,79,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxBody" Content="Kaross" HorizontalAlignment="Left" Margin="210,102,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxWindShield" Content="Vindrutor" HorizontalAlignment="Left" Margin="210,125,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxTyre" Content="Däck" HorizontalAlignment="Left" Margin="210,149,0,0" VerticalAlignment="Top"/>
 
                 </Grid>
             </TabItem>

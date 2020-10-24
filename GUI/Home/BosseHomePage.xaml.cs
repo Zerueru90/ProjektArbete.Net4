@@ -23,15 +23,27 @@ namespace GUI.Home
         public BosseHomePage()
         {
             InitializeComponent();
+
+            txtName.Text = "Lasse";
+            txtEmployementday.Text = "20-10-24";
+            txtBirthday.Text = "20-10-24";
         }
 
         private Mechanic _mechanic;
-        private string _brakes;
-        private string _engine;
-        private string _carbody;
-        private string _windshield;
-        private string _tires;
 
+        private string _breakes = "Bromsar";
+        private string _engine = "Motor";
+        private string _carbody = "Kaross";
+        private string _windshield = "Vindruta";
+        private string _tyre = "Däck";
+
+        private void SkillCheck(CheckBox checkBox, string skill)
+        {
+            if (checkBox.IsChecked == true)
+            {
+                _mechanic._skillLista.Add(skill);
+            }
+        }
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
         {
@@ -39,6 +51,13 @@ namespace GUI.Home
             _mechanic.Name = txtName.Text;
             _mechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
             _mechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
+
+            SkillCheck(checkBoxBreaks, _breakes);
+            SkillCheck(checkBoxEngine, _engine);
+            SkillCheck(checkBoxBody, _carbody);
+            SkillCheck(checkBoxWindShield, _windshield);
+            SkillCheck(checkBoxTyre, _tyre);
+
             MechanicDataAccess.SaveNewMechanicData(_mechanic);
         }
 
