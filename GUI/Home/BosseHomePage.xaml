@@ -44,26 +44,16 @@
             </TabItem>
             <TabItem Header="Ta bort mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="67*"/>
-                        <ColumnDefinition Width="170*"/>
-                    </Grid.ColumnDefinitions>
-                    <ListBox Margin="161,26,0,0" Grid.Column="1"/>
-                    <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="161,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <ListBox Margin="350,26,0,0" Grid.Column="1"/>
+                    <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="118,114,0,0" VerticalAlignment="Top" Height="28" Width="81" Click="BtnDelete_Click" Grid.ColumnSpan="2"/>
                     <Label Content="Välj en anställd från listan och tryck sen på knappen" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Uppdatera mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="17*"/>
-                        <ColumnDefinition Width="9*"/>
-                        <ColumnDefinition Width="52*"/>
-                        <ColumnDefinition Width="396*"/>
-                    </Grid.ColumnDefinitions>
                     <ListBox Margin="217,26,0,0" Grid.Column="3"/>
-                    <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
+                    <Label FontSize="17"  Content="Mekaniker" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdateName" HorizontalAlignment="Left" Margin="48,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdatePassword" HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
                     <TextBox x:Name="txtUpdateBirthday" HorizontalAlignment="Left" Margin="48,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>

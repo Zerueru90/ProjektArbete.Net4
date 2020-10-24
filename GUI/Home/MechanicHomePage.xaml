@@ -8,21 +8,23 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MechanicHomePage">
 
-    <Grid Background="#FFE5E5E5" Height="336" Margin="0,0,-1,0">
-        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Label Content="Namn" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
-        <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
-        <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
-        <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
-        <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click"/>
-        <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="190,8,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Bromsar" HorizontalAlignment="Left" Margin="210,53,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Motor" HorizontalAlignment="Left" Margin="210,79,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Kaross" HorizontalAlignment="Left" Margin="210,102,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Vindrutor" HorizontalAlignment="Left" Margin="210,125,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Däck" HorizontalAlignment="Left" Margin="210,149,0,0" VerticalAlignment="Top"/>
+    <Grid Background="#FFE5E5E5" Height="336" Margin="38,57,231,57">
+        <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="112,89,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="112,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="112,177,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="112,225,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Namn" HorizontalAlignment="Left" Margin="112,63,0,0" VerticalAlignment="Top"/>
+        <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="112,107,0,0" VerticalAlignment="Top"/>
+        <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="112,148,0,0" VerticalAlignment="Top"/>
+        <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="112,197,0,0" VerticalAlignment="Top"/>
+        <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="129,282,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click"/>
+        <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="316,48,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Bromsar" HorizontalAlignment="Left" Margin="336,93,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Motor" HorizontalAlignment="Left" Margin="336,119,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Kaross" HorizontalAlignment="Left" Margin="336,142,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Vindrutor" HorizontalAlignment="Left" Margin="336,165,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Däck" HorizontalAlignment="Left" Margin="336,189,0,0" VerticalAlignment="Top"/>
+        <Label Content="Welcome:" FontSize="20"  HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.194,-0.113"/>
+        <Label Content="Name" FontSize="20"  HorizontalAlignment="Left" Margin="101,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.194,-0.113"/>
     </Grid>
 </Page>
