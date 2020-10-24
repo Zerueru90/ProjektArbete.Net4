@@ -41,7 +41,7 @@ namespace GUI.Home
         {
             if (checkBox.IsChecked == true)
             {
-                _mechanic._skillLista.Add(skill);
+                _mechanic.SkillLista.Add(skill);
             }
         }
 

@@ -38,7 +38,7 @@ namespace Logic.Entities.Person_Entities
                     }
                 }
 
-                mekaniker._skillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
+                mekaniker.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
 
             }
 
@@ -54,7 +54,7 @@ namespace Logic.Entities.Person_Entities
                     }
                 }
 
-                mekaniker._skillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
+                mekaniker.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
 
             }
 
