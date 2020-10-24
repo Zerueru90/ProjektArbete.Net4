@@ -12,7 +12,7 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime DateOfEmployment { get; set; }
 
-        public DateTime DateOfEnd { get; set; }
+        public DateTime? DateOfEnd { get; set; }
 
         public List<string> Skills { get; set; }
 

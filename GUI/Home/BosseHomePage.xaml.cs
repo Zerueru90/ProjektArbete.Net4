@@ -37,7 +37,7 @@ namespace GUI.Home
             _mechanic = new Mechanic();
             _mechanic.Name = txtName.Text;
             _mechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
-            _mechanic.
+            _mechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
 
         }
 
