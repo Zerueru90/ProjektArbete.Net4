@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Person_Entities
 {
-    class Admin
+    public class Admin
     {
 
         

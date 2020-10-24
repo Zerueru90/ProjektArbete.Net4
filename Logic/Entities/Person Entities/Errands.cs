@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Person_Entities
 {
-    class Errands
+    public class Errands
     {
         public int ErrandsID { get; set; }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    class Car : Vehicles
+    public class Car : Vehicles
     {
         List<Car> Cars = new List<Car>();
         private bool _hasTowbar;
