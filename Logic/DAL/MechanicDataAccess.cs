@@ -27,18 +27,18 @@ namespace Logic.DAL
             }
         }
 
-        public static List<Mechanic> LoadMechanics()
-        {
-            //string jsonString = File.ReadAllText(txtFileAddress);
-            //List<Mechanic> users = JsonConvert.DeserializeObject<List<Mechanic>>(jsonString);
+        //public static List<Mechanic> LoadMechanics()
+        //{
+        //    string jsonString = File.ReadAllText(txtFileAddress);
+        //    List<Mechanic> users = JsonConvert.DeserializeObject<List<Mechanic>>(jsonString);
 
-            //using (StreamReader read = new StreamReader(txtFileAddress, true))
-            //{
-            //    read.ReadLine(jsonString);
-            //}
+        //    using (StreamReader read = new StreamReader(txtFileAddress, true))
+        //    {
+        //        read.ReadLine(jsonString);
+        //    }
 
 
-            //return users;
-        }
+        //    return users;
+        //}
     }
 }
