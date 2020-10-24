@@ -5,7 +5,7 @@ namespace Logic.Entities.Person_Entities
 {
     public class Mechanic
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Name { get; set; }
 
         public DateTime DateOfBirthday { get; set; }

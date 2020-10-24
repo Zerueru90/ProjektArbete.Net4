@@ -51,6 +51,7 @@ namespace GUI.Home
             _mechanic.Name = txtName.Text;
             _mechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
             _mechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
+            _mechanic.DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text);
 
             SkillCheck(checkBoxBreaks, _breakes);
             SkillCheck(checkBoxEngine, _engine);
