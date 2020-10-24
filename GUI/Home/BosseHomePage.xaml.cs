@@ -1,4 +1,5 @@
-﻿using Logic.Entities.Person_Entities;
+﻿using Logic.DAL;
+using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,7 +39,7 @@ namespace GUI.Home
             _mechanic.Name = txtName.Text;
             _mechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
             _mechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
-
+            MechanicDataAccess.SaveNewMechanicData(_mechanic);
         }
 
         private void BtnSaveNewUser(object sender, ContextMenuEventArgs e)

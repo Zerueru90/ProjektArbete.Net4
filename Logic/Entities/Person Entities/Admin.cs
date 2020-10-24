@@ -26,7 +26,7 @@ namespace Logic.Entities.Person_Entities
                 MechanicList.Remove(NewMechanic);
             }
 
-            public void AddMekchanicSkill(int _id, string skill)
+            public void AddMekchanicSkill(Guid _id, string skill)
             {
                 Mechanic mekaniker = new Mechanic();
 
@@ -42,7 +42,7 @@ namespace Logic.Entities.Person_Entities
 
             }
 
-            public void RemoveMechanicSkill(int _id, string skill)
+            public void RemoveMechanicSkill(Guid _id, string skill)
             {
                 Mechanic mekaniker = new Mechanic();
 
