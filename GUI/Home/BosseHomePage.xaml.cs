@@ -27,6 +27,7 @@ namespace GUI.Home
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
             txtBirthday.Text = "20-10-24";
+            txtUnEnmploymentday.Text = "22-10-24";
         }
 
         private Mechanic _mechanic;
@@ -60,6 +61,10 @@ namespace GUI.Home
             SkillCheck(checkBoxTyre, _tyre);
 
             MechanicDataAccess.SaveNewMechanicData(_mechanic);
+
+            listBoxNewMechanic.Items.Add(MechanicDataAccess.LoadMechanics());
+
+            MessageBox.Show("Saved");
         }
 
         private void BtnSaveNewUser(object sender, ContextMenuEventArgs e)
