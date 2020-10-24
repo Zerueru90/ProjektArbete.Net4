@@ -1,8 +1,8 @@
 ﻿using Logic.Entities.Person_Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -19,26 +19,25 @@ namespace Logic.DAL
 
         public static void SaveNewMechanicData(Mechanic mechanic)
         {
-            string jsonString = JsonConvert.SerializeObject(mechanic);
-
+            string jsonString = JsonSerializer.Serialize(mechanic);
             using (StreamWriter write = new StreamWriter(txtFileAddress, true))
             {
-                write.WriteLine(jsonString);
+                write.Write(jsonString);
             }
+
         }
 
-        //public static List<Mechanic> LoadMechanics()
-        //{
-        //    string jsonString = File.ReadAllText(txtFileAddress);
-        //    List<Mechanic> users = JsonConvert.DeserializeObject<List<Mechanic>>(jsonString);
-
-        //    using (StreamReader read = new StreamReader(txtFileAddress, true))
-        //    {
-        //        read.ReadLine(jsonString);
-        //    }
-
-
-        //    return users;
-        //}
+        public static Mechanic LoadMechanics()
+        {
+            Mechanic mechanic;
+            var fs = File.OpenRead(txtFileAddress);
+            string json = "";
+            using (StreamReader read = new StreamReader(fs))
+            {
+                json = read.ReadToEnd();
+                mechanic = JsonSerializer.Deserialize<Mechanic>(json);
+            }
+            return mechanic;
+        }
     }
 }

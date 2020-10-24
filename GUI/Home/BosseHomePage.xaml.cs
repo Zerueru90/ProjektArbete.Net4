@@ -62,7 +62,7 @@ namespace GUI.Home
 
             MechanicDataAccess.SaveNewMechanicData(_mechanic);
 
-            //listBoxNewMechanic.Items.Add(MechanicDataAccess.LoadMechanics());
+            listBoxNewMechanic.Items.Add(MechanicDataAccess.LoadMechanics().Name);
 
             MessageBox.Show("Saved");
         }
