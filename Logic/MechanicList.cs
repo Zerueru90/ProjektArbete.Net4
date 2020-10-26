@@ -8,23 +8,11 @@ namespace Logic
 {
     public static class MechanicList
     {
-        private static List<Mechanic> _mechanics;
-
-        public static List<Mechanic> AddToMechanicList
+        static MechanicList()
         {
-            get
-            {
-                if (_mechanics == null)
-                {
-                    return _mechanics = new List<Mechanic>();
-                }
-                return _mechanics;
-            }
-            set
-            {
-                _mechanics = value;
-            }
+            _mechanicList = new List<Mechanic>();
         }
-
+        
+        public static List<Mechanic> _mechanicList { get ; set; }
     }
 }

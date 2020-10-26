@@ -11,22 +11,21 @@ namespace Logic
     {
         public void AddMechanic(Mechanic NewMechanic)
         {
-            MechanicList.AddToMechanicList.Add(NewMechanic);
+            MechanicList._mechanicList.Add(NewMechanic);
         }
 
-        public void RemoveMechanic(IEnumerable<Mechanic> NewMechanic)
+        public void RemoveMechanic(Mechanic mechanic)
         {
-            foreach (var obj in NewMechanic)
-            {
-                MechanicList.AddToMechanicList.Remove(obj);
-            }
+
+            MechanicList._mechanicList.Remove(mechanic);
+
         }
 
         public void AddMekchanicSkill(Guid _id, string skill)
         {
             Mechanic mekaniker = new Mechanic();
 
-            foreach (var item in MechanicList.AddToMechanicList)
+            foreach (var item in MechanicList._mechanicList)
             {
                 if (item.Id == _id)
                 {
@@ -42,7 +41,7 @@ namespace Logic
         {
             Mechanic mekaniker = new Mechanic();
 
-            foreach (var item in MechanicList.AddToMechanicList)
+            foreach (var item in MechanicList._mechanicList)
             {
                 if (item.Id == _id)
                 {
@@ -58,7 +57,7 @@ namespace Logic
         {
             Mechanic mekanik = new Mechanic();
 
-            foreach (var item in MechanicList.AddToMechanicList)
+            foreach (var item in MechanicList._mechanicList)
             {
                 if (item.Id == user.MekanikerId)
                 {
@@ -72,7 +71,7 @@ namespace Logic
         {
             Mechanic mekanik = new Mechanic();
 
-            foreach (var item in MechanicList.AddToMechanicList)
+            foreach (var item in MechanicList._mechanicList)
             {
 
                 if (item.Id == user.MekanikerId)

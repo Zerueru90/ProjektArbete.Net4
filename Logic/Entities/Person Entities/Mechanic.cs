@@ -5,7 +5,14 @@ namespace Logic.Entities.Person_Entities
 {
     public class Mechanic
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
+
+        public Mechanic()
+        {
+            Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet. 
+            MechanicProgressList = new List<string>();
+        }
+
+        public Guid Id { get; set; } 
         public string Name { get; set; }
 
         public DateTime DateOfBirthday { get; set; }
@@ -32,6 +39,10 @@ namespace Logic.Entities.Person_Entities
             {
                 _skillLista = value;
             }
+
+           
         }
+
+        public List<string> MechanicProgressList { get; set; }
     }
 }
