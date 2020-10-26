@@ -33,7 +33,7 @@ namespace GUI.Home
         }
 
         private Mechanic _mechanic;
-        private Admin _admin = new Admin();
+        private CRUD _crud = new CRUD();
 
         private string _breakes = "Bromsar";
         private string _engine = "Motor";
@@ -63,7 +63,7 @@ namespace GUI.Home
             SkillCheck(checkBoxWindShield, _windshield);
             SkillCheck(checkBoxTyre, _tyre);
 
-            //_admin.AddMechanic(_mechanic);
+            _crud.AddMechanic(_mechanic);
 
             listBoxNewMechanic.Items.Add(_mechanic.Name);
 
@@ -85,7 +85,7 @@ namespace GUI.Home
 
             foreach (var obj in mechanic)
             {
-                //_admin.RemoveMechanic(obj);
+                _crud.RemoveMechanic(obj);
             }
 
         }
