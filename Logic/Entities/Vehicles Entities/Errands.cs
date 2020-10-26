@@ -13,17 +13,15 @@ namespace Logic.Entities.Vehicles_Entities
         public bool tryTOAdd(Vehicles vehicles)
         {
             var counter = 0;
-            if (counter >= 2)
-            {
-                Console.WriteLine("Tyvärr kan en makaniker endast ha två ärenden samtidigt");
-                return false;
-                
-                
-            }
-            else
+            if (counter <= 2)
             {
                 counter++;
                 return true;
+            }
+            else
+            {
+                //MessageBox.Show("Tyvärr kan en makaniker endast ha två ärenden samtidigt");
+                return false;
             }
            
 
