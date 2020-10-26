@@ -74,7 +74,7 @@ namespace GUI.Home
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+        
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
