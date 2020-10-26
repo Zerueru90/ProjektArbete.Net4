@@ -46,7 +46,7 @@
             </TabItem>
             <TabItem Header="Ta bort mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox Margin="350,26,0,0" Grid.Column="1"/>
+                    <ListBox x:Name="listboxDelete" Margin="350,26,0,0" Grid.Column="1"/>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="118,114,0,0" VerticalAlignment="Top" Height="28" Width="81" Click="BtnDelete_Click" Grid.ColumnSpan="2"/>
                     <Label Content="Välj en anställd från listan och tryck sen på knappen" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
@@ -67,6 +67,13 @@
                     <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="48,138,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                     <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="48,182,0,0" VerticalAlignment="Top" Grid.Column="3"/>
                     <Button x:Name="BtnUpdate" Content="Uppdatera" HorizontalAlignment="Left" Margin="71,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click" Grid.Column="3"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Ärenden">
+                <Grid Background="#FFE5E5E5">
+                    <ListBox Margin="336,314,0,0"/>
+                    <ListBox Margin="336,35,0,279"/>
+
                 </Grid>
             </TabItem>
         </TabControl>
