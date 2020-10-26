@@ -46,11 +46,11 @@ namespace Logic.Entities.Vehicles_Entities
         }
         public string GetinfoOfErrand()
         {
-            return ($"Beskrvining: {Description}" +
+            return $"Beskrvining: {Description}" +
                 $"\nProblem: {Problem}" +
                 $"\nMekaniker: {Mechanic}" +
                 $"\nFordon: {Vehicles}" +
-                $"\nÄrrende avslutat: {Isfinnish()}");
+                $"\nÄrrende avslutat: {Isfinnish()}";
     
         }
         public string Isfinnish()
