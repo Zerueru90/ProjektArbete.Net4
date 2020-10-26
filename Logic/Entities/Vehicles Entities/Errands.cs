@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.Entities.Person_Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,29 +9,33 @@ namespace Logic.Entities.Vehicles_Entities
     {
         public List<Errands> OngoingErrands { get; set; }
         public List<Errands> finnishedErrands { get; set; }
-        public int ErrandsID { get; set; }
+        
+        public Guid ErrandsID { get; set; }
+        public string Description { get; set; }
+        public bool Isfinnished { get; set; }
+        public string Problem { get; set; }
+        public Mechanic Mechanic { get; set; }
+        public Vehicles Vehicles { get; set; }
 
-        public bool tryTOAdd(Vehicles vehicles)
+
+
+        public bool TryToAdd(Vehicles vehicles)
         {
             var counter = 0;
-            if (counter >= 2)
-            {
-                Console.WriteLine("Tyvärr kan en makaniker endast ha två ärenden samtidigt");
-                return false;
-                
-                
-            }
-            else
+            if (counter <= 2)
             {
                 counter++;
                 return true;
             }
-           
-
+            else
+            {
+                //MessageBox.Show("Tyvärr kan en makaniker endast ha två ärenden samtidigt");
+                return false;
+            }
         }
         public bool AddErrands(Vehicles vehicles)
         {
-            var isOktoAdd = tryTOAdd(vehicles);
+            var isOktoAdd = TryToAdd(vehicles);
             if (isOktoAdd)
             {
                 OngoingErrands.Add((Errands)vehicles);
@@ -38,6 +43,26 @@ namespace Logic.Entities.Vehicles_Entities
             }
             else
                 return false;
+        }
+        public string GetinfoOfErrand()
+        {
+            return ($"Beskrvining: {Description}" +
+                $"\nProblem: {Problem}" +
+                $"\nMekaniker: {Mechanic}" +
+                $"\nFordon: {Vehicles}" +
+                $"\nÄrrende avslutat: {Isfinnish()}");
+    
+        }
+        public string Isfinnish()
+        {
+            if (Isfinnished == true)
+            {
+                return "Ja";
+            }
+            else
+            {
+                return "Nej";
+            }
         }
        
     }
