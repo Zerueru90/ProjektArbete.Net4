@@ -1,4 +1,5 @@
 ﻿using Logic.Entities.Person_Entities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,30 +15,73 @@ namespace Logic.DAL
         
         private static string findMap = Directory.GetCurrentDirectory();
         private const string path = @"DAL\MechanicJson.json";
-        private static string txtFileAddress = Path.Combine(findMap + @"\" + path);
+        private static string txtFileAddress = Path.Combine(@"" + findMap + @"\" + path);
 
+        private static List<Mechanic> MechanicList = new List<Mechanic>();
 
         public static void SaveNewMechanicData(Mechanic mechanic)
         {
-            string jsonString = JsonSerializer.Serialize(mechanic);
-            using (StreamWriter write = new StreamWriter(txtFileAddress, true))
+            if (File.Exists(txtFileAddress))
             {
-                write.Write(jsonString);
-            }
+                ReadJsonFile(mechanic);
 
+
+                string jsonString = JsonConvert.SerializeObject(mechanic);
+                jsonString = JsonPrettify(jsonString);
+                using (StreamWriter write = new StreamWriter(txtFileAddress, true))
+                {
+                    write.Write(jsonString);
+                    write.Close();
+                }
+
+            }
+            else
+            {
+                string jsonString = JsonConvert.SerializeObject(mechanic);
+                jsonString = JsonPrettify(jsonString);
+                using (StreamWriter write = new StreamWriter(txtFileAddress, true))
+                {
+                    write.Write(jsonString);
+                    write.Close();
+                }
+            }
         }
 
-        public static Mechanic LoadMechanics()
+        public static string JsonPrettify(string json)
         {
-            Mechanic mechanic;
-            var fs = File.OpenRead(txtFileAddress);
-            string json = "";
-            using (StreamReader read = new StreamReader(fs))
+            using (var stringReader = new StringReader(json))
+            using (var stringWriter = new StringWriter())
             {
-                json = read.ReadToEnd();
-                mechanic = JsonSerializer.Deserialize<Mechanic>(json);
+                var jsonReader = new JsonTextReader(stringReader);
+                var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
+                jsonWriter.WriteToken(jsonReader);
+                return stringWriter.ToString();
             }
-            return mechanic;
         }
+
+        public static void ReadJsonFile(Mechanic mechanic)
+        {
+            MechanicList.Add(mechanic);
+            string jsonString = File.ReadAllText(txtFileAddress);
+
+            // var jsonRead = JsonSerializer.Deserialize<Mechanic>(jsonString);
+            var jsonRead = JsonConvert.DeserializeObject<Mechanic>(jsonString);
+                                    //.Deserialize<Mechanic>(jsonString);
+            MechanicList.Add(jsonRead);
+
+        }
+
+        //public static Mechanic LoadMechanics()
+        //{
+        //    Mechanic mechanic;
+        //    var fs = File.OpenRead(txtFileAddress);
+        //    string json = "";
+        //    using (StreamReader read = new StreamReader(fs))
+        //    {
+        //        json = read.ReadToEnd();
+        //        //mechanic = JsonSerializer.Deserialize<Mechanic>(json);
+        //    }
+        //    return mechanic;
+        //}
     }
 }

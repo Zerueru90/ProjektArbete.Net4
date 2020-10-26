@@ -1,7 +1,9 @@
-﻿using Logic.DAL;
+﻿using Logic;
+using Logic.DAL;
 using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,12 +33,13 @@ namespace GUI.Home
         }
 
         private Mechanic _mechanic;
+        private Admin _admin = new Admin();
 
         private string _breakes = "Bromsar";
         private string _engine = "Motor";
         private string _carbody = "Kaross";
         private string _windshield = "Vindruta";
-        private string _tyre = "Däck";
+        private string _tyre = "Tyre";
 
         private void SkillCheck(CheckBox checkBox, string skill)
         {
@@ -60,9 +63,9 @@ namespace GUI.Home
             SkillCheck(checkBoxWindShield, _windshield);
             SkillCheck(checkBoxTyre, _tyre);
 
-            MechanicDataAccess.SaveNewMechanicData(_mechanic);
+            //_admin.AddMechanic(_mechanic);
 
-            listBoxNewMechanic.Items.Add(MechanicDataAccess.LoadMechanics().Name);
+            listBoxNewMechanic.Items.Add(_mechanic.Name);
 
             MessageBox.Show("Saved");
         }
@@ -74,7 +77,17 @@ namespace GUI.Home
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-        
+            MechanicList.AddToMechanicList.Where(x => x.Name == listboxDelete.SelectedItem.ToString());
+
+            var mechanic = from mec in MechanicList.AddToMechanicList
+                      where mec.Name == listboxDelete.SelectedItem.ToString()
+                      select mec;
+
+            foreach (var obj in mechanic)
+            {
+                //_admin.RemoveMechanic(obj);
+            }
+
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
