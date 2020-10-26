@@ -2,6 +2,7 @@
 using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Logic
@@ -13,9 +14,12 @@ namespace Logic
             MechanicList.AddToMechanicList.Add(NewMechanic);
         }
 
-        public void RemoveMechanic(Mechanic NewMechanic)
+        public void RemoveMechanic(IEnumerable<Mechanic> NewMechanic)
         {
-            MechanicList.AddToMechanicList.Add(NewMechanic);
+            foreach (var obj in NewMechanic)
+            {
+                MechanicList.AddToMechanicList.Remove(obj);
+            }
         }
 
         public void AddMekchanicSkill(Guid _id, string skill)
@@ -56,7 +60,6 @@ namespace Logic
 
             foreach (var item in MechanicList.AddToMechanicList)
             {
-
                 if (item.Id == user.MekanikerId)
                 {
                     mekanik = item;

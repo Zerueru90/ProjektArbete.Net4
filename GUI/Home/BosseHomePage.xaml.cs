@@ -1,5 +1,6 @@
 ﻿using Logic;
 using Logic.DAL;
+using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace GUI.Home
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
         }
-
+        private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
 
@@ -47,6 +48,15 @@ namespace GUI.Home
             {
                 _mechanic.SkillLista.Add(skill);
             }
+        }
+
+        private IEnumerable<Mechanic> GetFromListBox(string selectedItem)
+        {
+            var mechanic = from mec in MechanicList.AddToMechanicList
+                           where mec.Name == selectedItem.ToString()
+                           select mec;
+
+            return mechanic;
         }
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
@@ -72,22 +82,18 @@ namespace GUI.Home
 
         private void BtnSaveNewUser(object sender, ContextMenuEventArgs e)
         {
+            _newUser = new User();
+            _newUser.Username = txtUserName.Text;
+            _newUser.Password = txtPassword.Text;
 
+            _crud.AddUser(_newUser);
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            MechanicList.AddToMechanicList.Where(x => x.Name == listboxDelete.SelectedItem.ToString());
-
-            var mechanic = from mec in MechanicList.AddToMechanicList
-                      where mec.Name == listboxDelete.SelectedItem.ToString()
-                      select mec;
-
-            foreach (var obj in mechanic)
-            {
-                _crud.RemoveMechanic(obj);
-            }
-
+            //Hellre vilja ha ID här men får fel meddelande för guid
+            var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
+            _crud.RemoveMechanic(mechanic);
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)

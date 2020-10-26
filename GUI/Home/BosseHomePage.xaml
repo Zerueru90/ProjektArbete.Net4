@@ -10,7 +10,7 @@
 
     <Grid>
         <TabControl>
-            <TabItem Header="Skapa ny mekaniker">
+            <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="listBoxNewMechanic" Margin="350,26,0,0" Grid.Column="1"/>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
@@ -29,6 +29,8 @@
                     <CheckBox x:Name="checkBoxBody" Content="Kaross" HorizontalAlignment="Left" Margin="210,102,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxWindShield" Content="Vindrutor" HorizontalAlignment="Left" Margin="210,125,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxTyre" Content="Däck" HorizontalAlignment="Left" Margin="210,149,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDelete_Click"/>
+                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="18,349,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnUpdate_Click"/>
 
                 </Grid>
             </TabItem>
@@ -42,31 +44,6 @@
                     <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Ta bort mekaniker">
-                <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="listboxDelete" Margin="350,26,0,0" Grid.Column="1"/>
-                    <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
-                    <Button Content="Radera" HorizontalAlignment="Left" Margin="118,114,0,0" VerticalAlignment="Top" Height="28" Width="81" Click="BtnDelete_Click" Grid.ColumnSpan="2"/>
-                    <Label Content="Välj en anställd från listan och tryck sen på knappen" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Uppdatera mekaniker">
-                <Grid Background="#FFE5E5E5">
-                    <ListBox Margin="217,26,0,0" Grid.Column="3"/>
-                    <Label FontSize="17"  Content="Mekaniker" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <TextBox x:Name="txtUpdateName" HorizontalAlignment="Left" Margin="48,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
-                    <TextBox x:Name="txtUpdatePassword" HorizontalAlignment="Left" Margin="48,78,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
-                    <TextBox x:Name="txtUpdateBirthday" HorizontalAlignment="Left" Margin="48,122,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
-                    <TextBox x:Name="txtUpdateEmployementday" HorizontalAlignment="Left" Margin="48,164,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
-                    <TextBox x:Name="txtUpdateUnEnmploymentday" HorizontalAlignment="Left" Margin="48,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="3"/>
-                    <Label Content="Namn" HorizontalAlignment="Left" Margin="48,8,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="48,52,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="48,96,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="48,138,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="48,182,0,0" VerticalAlignment="Top" Grid.Column="3"/>
-                    <Button x:Name="BtnUpdate" Content="Uppdatera" HorizontalAlignment="Left" Margin="71,251,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click" Grid.Column="3"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ärenden">
