@@ -57,13 +57,13 @@ namespace Logic
         {
             Mechanic mekanik = new Mechanic();
 
-            foreach (var item in MechanicList._mechanicList)
-            {
-                if (item.Id == user.MekanikerId)
-                {
-                    mekanik = item;
-                }
-            }
+            //foreach (var item in MechanicList._mechanicList)
+            //{
+            //    if (item.Id == user.MekanikerId)
+            //    {
+            //        mekanik = item;
+            //    }
+            //}
             mekanik.users.Add(user);
 
         }
@@ -71,14 +71,14 @@ namespace Logic
         {
             Mechanic mekanik = new Mechanic();
 
-            foreach (var item in MechanicList._mechanicList)
-            {
+            //foreach (var item in MechanicList._mechanicList)
+            //{
 
-                if (item.Id == user.MekanikerId)
-                {
-                    mekanik = item;
-                }
-            }
+            //    if (item.Id == user.MekanikerId)
+            //    {
+            //        mekanik = item;
+            //    }
+            //}
             mekanik.users.Remove(user);
 
         }

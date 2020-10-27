@@ -29,7 +29,7 @@ namespace GUI.Home
 
             List<Mechanic> mechanics = new List<Mechanic>();
 
-            foreach (var item in MechanicList.AddToMechanicList)
+            foreach (var item in MechanicList._mechanicList)
             {
                 mechanics.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, DateOfEnd = item.DateOfEnd, SkillLista = item.SkillLista, users = item.users });
             }
@@ -85,7 +85,7 @@ namespace GUI.Home
 
         private IEnumerable<Mechanic> GetFromListBox(string selectedItem)
         {
-            var mechanic = from mec in MechanicList.AddToMechanicList
+            var mechanic = from mec in MechanicList._mechanicList
                            where mec.Name == selectedItem.ToString()
                            select mec;
 
@@ -124,7 +124,7 @@ namespace GUI.Home
             {
                 //Hellre vilja ha ID här men får fel meddelande för guid
                 var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
-                _crud.RemoveMechanic(mechanic);
+                //_crud.RemoveMechanic(mechanic);
             }
         }
 
