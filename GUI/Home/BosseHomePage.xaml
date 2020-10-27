@@ -6,13 +6,15 @@
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
       d:DesignHeight="586" d:DesignWidth="861"
-      Title="BosseHomePage" Height="2000" Width="5000">
-
+      Title="BosseHomePage"
+      WindowHeight="850"
+      WindowWidth="950">
+    
     <Grid>
-        <TabControl>
+        <TabControl> 
             <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="listBoxNewMechanic" Margin="350,26,0,0" Grid.Column="1" SelectionChanged="listBoxNewMechanic_SelectionChanged"/>
+                    <DataGrid Name="dgMainPage" Margin="350,26,0,0" DisplayMemberPath="Name"/>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>

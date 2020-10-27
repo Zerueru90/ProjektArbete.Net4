@@ -29,12 +29,14 @@ namespace GUI.Home
 
             List<Mechanic> mechanics = new List<Mechanic>();
 
+            //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
             foreach (var item in MechanicList._mechanicList)
             {
                 mechanics.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, DateOfEnd = item.DateOfEnd, SkillLista = item.SkillLista, users = item.users });
             }
 
             dgUserAccess.ItemsSource = mechanics;
+            dgMainPage.ItemsSource = mechanics;
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
@@ -51,6 +53,7 @@ namespace GUI.Home
         private string _windshield = "Vindruta";
         private string _tyre = "Tyre";
 
+        //Simple metod för att kolla igenom om checkboxen är klickade och sparar dom sen till SkillListan som finns i Mekaniker klassen.
         private void SkillCheck(CheckBox checkBox, string skill)
         {
             if (checkBox.IsChecked == true)
@@ -59,6 +62,7 @@ namespace GUI.Home
             }
         }
 
+        //Vad denna metod ska göras är när mekaniker hämtas från listan så ska checkboxen checkas men kommer inte på vad för kod man skriver för att manuellt klicka i checkbox.
         private void SkillCheck2(string skill)
         {
             if (skill == _breakes)
@@ -83,15 +87,6 @@ namespace GUI.Home
             }
         }
 
-        private IEnumerable<Mechanic> GetFromListBox(string selectedItem)
-        {
-            var mechanic = from mec in MechanicList._mechanicList
-                           where mec.Name == selectedItem.ToString()
-                           select mec;
-
-            return mechanic;
-        }
-
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
         {
             if (!(txtName.Text == null) || !(txtName.Text == ""))
@@ -112,58 +107,26 @@ namespace GUI.Home
 
                 _crud.AddMechanic(_mechanic);
 
-                listBoxNewMechanic.Items.Add(_mechanic.Name);
-
                 MessageBox.Show("Saved");
             }
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (listBoxNewMechanic.SelectedItem != null)
-            {
-                //Hellre vilja ha ID här men får fel meddelande för guid
-                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
-                //_crud.RemoveMechanic(mechanic);
+            if (dgMainPage.SelectedItem != null)
+            {//SelectedItem innebär vilken rad av mekaniker på datagriden man väljer
+                _crud.RemoveMechanic(dgMainPage.SelectedItem as Mechanic);
             }
         }
 
         private void BtnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (listBoxNewMechanic.SelectedItem != null)
+            if (dgMainPage.SelectedItem != null)
             {
-                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
-
-                foreach (var item in mechanic)
-                {
-                    item.Name = txtName.Text;
-                    item.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
-                    item.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
-                    item.DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text);
-                }
+                //Här så ska man välje en mekaniker från lista, kunna ändra namn osv och sen uppdatera.
             }
         }
 
-        private void listBoxNewMechanic_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listBoxNewMechanic.SelectedItem != null)
-            {
-                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
-
-                foreach (var item in mechanic)
-                {
-                    txtName.Text = item.Name;
-                    txtBirthday.Text = Convert.ToString(item.DateOfBirthday);
-                    txtEmployementday.Text = Convert.ToString(item.DateOfEmployment);
-                    txtUnEnmploymentday.Text = Convert.ToString(item.DateOfEnd);
-
-                    for (int i = 0; i < item.SkillLista.Count; i++)
-                    {
-                        SkillCheck2(item.SkillLista[i]);
-                    }
-                }
-            }
-        }
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {

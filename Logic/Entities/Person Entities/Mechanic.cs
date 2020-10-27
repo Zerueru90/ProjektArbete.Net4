@@ -5,7 +5,6 @@ namespace Logic.Entities.Person_Entities
 {
     public class Mechanic
     {
-
         public Mechanic()
         {
             Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet. 
