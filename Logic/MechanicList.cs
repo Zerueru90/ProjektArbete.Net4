@@ -1,6 +1,7 @@
 ﻿using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Dynamic;
 using System.Text;
 
@@ -10,9 +11,9 @@ namespace Logic
     {
         static MechanicList()
         {
-            _mechanicList = new List<Mechanic>();
+            _mechanicList = new ObservableCollection<Mechanic>();
         }
         
-        public static List<Mechanic> _mechanicList { get ; set; }
+        public static ObservableCollection<Mechanic> _mechanicList { get ; set; }
     }
 }

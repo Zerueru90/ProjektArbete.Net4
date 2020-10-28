@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Logic.Entities.Person_Entities
 {
-    public class Mechanic
+    public class Mechanic : INotifyPropertyChanged
     {
         public Mechanic()
         {
@@ -38,10 +40,18 @@ namespace Logic.Entities.Person_Entities
             {
                 _skillLista = value;
             }
-
-           
         }
 
         public List<string> MechanicProgressList { get; set; }
+
+
+        //Denna är för att varje gång vi gör några ändringar så kallas detta.
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged([CallerMemberName] string propName = "")
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
     }
 }
