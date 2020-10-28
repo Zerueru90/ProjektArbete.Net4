@@ -23,6 +23,13 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime? DateOfEnd { get; set; }
 
+        public bool Breaks { get; set; }
+        public bool Engine { get; set; }
+        public bool Carbody { get; set; }
+        public bool Windshield { get; set; }
+        public bool Tyre { get; set; }
+
+
         private List<string> _skillLista;
 
         public List<User> users { get; set; }

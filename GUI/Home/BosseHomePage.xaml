@@ -15,9 +15,6 @@
             <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid Name="dgMainPage" Margin="350,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="SkillLista" Binding="{Binding Path=SkillLista}"/>
-                        </DataGrid.Columns>
                     </DataGrid>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
                     <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
