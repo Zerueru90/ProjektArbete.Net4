@@ -60,6 +60,32 @@ namespace GUI.Home
             if (checkBox.IsChecked == true) 
             {
                 _mechanic.SkillLista.Add(skill);
+                SetSkill(skill);
+            }
+        }
+
+        //Funderar på att radera List<string> SkillLista då detta funkar väldigt smidigt med WPF, nu när man sparar ny användare så får de egenskaperna ett sant eller falsk värde. 
+        private void SetSkill(string skill)
+        {
+            if (skill == "Bromsar")
+            {
+                _mechanic.Breaks = true;
+            }
+            if (skill == "Motor")
+            {
+                _mechanic.Engine = true;
+            }
+            if (skill == "Kaross")
+            {
+                _mechanic.Carbody = true;
+            }
+            if (skill == "Vindruta")
+            {
+                _mechanic.Windshield = true;
+            }
+            if (skill == "Tyre")
+            {
+                _mechanic.Tyre = true;
             }
         }
 
@@ -113,5 +139,38 @@ namespace GUI.Home
         {
 
         }
+
+        #region
+        //Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
+        //Access and update columns during autogeneration
+        private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
+
+            //Cancel the column you don't want to generate
+            if (headername == "SkillLista")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "MechanicProgressList")
+            {
+                e.Cancel = true;
+            }
+
+            //update column details when generating
+            //if (headername == "FirstName")
+            //{
+            //    e.Column.Header = "First Name";
+            //}
+            //else if (headername == "LastName")
+            //{
+            //    e.Column.Header = "Last Name";
+            //}
+            //else if (headername == "EmailAddress")
+            //{
+            //    e.Column.Header = "Email";
+            //}
+        }
+        #endregion
     }
 }

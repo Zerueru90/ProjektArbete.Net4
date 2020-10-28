@@ -34,7 +34,7 @@ namespace Logic
                 }
             }
 
-            mekaniker.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
+            //mekaniker.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
 
         }
 
@@ -50,7 +50,7 @@ namespace Logic
                 }
             }
 
-            mekaniker.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
+            //mekaniker.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
 
         }
 
