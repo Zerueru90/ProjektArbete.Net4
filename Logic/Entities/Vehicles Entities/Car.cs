@@ -8,9 +8,7 @@ namespace Logic.Entities.Vehicles_Entities
     {
         List<Car> Cars = new List<Car>();
         private bool _hasTowbar;
-        private string _sedan;
-        private string _manorcar;
-        private string _convertible;
-        private string _hatchback;
+       
     }
+    
 }
