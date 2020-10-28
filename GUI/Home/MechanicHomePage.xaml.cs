@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Logic;
+using Logic.Entities.Person_Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -10,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace GUI.Home
 {
@@ -23,9 +26,20 @@ namespace GUI.Home
             InitializeComponent();
         }
 
-        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
-        {
+       
 
+        private void BtnCreate_Click(object sender, RoutedEventArgs e)
+        {
+            Mechanic mechanic = new Mechanic();
+            var ID = mechanic.Id;
+            txtName.Text = mechanic.Name;
+            txtBirthday.Text = DateTime.Now.ToString();
+            txtEmployementday.Text = DateTime.Now.ToString();
+            txtUnEnmploymentday.Text = DateTime.Now.ToString();
+
+            MechanicList._mechanicList.Add(mechanic);
+                
         }
+        
     }
 }

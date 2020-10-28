@@ -17,13 +17,13 @@
         <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="112,107,0,0" VerticalAlignment="Top"/>
         <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="112,148,0,0" VerticalAlignment="Top"/>
         <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="112,197,0,0" VerticalAlignment="Top"/>
-        <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="129,282,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnUpdate_Click"/>
+        <Button Content="Skapa" HorizontalAlignment="Left" Margin="129,282,0,0" VerticalAlignment="Top" Height="26" Width="74" Click="BtnCreate_Click"/>
         <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="316,48,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Bromsar" HorizontalAlignment="Left" Margin="336,93,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Motor" HorizontalAlignment="Left" Margin="336,119,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Kaross" HorizontalAlignment="Left" Margin="336,142,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Vindrutor" HorizontalAlignment="Left" Margin="336,165,0,0" VerticalAlignment="Top"/>
-        <CheckBox Content="Däck" HorizontalAlignment="Left" Margin="336,189,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Bromsar" Checked="BtnCreate_Click" HorizontalAlignment="Left" Margin="336,93,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Motor" Checked="BtnCreate_Click" HorizontalAlignment="Left" Margin="336,119,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Kaross" Checked="BtnCreate_Click" HorizontalAlignment="Left" Margin="336,142,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Vindrutor" Checked="BtnCreate_Click" HorizontalAlignment="Left" Margin="336,165,0,0" VerticalAlignment="Top"/>
+        <CheckBox Content="Däck" Checked="BtnCreate_Click" HorizontalAlignment="Left" Margin="336,189,0,0" VerticalAlignment="Top"/>
         <Label Content="Welcome:" FontSize="20"  HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.194,-0.113"/>
         <Label Content="Name" FontSize="20"  HorizontalAlignment="Left" Margin="101,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.194,-0.113"/>
     </Grid>
