@@ -67,7 +67,6 @@ namespace GUI.Home
         { 
             if (!(txtName.Text == null) || !(txtName.Text == ""))
             {
-                
                 _mechanic = new Mechanic
                 {
                     Name = txtName.Text,

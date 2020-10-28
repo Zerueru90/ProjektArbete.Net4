@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.Entities.Person_Entities
 {
+    //Testar stuff..
     public class Mechanic : INotifyPropertyChanged
     {
         public Mechanic()
