@@ -9,13 +9,6 @@ namespace Logic.Entities.Vehicles_Entities
         public Guid ID { get; set; } = Guid.NewGuid();
         public string Varde { get; set; }
         public Guid fordonsID { get; set; }
-        public FordonsTyp Fordonstyp { get; set; }
-    }
-    public enum FordonsTyp
-    {
-        Car,
-        Motobike,
-        Truck,
-        Bus,
+        //public FordonsTyp Fordonstyp { get; set; }
     }
 }

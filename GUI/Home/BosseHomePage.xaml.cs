@@ -56,7 +56,7 @@ namespace GUI.Home
         //Simple metod för att kolla igenom om checkboxen är klickade och sparar dom sen till SkillListan som finns i Mekaniker klassen.
         private void SkillCheck(CheckBox checkBox, string skill)
         {
-            if (checkBox.IsChecked == true)
+            if (checkBox.IsChecked == true) 
             {
                 _mechanic.SkillLista.Add(skill);
             }

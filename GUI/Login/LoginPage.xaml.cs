@@ -3,6 +3,7 @@ using Logic.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,13 +29,15 @@ namespace GUI.Login
             InitializeComponent();
 
             _loginService = new LoginService();
-
+            
             txtBoxUserName.Text = "Bosse";
             txtBoxPassword.Password = "Meckarn123";
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            
             string username = this.txtBoxUserName.Text;
             string password = this.txtBoxPassword.Password;
 
@@ -55,5 +58,7 @@ namespace GUI.Login
                 this.txtBoxPassword.Clear();
             }
         }
+        
+
     }
 }

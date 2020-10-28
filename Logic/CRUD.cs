@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Logic
 {
@@ -65,7 +66,7 @@ namespace Logic
             //    }
             //}
             mekanik.users.Add(user);
-
+            
         }
         public void RemoveUser(User user)   //skapade uuser i mekanik listen som finns på mekanik class
         {
@@ -80,7 +81,7 @@ namespace Logic
             //    }
             //}
             mekanik.users.Remove(user);
-
+            
         }
 
         //4 an är oklart, vilka ärenden ? från 4-8 hur gör man dom ? finns det något speciellt sätt 

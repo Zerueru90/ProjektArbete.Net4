@@ -11,7 +11,7 @@ namespace Logic
         Truck = 3,
         Motobike = 4,
     }
-    public enum Vehicletype
+    public enum Cartype
     {
         sedan = 1,
         manorcar = 2,
@@ -26,4 +26,5 @@ namespace Logic
         Vindruta = 4,
         Däck = 5,
     }
+
 }
