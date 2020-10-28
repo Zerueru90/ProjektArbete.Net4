@@ -65,7 +65,7 @@ namespace Logic
             //        mekanik = item;
             //    }
             //}
-            mekanik.users.Add(user);
+                mekanik.users.Add(user);
             
         }
         public void RemoveUser(User user)   //skapade uuser i mekanik listen som finns på mekanik class

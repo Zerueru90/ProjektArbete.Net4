@@ -97,7 +97,16 @@ namespace GUI.Home
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            _crud.AddUser(_newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text });
+            //RegexValidation.VerifyEmail(txtUserName.Text);
+            //RegexValidation.VerifyPassword(txtPassword.Text);
+
+            var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
+            if (isMatch)
+            {
+                _crud.AddUser(_newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text });
+                MessageBox.Show("Saved");
+            }
+           
         }
 
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)

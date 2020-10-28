@@ -9,6 +9,12 @@ namespace Logic.Entities
     {
         public string Username { get; set; }
         public string Password { get; set; }
+
+        public enum Priviliges
+        {
+            Admin = 1,
+            User = 2,
+        }
         //public Guid MekanikerId { get; set; }
     }
 }
