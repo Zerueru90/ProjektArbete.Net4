@@ -35,7 +35,7 @@ namespace Logic.Entities.Person_Entities
 
         public User IdentityUser { get; set; } // create login and password
 
-        public bool IsMechanicUser //Testar mig fram. om en mekaniker är en användare så blir checkboxen checkad.
+        public bool MechanicUser //Testar mig fram. om en mekaniker är en användare så blir checkboxen checkad. - Namnet är MechanicUser ändrar man här så måste man ändra på XAML
         {
             get
             {//När programet startar så kollar den om det finns en User och retunerar sant eller falsk.
@@ -56,7 +56,6 @@ namespace Logic.Entities.Person_Entities
 
         public List<string> MechanicProgressList { get; set; }
         public List<string> MechanicDoneList { get; set; }
-
 
         //Denna är för att varje gång vi gör några ändringar så kallas detta.
         public event PropertyChangedEventHandler PropertyChanged;

@@ -33,7 +33,7 @@
                                     <DataTrigger Value="DateOfEnd" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
                                     </DataTrigger>
-                                    <DataTrigger Value="IsMechanicUser" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                    <DataTrigger Value="MechanicUser" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
                                     </DataTrigger>
                                 </Style.Triggers>
@@ -51,7 +51,7 @@
                     <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDelete_Click"/>
-                    <Label FontSize="10" FontStyle="Italic" Content="För att lägga till och ta bort kompetenser så behöver man bara klicka" HorizontalAlignment="Left" Margin="558,5,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Uppdatera kompetenser" HorizontalAlignment="Left" Margin="18,417,0,0" VerticalAlignment="Top" Height="27" Width="158" Click="BtnUpdateSkill_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ge mekaniker User access">
@@ -69,7 +69,9 @@
             </TabItem>
             <TabItem Header="Ärenden">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Margin="217,26,0,0"/>
+                    <DataGrid Margin="257,337,0,0"/>
+                    <DataGrid Margin="257,45,0,292"/>
+                    <Label Content="Label" HorizontalAlignment="Left" Margin="171,39,0,0" VerticalAlignment="Top"/>
 
 
                 </Grid>

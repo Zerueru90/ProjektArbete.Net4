@@ -32,7 +32,7 @@ namespace GUI.Home
             foreach (var item in MechanicList._mechanicList)
             {
                 MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, 
-                    DateOfEnd = item.DateOfEnd, IsMechanicUser = item.IsMechanicUser
+                    DateOfEnd = item.DateOfEnd, MechanicUser = item.MechanicUser
                 });
             }
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
@@ -46,25 +46,16 @@ namespace GUI.Home
             txtEmployementday.Text = "20-10-24";
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
-
-            int i = dgMainPage.Columns.Count;
-
-            //dgMainPage.Columns[0].IsReadOnly = true;
-            //dgMainPage.Columns[1].IsReadOnly = true;
-            //dgMainPage.Columns[2].IsReadOnly = true;
-            //dgMainPage.Columns[3].IsReadOnly = true;
-            //dgMainPage.Columns[4].IsReadOnly = true;
-            //dgMainPage.Columns[10].IsReadOnly = true;
         }
         private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
 
-        private string _breakes = "Bromsar";
-        private string _engine = "Motor";
-        private string _carbody = "Kaross";
-        private string _windshield = "Vindruta";
-        private string _tyre = "Tyre";
+        private const string _breakes = "Breaks";
+        private const string _engine = "Engine";
+        private const string _carbody = "Carbody";
+        private const string _windshield = "Windshield";
+        private const string _tyre = "Tyre";
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
         { 
@@ -101,7 +92,7 @@ namespace GUI.Home
 
                 _mechanic.IdentityUser = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
                 _crud.AddUser(_newUser, _mechanic.Id);
-                _mechanic.IsMechanicUser = true;//För att trigga PropertyChanged 
+                _mechanic.MechanicUser = true;//För att trigga PropertyChanged 
                  MessageBox.Show("Sparat ny användare");
             //}
            
@@ -114,15 +105,13 @@ namespace GUI.Home
                 //Raderar inte själva mekanikern men raderar användarnamn och lösenord.
                 Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
                 _crud.RemoveUser(mec.IdentityUser, mec.Id);
-                mec.IsMechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
+                mec.MechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
 
                 MessageBox.Show("Raderat användare");
             }
         }
 
-        #region
-        //Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
-        //Access and update columns during autogeneration
+    # region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
         private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
@@ -172,5 +161,17 @@ namespace GUI.Home
         }
 
         #endregion
+
+        private void BtnUpdateSkill_Click(object sender, RoutedEventArgs e)
+        {
+            //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
+            Mechanic mec = (dgMainPage.SelectedItem as Mechanic);
+            mec.NotifyPropertyChanged(_breakes);
+            mec.NotifyPropertyChanged(_engine);
+            mec.NotifyPropertyChanged(_carbody);
+            mec.NotifyPropertyChanged(_windshield);
+            mec.NotifyPropertyChanged(_tyre);
+            MessageBox.Show("Uppdaterad");
+        }
     }
 }
