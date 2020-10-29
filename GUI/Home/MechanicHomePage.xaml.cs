@@ -25,8 +25,16 @@ namespace GUI.Home
         {
             InitializeComponent();
         }
+        
+        private Mechanic _mechanic;
+        private CRUD _crud = new CRUD();
 
-       
+        private string _breakes = "Bromsar";
+        private string _engine = "Motor";
+        private string _carbody = "Kaross";
+        private string _windshield = "Vindruta";
+        private string _tyre = "Tyre";
+
 
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
@@ -36,11 +44,47 @@ namespace GUI.Home
             txtBirthday.Text = DateTime.Now.ToString();
             txtEmployementday.Text = DateTime.Now.ToString();
             txtUnEnmploymentday.Text = DateTime.Now.ToString();
-
-
-            MechanicList._mechanicList.Add(mechanic);
+            SkillCheck(Checkboxbreaks, _breakes);
+            SkillCheck(CheckboxEngien, _engine);
+            SkillCheck(CheckboxBody, _carbody);
+            SkillCheck(CheckboxTyre, _tyre);
+            SkillCheck(CheckboxWindsheild, _windshield);
+           
+            _crud.AddMechanic(mechanic);
+            MessageBox.Show("Mekaniker skapad");
                 
         }
-        
+        private void SkillCheck(CheckBox checkBox, string skill)
+        {
+            if (checkBox.IsChecked == true)
+            {
+                _mechanic.SkillLista.Add(skill);
+                SetSkill(skill);
+            }
+        }
+        private void SetSkill(string skill)
+        {
+            if (skill == "Bromsar")
+            {
+                _mechanic.Breaks = true;
+            }
+            if (skill == "Motor")
+            {
+                _mechanic.Engine = true;
+            }
+            if (skill == "Kaross")
+            {
+                _mechanic.Carbody = true;
+            }
+            if (skill == "Vindruta")
+            {
+                _mechanic.Windshield = true;
+            }
+            if (skill == "Tyre")
+            {
+                _mechanic.Tyre = true;
+            }
+        }
+
     }
 }

@@ -45,16 +45,16 @@ namespace GUI.Login
 
             if (successful)
             {
-
-                BosseHomePage homePage = new BosseHomePage();
-
-                this.NavigationService.Navigate(homePage);
-            }
-            else
-            {
                 MechanicHomePage homePage = new MechanicHomePage();
+               
                 this.NavigationService.Navigate(homePage);
             }
+            //else if
+            //{
+            //    BosseHomePage homePage = new BosseHomePage();
+
+            //    this.NavigationService.Navigate(homePage);
+            //}
             else
             {
 
