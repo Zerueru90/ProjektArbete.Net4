@@ -29,15 +29,15 @@ namespace GUI.Login
             InitializeComponent();
 
             _loginService = new LoginService();
-            
+
             txtBoxUserName.Text = "Bosse";
             txtBoxPassword.Password = "Meckarn123";
-            
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+
             string username = this.txtBoxUserName.Text;
             string password = this.txtBoxPassword.Password;
 
@@ -52,13 +52,18 @@ namespace GUI.Login
             }
             else
             {
+                MechanicHomePage homePage = new MechanicHomePage();
+                this.NavigationService.Navigate(homePage);
+            }
+            else
+            {
 
                 MessageBox.Show(_errorMsg);
                 this.txtBoxUserName.Clear();
                 this.txtBoxPassword.Clear();
             }
         }
-        
+
 
     }
 }

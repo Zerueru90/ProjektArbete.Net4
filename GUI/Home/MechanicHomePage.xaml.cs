@@ -37,6 +37,7 @@ namespace GUI.Home
             txtEmployementday.Text = DateTime.Now.ToString();
             txtUnEnmploymentday.Text = DateTime.Now.ToString();
 
+
             MechanicList._mechanicList.Add(mechanic);
                 
         }

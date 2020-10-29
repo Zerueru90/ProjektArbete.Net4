@@ -123,8 +123,6 @@ namespace GUI.Home
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            //RegexValidation.VerifyEmail(txtUserName.Text);
-            //RegexValidation.VerifyPassword(txtPassword.Text);
 
             var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
             if (isMatch)
