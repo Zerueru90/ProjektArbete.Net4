@@ -32,7 +32,8 @@ namespace Logic.Entities.Person_Entities
 
         private List<string> _skillLista;
 
-        public List<User> users { get; set; }
+
+        public User users { get; set; }
 
         public List<string> SkillLista
         {

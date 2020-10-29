@@ -124,12 +124,14 @@ namespace GUI.Home
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
 
-            var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
-            if (isMatch)
-            {
-                _crud.AddUser(_newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text });
+            //var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
+            //if (isMatch)
+            //{
+            //_crud.AddUser(_newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text });
+
+            _mechanic.users = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
                 MessageBox.Show("Saved");
-            }
+            //}
            
         }
 

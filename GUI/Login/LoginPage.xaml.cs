@@ -1,4 +1,5 @@
 ﻿using GUI.Home;
+using Logic;
 using Logic.Services;
 using System;
 using System.Collections.Generic;
@@ -43,18 +44,21 @@ namespace GUI.Login
 
             bool successful = _loginService.Login(username, password);
 
+
             if (successful)
             {
-                MechanicHomePage homePage = new MechanicHomePage();
+                BosseHomePage homePage = new BosseHomePage();
+
+                 this.NavigationService.Navigate(homePage);
+
                
+            }
+            else if(username != "Bosse")
+            {
+                MechanicHomePage homePage = new MechanicHomePage();
+                homePage._mechanic = MechanicList.Login(username);
                 this.NavigationService.Navigate(homePage);
             }
-            //else if
-            //{
-            //    BosseHomePage homePage = new BosseHomePage();
-
-            //    this.NavigationService.Navigate(homePage);
-            //}
             else
             {
 

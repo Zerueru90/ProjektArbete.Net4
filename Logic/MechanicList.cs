@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Dynamic;
+using System.Linq;
 using System.Text;
 
 namespace Logic
@@ -15,5 +16,23 @@ namespace Logic
         }
         
         public static ObservableCollection<Mechanic> _mechanicList { get ; set; }
+
+
+        public static Mechanic Login(string username)
+        {
+
+            var obj = from mec in _mechanicList
+                      where mec.Name == username
+                      select mec;
+
+            Mechanic mechanic = null;
+
+            foreach (var item in obj)
+            {
+                mechanic = item;
+            }
+
+            return mechanic;
+        }
     }
 }

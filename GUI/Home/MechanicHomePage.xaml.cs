@@ -26,7 +26,7 @@ namespace GUI.Home
             InitializeComponent();
         }
         
-        private Mechanic _mechanic;
+        public Mechanic _mechanic { get; set; }
         private CRUD _crud = new CRUD();
 
         private string _breakes = "Bromsar";
@@ -36,24 +36,6 @@ namespace GUI.Home
         private string _tyre = "Tyre";
 
 
-        private void BtnCreate_Click(object sender, RoutedEventArgs e)
-        {
-            Mechanic mechanic = new Mechanic();
-            var ID = mechanic.Id;
-            txtName.Text = mechanic.Name;
-            txtBirthday.Text = DateTime.Now.ToString();
-            txtEmployementday.Text = DateTime.Now.ToString();
-            txtUnEnmploymentday.Text = DateTime.Now.ToString();
-            SkillCheck(Checkboxbreaks, _breakes);
-            SkillCheck(CheckboxEngien, _engine);
-            SkillCheck(CheckboxBody, _carbody);
-            SkillCheck(CheckboxTyre, _tyre);
-            SkillCheck(CheckboxWindsheild, _windshield);
-           
-            _crud.AddMechanic(mechanic);
-            MessageBox.Show("Mekaniker skapad");
-                
-        }
         private void SkillCheck(CheckBox checkBox, string skill)
         {
             if (checkBox.IsChecked == true)
