@@ -5,14 +5,33 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="450"
       Title="MechanicHomePage">
     <TabControl>
-        <TabItem Header="TabItem">
+
+        <TabItem FontSize="15" Header="Användare">
+            <Grid Background="White">
+                <Label Content="Mekaniker:" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="15,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                <CheckBox x:Name="Checkboxbreaks" Content="Brommsar" HorizontalAlignment="Left" Margin="308,57,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="Checkboxengien" Content="Motor" HorizontalAlignment="Left" Margin="308,81,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="Checkboxwindsheild" Content="Vindruta" HorizontalAlignment="Left" Margin="308,105,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="Checkboxbody" Content="Kaross" HorizontalAlignment="Left" Margin="308,129,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="Checkboxtyres" Content="Däck" HorizontalAlignment="Left" Margin="308,153,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="27,368,0,0" VerticalAlignment="Top" Width="108"/>
+
+
+            </Grid>
         </TabItem>
-        <TabItem Header="TabItem">
-            <Grid Background="#FFE5E5E5"/>
+
+        <TabItem FontSize="15" Header="Ärenden">
+            <Grid Background="White">
+
+
+            </Grid>
         </TabItem>
+
+
     </TabControl>
 
 
