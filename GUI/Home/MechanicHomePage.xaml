@@ -18,7 +18,7 @@
                 <CheckBox x:Name="Checkboxwindsheild" Content="Vindruta" HorizontalAlignment="Left" Margin="308,105,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="Checkboxbody" Content="Kaross" HorizontalAlignment="Left" Margin="308,129,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="Checkboxtyres" Content="Däck" HorizontalAlignment="Left" Margin="308,153,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="27,368,0,0" VerticalAlignment="Top" Width="108"/>
+                <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="27,368,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>
 
 
             </Grid>
