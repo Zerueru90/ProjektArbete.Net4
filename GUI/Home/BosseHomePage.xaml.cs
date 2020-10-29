@@ -31,7 +31,7 @@ namespace GUI.Home
             //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
             foreach (var item in MechanicList._mechanicList)
             {
-                MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, DateOfEnd = item.DateOfEnd, SkillLista = item.SkillLista, users = item.users });
+                MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, DateOfEnd = item.DateOfEnd, SkillLista = item.SkillLista, IdentityUser = item.IdentityUser });
             }
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
@@ -129,7 +129,7 @@ namespace GUI.Home
             //{
             //_crud.AddUser(_newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text });
 
-            _mechanic.users = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
+            _mechanic.IdentityUser = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
                 MessageBox.Show("Saved");
             //}
            
