@@ -5,56 +5,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using Logic.Entities.Person_Entities;
 
 namespace Logic
 {
-    
     public class CRUD
     {
-        
         public void AddMechanic(Mechanic NewMechanic)
         {
-           
             MechanicList._mechanicList.Add(NewMechanic);
         }
 
         public void RemoveMechanic(Mechanic mechanic)
         {
-
             MechanicList._mechanicList.Remove(mechanic);
-
         }
 
         public void AddMekchanicSkill(Guid _id, string skill)
         {
             Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == _id);
 
-            mekanik.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
-
+            mekanik.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
         }
 
         public void RemoveMechanicSkill(Guid _id, string skill)
         {
             Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == _id);
-            mekanik.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes 
-
+            mekanik.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
         }
 
-        public void AddUser(User user,Guid mechanicID)   //skapade uuser i mekanik listen som finns på mekanik class
+        public void AddUser(User user, Guid mechanicID)   //skapade uuser i mekanik listen som finns på mekanik class
         {
             Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == mechanicID);
             mekanik.IdentityUser = user;
-
         }
-        public void RemoveUser(User user,Guid Id)   //skapade uuser i mekanik listen som finns på mekanik class
+        public void RemoveUser(User user, Guid Id)   //skapade uuser i mekanik listen som finns på mekanik class
         {
             Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == Id);
             mekanik.IdentityUser = null;
         }
 
-
-        //show mechanic 
+        //show mechanic
 
         public void ShowMechanic(int skillNum)
         {
@@ -63,22 +54,26 @@ namespace Logic
                 case (byte)Vehicelparts.Bromsar:
                     Console.WriteLine(Vehicelparts.Bromsar);
                     break;
+
                 case (byte)Vehicelparts.Motor:
                     Console.WriteLine(Vehicelparts.Motor);
                     break;
+
                 case (byte)Vehicelparts.Kaross:
                     Console.WriteLine(Vehicelparts.Kaross);
                     break;
+
                 case (byte)Vehicelparts.Vindruta:
                     Console.WriteLine(Vehicelparts.Vindruta);
                     break;
+
                 case (byte)Vehicelparts.Däck:
                     Console.WriteLine(Vehicelparts.Motor);
                     break;
+
                 default:
                     Console.WriteLine("Finns ingen mekanik med detta kompetens!");
                     break;
-
             }
         }
 
@@ -90,7 +85,7 @@ namespace Logic
             int x = 0;
             foreach (var item in MechanicList._mechanicList)
             {
-                Console.WriteLine($"{x++} - {item.Name}"); 
+                Console.WriteLine($"{x++} - {item.Name}"); //id start 0 for mechanic , if id int
             }
             ShowCurrentMechanic(int.Parse(Console.ReadLine()));
         }
@@ -98,15 +93,13 @@ namespace Logic
         public void ShowCurrentMechanic(int Id)
         {
             Mechanic mechanic = MechanicList._mechanicList[Id];
+            var listDone = mechanic.MechanicDoneList;
+
             Console.WriteLine($"Name - {mechanic.Name}");
             Console.WriteLine($"Name - {mechanic.Id}");
             Console.WriteLine($"Name - {mechanic.DateOfBirthday}");
             Console.WriteLine($"Name - {mechanic.DateOfEmployment}");
-            Console.WriteLine($"Name - {mechanic.DateOfEmployment}");
-
-
-
-
+            Console.WriteLine($"Name - {mechanic.DateOfEnd}");
 
             Console.WriteLine($"Skill List");
 
@@ -121,6 +114,12 @@ namespace Logic
                 Console.WriteLine(item);
             }
 
+            Console.WriteLine("Done list");
+            foreach (var item in listDone)
+            {
+                Console.WriteLine(item);
+            }
+
             Console.WriteLine("--------");
 
             //karucel done list hajord dasin
@@ -128,6 +127,5 @@ namespace Logic
             //konkret mechanici donelistum avelacnel progresslistic todos
             //1 2 3 4 5 6 7 8
         }
-
     }
 }

@@ -25,13 +25,14 @@ namespace Logic.Entities.Person_Entities
         public DateTime? DateOfEnd { get; set; }
 
         #region Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå, WPF funkar.
+
         public bool Breaks { get; set; }
-        public bool Engine { get; set; } 
+        public bool Engine { get; set; }
         public bool Carbody { get; set; }
         public bool Windshield { get; set; }
-        public bool Tyre { get; set; }   //fråga ? wtf ? 
+        public bool Tyre { get; set; }   //fråga ? wtf ?
 
-        #endregion
+        #endregion Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå, WPF funkar.
 
         public User IdentityUser { get; set; } // create login and password
 
@@ -44,17 +45,18 @@ namespace Logic.Entities.Person_Entities
                     return true;
                 }
                 else
-                return false;
+                    return false;
             }
             set
             {
-                 NotifyPropertyChanged(); //När man sättar ÄrMekanikerAnvändare? till sant eller falsk så triggar denna.
+                NotifyPropertyChanged(); //När man sättar ÄrMekanikerAnvändare? till sant eller falsk så triggar denna.
             }
         }
 
         public List<string> SkillLista { get; set; }
 
         public List<string> MechanicProgressList { get; set; }
+
         public List<string> MechanicDoneList { get; set; }
 
         //Denna är för att varje gång vi gör några ändringar så kallas detta.
