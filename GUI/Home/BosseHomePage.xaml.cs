@@ -2,6 +2,7 @@
 using Logic.DAL;
 using Logic.Entities;
 using Logic.Entities.Person_Entities;
+using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,13 +36,33 @@ namespace GUI.Home
                     DateOfEnd = item.DateOfEnd, MechanicUser = item.MechanicUser
                 });
             }
+            foreach (var item in ErrandList.ErrandsList)
+            {
+                ErrandList.ErrandsList.Add(new Errands() { ErrandsID = item.ErrandsID, Description = item.Description, Vehicles = item.Vehicles, Problem = item.Problem, Mechanic = item.Mechanic, Status = item.Status });
+            }
+
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
+            dgErrands.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
-            MechanicList._mechanicList.Add(new Mechanic() { Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, IdentityUser = new User() { Username = "John", Password = "Lösenord" } });
-            MechanicList._mechanicList.Add(new Mechanic() { Name = "Dave", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now });
+            MechanicList._mechanicList.Add(new Mechanic() 
+            { 
+                Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, 
+                IdentityUser = new User() { Username = "John", Password = "Lösenord" } 
+            });
+            MechanicList._mechanicList.Add(new Mechanic() 
+            { 
+                Name = "Dave", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now 
+            });
+
+            ErrandList.ErrandsList.Add(new Errands() 
+            {   Description = "blablabla", 
+                Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
+                Problem = "Tyre",
+                Mechanic = null, Status = "Available"
+            });
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
@@ -109,7 +130,7 @@ namespace GUI.Home
         {
             if (dgUserAccess.SelectedItem != null)
             {
-                //Raderar inte själva mekanikern men raderar användarnamn och lösenord.
+                //Raderar inte själva mekanikern men raderar användarnamn och lösenord som den ska
                 Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
                 _crud.RemoveUser(mec.IdentityUser, mec.Id);
                 mec.MechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
@@ -167,6 +188,54 @@ namespace GUI.Home
             }
         }
 
+
+
+        private void dgErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
+
+            //Cancel the column you don't want to generate
+            if (headername == "OngoingErrands")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "finnishedErrands")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Isfinnished")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "RegNrID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "RegistrationNumber")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Registrated")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Fuel")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "OdoMeter")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ModelName")
+            {
+                e.Cancel = true;
+            }
+        }
         #endregion
 
         private void BtnUpdateSkill_Click(object sender, RoutedEventArgs e)

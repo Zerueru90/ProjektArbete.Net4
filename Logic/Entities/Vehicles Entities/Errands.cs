@@ -10,15 +10,16 @@ namespace Logic.Entities.Vehicles_Entities
         public List<Errands> OngoingErrands { get; set; }
         public List<Errands> finnishedErrands { get; set; }
         
-        public Guid ErrandsID { get; set; }
+        public Guid ErrandsID { get; set; } = Guid.NewGuid();
         public string Description { get; set; }
         public bool Isfinnished { get; set; }
         public string Problem { get; set; }
         public Mechanic Mechanic { get; set; }
         public Vehicles Vehicles { get; set; }
 
-
-
+        //Inlagd av Samson, tillfällig.
+        public string Status { get; set; }
+        //_-------------------
         public bool TryToAdd(Vehicles vehicles)
         {
             var counter = 0;
