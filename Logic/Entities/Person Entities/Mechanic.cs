@@ -12,6 +12,7 @@ namespace Logic.Entities.Person_Entities
         {
             Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet. 
             MechanicProgressList = new List<string>();
+            SkillLista = new List<string>();
         }
 
         public Guid Id { get; set; } 
@@ -27,31 +28,18 @@ namespace Logic.Entities.Person_Entities
         public bool Engine { get; set; }
         public bool Carbody { get; set; }
         public bool Windshield { get; set; }
-        public bool Tyre { get; set; }
+        public bool Tyre { get; set; }   //fråga ? wtf ? 
 
 
         private List<string> _skillLista;
 
+        public User IdentityUser { get; set; } // create login and password
 
-        public User users { get; set; }
-
-        public List<string> SkillLista
-        {
-            get
-            {
-                if (_skillLista == null)
-                {
-                    return _skillLista = new List<string>();
-                }
-                return _skillLista;
-            }
-            set
-            {
-                _skillLista = value;
-            }
-        }
+        public List<string> SkillLista { get; set; }
+        
 
         public List<string> MechanicProgressList { get; set; }
+        public List<string> MechanicDoneList { get; set; }
 
 
         //Denna är för att varje gång vi gör några ändringar så kallas detta.
