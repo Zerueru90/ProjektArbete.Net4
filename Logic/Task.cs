@@ -37,7 +37,7 @@ namespace Logic
         {
             ToDoList[n] = task;//o to do börjar från 0
         }
-
+        
         /// <summary>
         /// Progress create
         /// n - 
@@ -58,11 +58,18 @@ namespace Logic
            
         }
 
+        // 1   2   3
+        //     m2  
+         //    m1
+
         public static void AddDoneList(int ProgressN)
         {
             Progress progress = ProgressList[ProgressN];
            
             Done done = new Done { Id = progress.Id, _toDo = progress._toDo };
+            
+
+            ProgressList.RemoveAt(ProgressN);
            
         }
 
