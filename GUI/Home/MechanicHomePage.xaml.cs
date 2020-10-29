@@ -24,6 +24,7 @@ namespace GUI.Home
         public MechanicHomePage()
         {
             InitializeComponent();
+            txtName.Text = _mechanic.Name;
         }
         
         public Mechanic _mechanic { get; set; }
@@ -68,5 +69,9 @@ namespace GUI.Home
             }
         }
 
+        private void ClickbtnSave_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
