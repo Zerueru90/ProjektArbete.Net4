@@ -1,4 +1,5 @@
-﻿using Logic.Entities.Person_Entities;
+﻿using Logic.Entities;
+using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

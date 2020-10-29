@@ -9,15 +9,38 @@
       Title="BosseHomePage"
       WindowHeight="850"
       WindowWidth="1500">
-    
+
     <Grid>
-        <TabControl> 
+        <TabControl>
             <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="dgMainPage" Margin="350,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="DG1_AutoGeneratingColumn">
-                        
+                    <DataGrid Name="dgMainPage" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="DG1_AutoGeneratingColumn">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <DataTrigger Value="Id" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="Name" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfBirthday" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfEmployment" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfEnd" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="IsMechanicUser" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
                     </DataGrid>
-                    <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="350,0,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+                    <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -27,13 +50,8 @@
                     <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
                     <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic"/>
-                    <Label Content="Kompetenser" FontSize="20" HorizontalAlignment="Left" Margin="190,8,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxBreaks" Content="Bromsar" HorizontalAlignment="Left" Margin="210,53,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxEngine" Content="Motor" HorizontalAlignment="Left" Margin="210,79,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxBody" Content="Kaross" HorizontalAlignment="Left" Margin="210,102,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxWindShield" Content="Vindrutor" HorizontalAlignment="Left" Margin="210,125,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxTyre" Content="Däck" HorizontalAlignment="Left" Margin="210,149,0,0" VerticalAlignment="Top"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDelete_Click"/>
+                    <Label FontSize="10" FontStyle="Italic" Content="För att lägga till och ta bort kompetenser så behöver man bara klicka" HorizontalAlignment="Left" Margin="558,5,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ge mekaniker User access">
@@ -46,7 +64,7 @@
                     <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
-                    <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False"/>
+                    <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="DG2_AutoGeneratingColumn"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ärenden">

@@ -41,9 +41,9 @@ namespace Logic
 
         }
 
-        public void AddUser(User user,Guid Id)   //skapade uuser i mekanik listen som finns på mekanik class
+        public void AddUser(User user,Guid mechanicID)   //skapade uuser i mekanik listen som finns på mekanik class
         {
-            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == Id);
+            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == mechanicID);
             mekanik.IdentityUser = user;
 
         }

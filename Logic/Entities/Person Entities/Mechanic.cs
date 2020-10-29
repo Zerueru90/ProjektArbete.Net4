@@ -10,12 +10,12 @@ namespace Logic.Entities.Person_Entities
     {
         public Mechanic()
         {
-            Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet. 
+            Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet.
             MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
         }
 
-        public Guid Id { get; set; } 
+        public Guid Id { get; set; }
         public string Name { get; set; }
 
         public DateTime DateOfBirthday { get; set; }
@@ -24,19 +24,35 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime? DateOfEnd { get; set; }
 
+        #region Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>.Man klickar in vilka skills man har och sen kan man spara strängarna i listan. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan.
         public bool Breaks { get; set; }
-        public bool Engine { get; set; }
+        public bool Engine { get; set; } 
         public bool Carbody { get; set; }
         public bool Windshield { get; set; }
         public bool Tyre { get; set; }   //fråga ? wtf ? 
 
-
-        private List<string> _skillLista;
+        #endregion
 
         public User IdentityUser { get; set; } // create login and password
 
+        public bool IsMechanicUser //Testar mig fram. om en mekaniker är en användare så blir checkboxen checkad.
+        {
+            get
+            {//När programet startar så kollar den om det finns en User och retunerar sant eller falsk.
+                if (IdentityUser != null)
+                {
+                    return true;
+                }
+                else
+                return false;
+            }
+            set
+            {
+                 NotifyPropertyChanged(); //När man sättar ÄrMekanikerAnvändare? till sant eller falsk så triggar denna.
+            }
+        }
+
         public List<string> SkillLista { get; set; }
-        
 
         public List<string> MechanicProgressList { get; set; }
         public List<string> MechanicDoneList { get; set; }
