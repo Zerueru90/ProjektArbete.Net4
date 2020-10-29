@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
-      d:DesignHeight="586" d:DesignWidth="861"
+      d:DesignHeight="550" d:DesignWidth="861"
       Title="BosseHomePage"
       WindowHeight="850"
       WindowWidth="1500">
@@ -68,12 +68,12 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Ärenden">
-                <Grid Background="#FFE5E5E5">
-                    <DataGrid Margin="257,337,0,0"/>
-                    <DataGrid Margin="257,45,0,292"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Margin="171,39,0,0" VerticalAlignment="Top"/>
-
-
+                <Grid Background="#FFE5E5E5" >
+                    <Label Content="Ärenden" FontSize="20" HorizontalAlignment="Left" Margin="272,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cbBoxMechanics" HorizontalAlignment="Left" Margin="19,37,0,0" VerticalAlignment="Top" Width="163" Height="31"/>
+                    <Label Content="Mekaniker" FontSize="20" HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Top" Width="163"/>
+                    <Button Content="Välj Ärende" HorizontalAlignment="Left" Margin="100,483,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
+                    <DataGrid x:Name="dgErrands" Margin="272,52,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="DG2_AutoGeneratingColumn"/>
                 </Grid>
             </TabItem>
         </TabControl>

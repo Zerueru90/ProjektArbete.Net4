@@ -39,13 +39,20 @@ namespace GUI.Home
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
 
-            //DummyData
+            #region DummyData
             MechanicList._mechanicList.Add(new Mechanic() { Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, IdentityUser = new User() { Username = "John", Password = "Lösenord" } });
+            MechanicList._mechanicList.Add(new Mechanic() { Name = "Dave", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now });
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
+            #endregion
+
+            foreach (var item in MechanicList._mechanicList)
+            {
+                cbBoxMechanics.Items.Add(item.Name);
+            }
         }
         private User _newUser;
         private Mechanic _mechanic;

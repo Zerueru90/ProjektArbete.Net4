@@ -24,7 +24,7 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime? DateOfEnd { get; set; }
 
-        #region Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>.Man klickar in vilka skills man har och sen kan man spara strängarna i listan. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan.
+        #region Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå, WPF funkar.
         public bool Breaks { get; set; }
         public bool Engine { get; set; } 
         public bool Carbody { get; set; }
