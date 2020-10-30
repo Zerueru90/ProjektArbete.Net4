@@ -69,11 +69,14 @@
             </TabItem>
             <TabItem Header="Ärenden">
                 <Grid Background="#FFE5E5E5" >
-                    <Label Content="Ärenden" FontSize="20" HorizontalAlignment="Left" Margin="272,10,0,0" VerticalAlignment="Top"/>
-                    <ComboBox Name="cbBoxMechanics" HorizontalAlignment="Left" Margin="19,37,0,0" VerticalAlignment="Top" Width="163" Height="31"/>
-                    <Label Content="Mekaniker" FontSize="20" HorizontalAlignment="Left" Margin="19,0,0,0" VerticalAlignment="Top" Width="163"/>
-                    <Button Content="Välj Ärende" HorizontalAlignment="Left" Margin="100,483,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
-                    <DataGrid x:Name="dgErrands" Margin="272,52,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrands_AutoGeneratingColumn"/>
+                    <Label Content="Lediga Ärenden" FontSize="20" HorizontalAlignment="Left" Margin="272,376,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cbBoxMechanics" HorizontalAlignment="Left" Margin="28,31,0,0" VerticalAlignment="Top" Width="163" Height="31"/>
+                    <Label Content="Mekaniker Pågående och Klargjorda Ärenden" FontSize="20" HorizontalAlignment="Left" Margin="272,0,0,0" VerticalAlignment="Top" Width="410"/>
+                    <Button Content="Lägg till" HorizontalAlignment="Left" Margin="81,418,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
+                    <DataGrid x:Name="dgErrands" Margin="272,418,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrands_AutoGeneratingColumn"/>
+                    <Label Content="Välj mekaniker här" FontSize="12" HorizontalAlignment="Left" Margin="28,5,0,0" VerticalAlignment="Top"/>
+                    <DataGrid x:Name="dgErrands_Copy" Margin="272,37,0,385" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrands_AutoGeneratingColumn"/>
+                    <Label Content="Glöm inte att först välja en mekaniker ovan" FontSize="12" HorizontalAlignment="Left" Margin="10,387,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>

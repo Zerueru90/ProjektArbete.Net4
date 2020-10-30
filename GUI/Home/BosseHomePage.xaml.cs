@@ -32,13 +32,25 @@ namespace GUI.Home
             //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
             foreach (var item in MechanicList._mechanicList)
             {
-                MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, 
-                    DateOfEnd = item.DateOfEnd, MechanicUser = item.MechanicUser
+                MechanicList._mechanicList.Add(new Mechanic() 
+                { 
+                    Id = item.Id, Name = item.Name,
+                    DateOfBirthday = item.DateOfBirthday, 
+                    DateOfEmployment = item.DateOfEmployment, 
+                    DateOfEnd = item.DateOfEnd, 
+                    MechanicUser = item.MechanicUser
                 });
             }
             foreach (var item in ErrandList.ErrandsList)
             {
-                ErrandList.ErrandsList.Add(new Errands() { ErrandsID = item.ErrandsID, Description = item.Description, Vehicles = item.Vehicles, Problem = item.Problem, Mechanic = item.Mechanic, Status = item.Status });
+                ErrandList.ErrandsList.Add(new Errands() 
+                { 
+                    ErrandsID = item.ErrandsID, 
+                    Description = item.Description, 
+                    Vehicles = item.Vehicles, 
+                    Problem = item.Problem, 
+                    Mechanic = item.Mechanic, 
+                    Status = item.Status });
             }
 
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
@@ -49,12 +61,19 @@ namespace GUI.Home
             #region DummyData
             MechanicList._mechanicList.Add(new Mechanic() 
             { 
-                Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, 
+                Name = "John", DateOfBirthday = DateTime.Now, 
+                DateOfEmployment = DateTime.Now, 
+                DateOfEnd = DateTime.Now, 
                 IdentityUser = new User() { Username = "John", Password = "Lösenord" } 
             });
-            MechanicList._mechanicList.Add(new Mechanic() 
-            { 
-                Name = "Dave", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now 
+            MechanicList._mechanicList.Add(new Mechanic()
+            {
+                Name = "Dave",
+                DateOfBirthday = DateTime.Now,
+                DateOfEmployment = DateTime.Now,
+                DateOfEnd = DateTime.Now,
+                Breaks = true,
+                Engine = true
             });
 
             ErrandList.ErrandsList.Add(new Errands() 
