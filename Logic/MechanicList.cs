@@ -18,7 +18,7 @@ namespace Logic
         
         public static ObservableCollection<Mechanic> _mechanicList { get ; set; }
 
-
+        #region Tillfällig för att logga in enkelt.
         public static Mechanic Login(string username)
         {
 
@@ -35,5 +35,6 @@ namespace Logic
 
             return mechanic;
         }
+        #endregion
     }
 }

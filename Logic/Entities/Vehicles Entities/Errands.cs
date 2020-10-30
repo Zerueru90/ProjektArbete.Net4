@@ -11,11 +11,13 @@ namespace Logic.Entities.Vehicles_Entities
         public List<Errands> finnishedErrands { get; set; }
         
         public Guid ErrandsID { get; set; } = Guid.NewGuid();
+        public Guid? VeichleID { get; set; } //Kanske fel
         public string Description { get; set; }
         public bool Isfinnished { get; set; }
         public string Problem { get; set; }
-        public Mechanic Mechanic { get; set; }
-        public Vehicles Vehicles { get; set; }
+
+        //public Mechanic Mechanic { get; set; }
+        //public Vehicles Vehicles { get; set; }
 
         //Inlagd av Samson, tillfällig.
         public string Status { get; set; }
@@ -45,15 +47,15 @@ namespace Logic.Entities.Vehicles_Entities
             else
                 return false;
         }
-        public string GetinfoOfErrand()
-        {
-            return $"Beskrvining: {Description}" +
-                $"\nProblem: {Problem}" +
-                $"\nMekaniker: {Mechanic}" +
-                $"\nFordon: {Vehicles}" +
-                $"\nÄrrende avslutat: {Isfinnish()}";
+        //public string GetinfoOfErrand()
+        //{
+        //    //return $"Beskrvining: {Description}" +
+        //    //    $"\nProblem: {Problem}" +
+        //    //    $"\nMekaniker: {Mechanic}" +
+        //    //    $"\nFordon: {Vehicles}" +
+        //    //    $"\nÄrrende avslutat: {Isfinnish()}";
     
-        }
+        //}
         public string Isfinnish()
         {
             if (Isfinnished == true)

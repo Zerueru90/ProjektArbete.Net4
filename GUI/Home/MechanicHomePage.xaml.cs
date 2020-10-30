@@ -1,7 +1,9 @@
 ﻿using Logic;
 using Logic.Entities.Person_Entities;
+using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,13 +23,8 @@ namespace GUI.Home
     /// </summary>
     public partial class MechanicHomePage : Page
     {
-        public MechanicHomePage()
-        {
-            InitializeComponent();
-            txtName.Text = _mechanic.Name;
-        }
-        
-        public Mechanic _mechanic { get; set; }
+        List<Errands> ForCurrentMecanichErrandsList = new List<Errands>();
+        public Mechanic _currentMechanic { get; set; }
         private CRUD _crud = new CRUD();
 
         private string _breakes = "Bromsar";
@@ -37,11 +34,32 @@ namespace GUI.Home
         private string _tyre = "Tyre";
 
 
+        public MechanicHomePage()
+        {
+            InitializeComponent();
+
+            //var obj = from err in ErrandList.ErrandsList
+            //          where err.Mechanic.Id == _currentMechanic.Id
+            //          select err;
+
+            //Errands errands = null;
+            //foreach (var item in obj)
+            //{
+            //    errands = item;
+            //}
+
+            //ForCurrentMecanichErrandsList.Add(errands);
+            
+            //dgErrends.ItemsSource = ForCurrentMecanichErrandsList;
+
+            txtName.Text = _currentMechanic.Name;
+        }
+
         private void SkillCheck(CheckBox checkBox, string skill)
         {
             if (checkBox.IsChecked == true)
             {
-                _mechanic.SkillLista.Add(skill);
+                _currentMechanic.SkillLista.Add(skill);
                 SetSkill(skill);
             }
         }
@@ -49,23 +67,23 @@ namespace GUI.Home
         {
             if (skill == "Bromsar")
             {
-                _mechanic.Breaks = true;
+                _currentMechanic.Breaks = true;
             }
             if (skill == "Motor")
             {
-                _mechanic.Engine = true;
+                _currentMechanic.Engine = true;
             }
             if (skill == "Kaross")
             {
-                _mechanic.Carbody = true;
+                _currentMechanic.Carbody = true;
             }
             if (skill == "Vindruta")
             {
-                _mechanic.Windshield = true;
+                _currentMechanic.Windshield = true;
             }
             if (skill == "Tyre")
             {
-                _mechanic.Tyre = true;
+                _currentMechanic.Tyre = true;
             }
         }
 

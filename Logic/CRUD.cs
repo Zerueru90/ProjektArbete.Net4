@@ -36,13 +36,13 @@ namespace Logic
 
         public void AddUser(User user, Guid mechanicID)   //skapade uuser i mekanik listen som finns på mekanik class
         {
-            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == mechanicID);
-            mekanik.IdentityUser = user;
+            //Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == mechanicID);
+            //mekanik.IdentityUser = user;
         }
         public void RemoveUser(User user, Guid Id)   //skapade uuser i mekanik listen som finns på mekanik class
         {
-            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == Id);
-            mekanik.IdentityUser = null;
+            //Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == Id);
+            //mekanik.IdentityUser = null;
         }
 
         //show mechanic

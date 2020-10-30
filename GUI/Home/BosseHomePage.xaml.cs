@@ -42,17 +42,17 @@ namespace GUI.Home
                     MechanicUser = item.MechanicUser
                 });
             }
-            foreach (var item in ErrandList.ErrandsList)
-            {
-                ErrandList.ErrandsList.Add(new Errands() 
-                { 
-                    ErrandsID = item.ErrandsID, 
-                    Description = item.Description, 
-                    Vehicles = item.Vehicles, 
-                    Problem = item.Problem, 
-                    Mechanic = item.Mechanic, 
-                    Status = item.Status });
-            }
+            //foreach (var item in ErrandList.ErrandsList)
+            //{
+            //    ErrandList.ErrandsList.Add(new Errands() 
+            //    { 
+            //        ErrandsID = item.ErrandsID, 
+            //        Description = item.Description, 
+            //        Vehicles = item.Vehicles, 
+            //        Problem = item.Problem, 
+            //        Mechanic = item.Mechanic, 
+            //        Status = item.Status });
+            //}
 
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
@@ -61,28 +61,28 @@ namespace GUI.Home
             //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
-            ErrandList.ErrandsList.Add(new Errands()
-            {
-                Description = "blablabla",
-                Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
-                Problem = "Tyre",
-                Mechanic = null,
-                Status = "Available"
-            });
+            //ErrandList.ErrandsList.Add(new Errands()
+            //{
+            //    Description = "blablabla",
+            //    Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
+            //    Problem = "Tyre",
+            //    Mechanic = null,
+            //    Status = "Available"
+            //});
 
-            Errands errands = null;
-            foreach (var item in ErrandList.ErrandsList)
-            {
-                errands = item;
-            }
-            MechanicList._mechanicList.Add(new Mechanic() 
-            { 
-                Name = "John", DateOfBirthday = DateTime.Now, 
-                DateOfEmployment = DateTime.Now, 
-                DateOfEnd = DateTime.Now, 
-                IdentityUser = new User() { Username = "John", Password = "Lösenord" },
-                Errands = errands
-            });
+            //Errands errands = null;
+            //foreach (var item in ErrandList.ErrandsList)
+            //{
+            //    errands = item;
+            //}
+            //MechanicList._mechanicList.Add(new Mechanic() 
+            //{ 
+            //    Name = "John", DateOfBirthday = DateTime.Now, 
+            //    DateOfEmployment = DateTime.Now, 
+            //    DateOfEnd = DateTime.Now, 
+            //    IdentityUser = new User() { Username = "John", Password = "Lösenord" },
+            //    Errands = errands
+            //});
             MechanicList._mechanicList.Add(new Mechanic()
             {
                 Name = "Dave",
@@ -149,9 +149,9 @@ namespace GUI.Home
             //if (isMatch)
             //{
 
-                _mechanic.IdentityUser = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
-                _crud.AddUser(_newUser, _mechanic.Id);
-                _mechanic.MechanicUser = true;//För att trigga PropertyChanged 
+                //_mechanic.IdentityUser = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
+                //_crud.AddUser(_newUser, _mechanic.Id);
+                //_mechanic.MechanicUser = true;//För att trigga PropertyChanged 
                  MessageBox.Show("Sparat ny användare");
             //}
            
@@ -162,9 +162,9 @@ namespace GUI.Home
             if (dgUserAccess.SelectedItem != null)
             {
                 //Raderar inte själva mekanikern men raderar användarnamn och lösenord som den ska
-                Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
-                _crud.RemoveUser(mec.IdentityUser, mec.Id);
-                mec.MechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
+                //Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
+                //_crud.RemoveUser(mec.IdentityUser, mec.Id);
+                //mec.MechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
 
                 MessageBox.Show("Raderat användare");
             }
@@ -304,7 +304,7 @@ namespace GUI.Home
             {
                 _choosenComboBoxMechanicObject = cbBoxMechanics.SelectedItem as Mechanic;
 
-                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.Errands.ID);
+                //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.Errands.ID);
             }
         }
     }
