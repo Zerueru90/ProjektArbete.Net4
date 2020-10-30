@@ -11,7 +11,7 @@ namespace Logic.Entities.Vehicles_Entities
         public List<Errands> finnishedErrands { get; set; }
         
         public Guid ErrandsID { get; set; } = Guid.NewGuid();
-        public Guid? VeichleID { get; set; } //Kanske fel
+        public Guid? VeichleID { get; set; } 
         public string Description { get; set; }
         public bool Isfinnished { get; set; }
         public string Problem { get; set; }

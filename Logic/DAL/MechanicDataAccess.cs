@@ -70,18 +70,5 @@ namespace Logic.DAL
             MechanicList.Add(jsonRead);
 
         }
-
-        //public static Mechanic LoadMechanics()
-        //{
-        //    Mechanic mechanic;
-        //    var fs = File.OpenRead(txtFileAddress);
-        //    string json = "";
-        //    using (StreamReader read = new StreamReader(fs))
-        //    {
-        //        json = read.ReadToEnd();
-        //        //mechanic = JsonSerializer.Deserialize<Mechanic>(json);
-        //    }
-        //    return mechanic;
-        //}
     }
 }

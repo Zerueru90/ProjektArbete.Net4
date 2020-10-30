@@ -38,19 +38,19 @@ namespace GUI.Home
         {
             InitializeComponent();
 
-            //var obj = from err in ErrandList.ErrandsList
-            //          where err.Mechanic.Id == _currentMechanic.Id
-            //          select err;
+            var obj = from err in ErrandList.ErrandsList
+                      where err.ErrandsID == _currentMechanic.ErrandsID
+                      select err;
 
-            //Errands errands = null;
-            //foreach (var item in obj)
-            //{
-            //    errands = item;
-            //}
+            Errands errands = null;
+            foreach (var item in obj)
+            {
+                errands = item;
+            }
 
-            //ForCurrentMecanichErrandsList.Add(errands);
-            
-            //dgErrends.ItemsSource = ForCurrentMecanichErrandsList;
+            ForCurrentMecanichErrandsList.Add(errands);
+
+            dgErrends.ItemsSource = ForCurrentMecanichErrandsList;
 
             txtName.Text = _currentMechanic.Name;
         }

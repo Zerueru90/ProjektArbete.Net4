@@ -34,15 +34,14 @@ namespace Logic
             mekanik.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
         }
 
-        public void AddUser(User user, Guid mechanicID)   //skapade uuser i mekanik listen som finns på mekanik class
+        public void AddUser(User user) 
         {
-            //Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == mechanicID);
-            //mekanik.IdentityUser = user;
+            UserList.UserLists.Add(user); //Mer kod här istället för .Xaml bosse. Men tillfälligt.
         }
-        public void RemoveUser(User user, Guid Id)   //skapade uuser i mekanik listen som finns på mekanik class
+        public void RemoveUser(Guid UserId)   
         {
-            //Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == Id);
-            //mekanik.IdentityUser = null;
+            var obj = UserList.UserLists.FirstOrDefault(x => x.ID == UserId);
+            UserList.UserLists.Remove(obj);
         }
 
         //show mechanic

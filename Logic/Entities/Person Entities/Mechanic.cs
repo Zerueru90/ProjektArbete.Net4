@@ -19,7 +19,7 @@ namespace Logic.Entities.Person_Entities
 
         public Guid UserID { get; set; } //Detta är för när mekaniker får en User log in.
 
-        public Guid ErrandsID { get; set; } //Kanske fel
+        public Guid ErrandsID { get; set; } 
 
         public string Name { get; set; }
 
@@ -38,25 +38,17 @@ namespace Logic.Entities.Person_Entities
         public bool Tyre { get; set; }   //fråga ? wtf ?
 
         #endregion Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå, WPF funkar.
-        #region Test Errands - Vi måste ha någon koppling med mekaniker och ens Errands.. Dock vet jag inte om detta är korrekt vill bara kunna arbeta med Bosse sidan
-
-        //public Errands Errands { get; set; }
-
-        #endregion
-
-        //Tar bort denna då bara ett ID räcker för att länka User och Mekaniker.
-        //public User IdentityUser { get; set; } // create login and password
-
+        
         public bool MechanicUser //Testar mig fram. om en mekaniker är en användare så blir checkboxen checkad. - Namnet är MechanicUser ändrar man här så måste man ändra på XAML
         {
             get
             {//När programet startar så kollar den om det finns en User och retunerar sant eller falsk.
 
-                //if (IdentityUser != null)
-                //{
-                //    return true;
-                //}
-                //else
+                if (UserID != null)
+                {
+                    return true;
+                }
+                else
                     return false;
             }
             set
