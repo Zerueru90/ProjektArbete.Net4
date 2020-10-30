@@ -15,7 +15,6 @@ namespace Logic.Entities.Person_Entities
             MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
         }
-
         public Guid Id { get; set; }
         public string Name { get; set; }
 

@@ -6,6 +6,7 @@ using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -57,14 +58,30 @@ namespace GUI.Home
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
             dgErrands.ItemsSource = ErrandList.ErrandsList;
+            //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
+            ErrandList.ErrandsList.Add(new Errands()
+            {
+                Description = "blablabla",
+                Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
+                Problem = "Tyre",
+                Mechanic = null,
+                Status = "Available"
+            });
+
+            Errands errands = null;
+            foreach (var item in ErrandList.ErrandsList)
+            {
+                errands = item;
+            }
             MechanicList._mechanicList.Add(new Mechanic() 
             { 
                 Name = "John", DateOfBirthday = DateTime.Now, 
                 DateOfEmployment = DateTime.Now, 
                 DateOfEnd = DateTime.Now, 
-                IdentityUser = new User() { Username = "John", Password = "Lösenord" } 
+                IdentityUser = new User() { Username = "John", Password = "Lösenord" },
+                Errands = errands
             });
             MechanicList._mechanicList.Add(new Mechanic()
             {
@@ -74,13 +91,6 @@ namespace GUI.Home
                 DateOfEnd = DateTime.Now,
                 Breaks = true,
                 Engine = true
-            });
-
-            ErrandList.ErrandsList.Add(new Errands() 
-            {   Description = "blablabla", 
-                Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
-                Problem = "Tyre",
-                Mechanic = null, Status = "Available"
             });
 
             txtName.Text = "Lasse";
@@ -99,6 +109,7 @@ namespace GUI.Home
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
 
+        private Mechanic _choosenComboBoxMechanicObject;
         private const string _breakes = "Breaks";
         private const string _engine = "Engine";
         private const string _carbody = "Carbody";
@@ -280,7 +291,10 @@ namespace GUI.Home
 
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)
         {
+            if (_choosenComboBoxMechanicObject != null)
+            {
 
+            }
         }
 
         //Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
@@ -288,8 +302,9 @@ namespace GUI.Home
         {
             if (cbBoxMechanics.IsDropDownOpen == false)
             {
-                var obj = cbBoxMechanics.SelectedItem;
+                _choosenComboBoxMechanicObject = cbBoxMechanics.SelectedItem as Mechanic;
 
+                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.Errands.ID);
             }
         }
     }
