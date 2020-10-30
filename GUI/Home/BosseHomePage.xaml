@@ -59,7 +59,6 @@
                     <Label Content="Klicka på den mekanikern du vill ge User privilegier och ge hen ett lösenord" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Label" HorizontalAlignment="Left" Height="0" Margin="10,151,0,0" VerticalAlignment="Top" Width="2"/>
                     <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
