@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace GUI.Login
 {
@@ -66,6 +67,7 @@ namespace GUI.Login
                 this.txtBoxUserName.Clear();
                 this.txtBoxPassword.Clear();
             }
+            
         }
 
 

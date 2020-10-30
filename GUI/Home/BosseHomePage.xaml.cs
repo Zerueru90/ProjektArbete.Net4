@@ -4,9 +4,9 @@ using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,33 +28,19 @@ namespace GUI.Home
         {
             InitializeComponent();
 
-            //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
+            List<Mechanic> mechanics = new List<Mechanic>();
+
             foreach (var item in MechanicList._mechanicList)
             {
-                MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, 
-                    DateOfEnd = item.DateOfEnd, IsMechanicUser = item.IsMechanicUser
-                });
+                mechanics.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, DateOfEnd = item.DateOfEnd, SkillLista = item.SkillLista, ListofUsers = item.ListofUsers });
             }
-            //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
-            dgUserAccess.ItemsSource = MechanicList._mechanicList;
-            dgMainPage.ItemsSource = MechanicList._mechanicList;
 
-            //DummyData
-            MechanicList._mechanicList.Add(new Mechanic() { Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, IdentityUser = new User() { Username = "John", Password = "Lösenord" } });
+            dgUserAccess.ItemsSource = mechanics;
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
-
-            int i = dgMainPage.Columns.Count;
-
-            //dgMainPage.Columns[0].IsReadOnly = true;
-            //dgMainPage.Columns[1].IsReadOnly = true;
-            //dgMainPage.Columns[2].IsReadOnly = true;
-            //dgMainPage.Columns[3].IsReadOnly = true;
-            //dgMainPage.Columns[4].IsReadOnly = true;
-            //dgMainPage.Columns[10].IsReadOnly = true;
         }
         private User _newUser;
         private Mechanic _mechanic;
@@ -66,8 +52,49 @@ namespace GUI.Home
         private string _windshield = "Vindruta";
         private string _tyre = "Tyre";
 
+        private void SkillCheck(CheckBox checkBox, string skill)
+        {
+            if (checkBox.IsChecked == true)
+            {
+                _mechanic.SkillLista.Add(skill);
+            }
+        }
+
+        private void SkillCheck2(string skill)
+        {
+            if (skill == _breakes)
+            {
+                //Om strängen existerar så checkas boxen.
+            }
+            if (skill == _engine)
+            {
+                //Om strängen existerar så checkas boxen.
+            }
+            if (skill == _carbody)
+            {
+                //Om strängen existerar så checkas boxen.
+            }
+            if (skill == _windshield)
+            {
+                //Om strängen existerar så checkas boxen.
+            }
+            if (skill == _tyre)
+            {
+                //Om strängen existerar så checkas boxen.
+            }
+        }
+
+        private IEnumerable<Mechanic> GetFromListBox(string selectedItem)
+        {
+            var mechanic = from mec in MechanicList._mechanicList
+                           where mec.Name == selectedItem.ToString()
+                           select mec;
+
+            return mechanic;
+        }
+
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
-        { 
+        {
             if (!(txtName.Text == null) || !(txtName.Text == ""))
             {
                 _mechanic = new Mechanic
@@ -77,7 +104,16 @@ namespace GUI.Home
                     DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text),
                     DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text)
                 };
+
+                SkillCheck(checkBoxBreaks, _breakes);
+                SkillCheck(checkBoxEngine, _engine);
+                SkillCheck(checkBoxBody, _carbody);
+                SkillCheck(checkBoxWindShield, _windshield);
+                SkillCheck(checkBoxTyre, _tyre);
+
                 _crud.AddMechanic(_mechanic);
+
+                listBoxNewMechanic.Items.Add(_mechanic.Name);
 
                 MessageBox.Show("Saved");
             }
@@ -85,92 +121,68 @@ namespace GUI.Home
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            if (dgMainPage.SelectedItem != null)
-            {//SelectedItem innebär vilken rad av mekaniker på datagriden man väljer
-                _crud.RemoveMechanic(dgMainPage.SelectedItem as Mechanic);
+            if (listBoxNewMechanic.SelectedItem != null)
+            {
+                //Hellre vilja ha ID här men får fel meddelande för guid
+                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
+                //_crud.RemoveMechanic(mechanic);
+            }
+        }
 
-                MessageBox.Show("Raderat mekaniker");
+        private void BtnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            if (listBoxNewMechanic.SelectedItem != null)
+            {
+                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
+
+                foreach (var item in mechanic)
+                {
+                    item.Name = txtName.Text;
+                    item.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
+                    item.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
+                    item.DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text);
+                }
+            }
+        }
+
+        private void listBoxNewMechanic_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listBoxNewMechanic.SelectedItem != null)
+            {
+                var mechanic = GetFromListBox(listBoxNewMechanic.SelectedItem.ToString());
+
+                foreach (var item in mechanic)
+                {
+                    txtName.Text = item.Name;
+                    txtBirthday.Text = Convert.ToString(item.DateOfBirthday);
+                    txtEmployementday.Text = Convert.ToString(item.DateOfEmployment);
+                    txtUnEnmploymentday.Text = Convert.ToString(item.DateOfEnd);
+
+                    for (int i = 0; i < item.SkillLista.Count; i++)
+                    {
+                        SkillCheck2(item.SkillLista[i]);
+                    }
+                }
             }
         }
 
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            //var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
-            //if (isMatch)
-            //{
-
-                _mechanic.IdentityUser = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
-                _crud.AddUser(_newUser, _mechanic.Id);
-                _mechanic.IsMechanicUser = true;//För att trigga PropertyChanged 
-                 MessageBox.Show("Sparat ny användare");
-            //}
            
+            
+                _newUser = new User()
+                {
+                    Username = txtUserName.Text,
+                    Password = txtPassword.Text
+                };
+                _crud.AddUser(_newUser);
+            
+            
         }
 
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
-            if (dgUserAccess.SelectedItem != null)
-            {
-                //Raderar inte själva mekanikern men raderar användarnamn och lösenord.
-                Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
-                _crud.RemoveUser(mec.IdentityUser, mec.Id);
-                mec.IsMechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
-
-                MessageBox.Show("Raderat användare");
-            }
-        }
-
-        #region
-        //Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
-        //Access and update columns during autogeneration
-        private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "SkillLista")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicProgressList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "IdentityUser")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicDoneList")
-            {
-                e.Cancel = true;
-            }
-
 
         }
-
-        private void DG2_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "SkillLista")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicProgressList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicDoneList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "IdentityUser")
-            {
-                e.Cancel = true;
-            }
-        }
-
-        #endregion
     }
 }

@@ -5,7 +5,8 @@ using Logic.Entities.Person_Entities;
 
 namespace Logic
 {
-    public  class Progress{
+    public  class Progress
+    {
         public  Guid Id { get; set; }
         public  string _toDo { get; set; }
         public int Count { get; set; }
@@ -18,7 +19,7 @@ namespace Logic
     }
 
    public static class Task
-    {
+   {
       
         public static List<string> ToDoList { get; set; }
          public static List<Progress> ProgressList { get; set; }
@@ -73,5 +74,5 @@ namespace Logic
            
         }
 
-    }
+   }
 }
