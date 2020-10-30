@@ -6,6 +6,7 @@ using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -32,36 +33,64 @@ namespace GUI.Home
             //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
             foreach (var item in MechanicList._mechanicList)
             {
-                MechanicList._mechanicList.Add(new Mechanic() { Id = item.Id, Name = item.Name, DateOfBirthday = item.DateOfBirthday, DateOfEmployment = item.DateOfEmployment, 
-                    DateOfEnd = item.DateOfEnd, MechanicUser = item.MechanicUser
+                MechanicList._mechanicList.Add(new Mechanic() 
+                { 
+                    Id = item.Id, Name = item.Name,
+                    DateOfBirthday = item.DateOfBirthday, 
+                    DateOfEmployment = item.DateOfEmployment, 
+                    DateOfEnd = item.DateOfEnd, 
+                    MechanicUser = item.MechanicUser
                 });
             }
             foreach (var item in ErrandList.ErrandsList)
             {
-                ErrandList.ErrandsList.Add(new Errands() { ErrandsID = item.ErrandsID, Description = item.Description, Vehicles = item.Vehicles, Problem = item.Problem, Mechanic = item.Mechanic, Status = item.Status });
+                ErrandList.ErrandsList.Add(new Errands() 
+                { 
+                    ErrandsID = item.ErrandsID, 
+                    Description = item.Description, 
+                    Vehicles = item.Vehicles, 
+                    Problem = item.Problem, 
+                    Mechanic = item.Mechanic, 
+                    Status = item.Status });
             }
 
             //Dessa två är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
             dgErrands.ItemsSource = ErrandList.ErrandsList;
+            //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
-            MechanicList._mechanicList.Add(new Mechanic() 
-            { 
-                Name = "John", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now, 
-                IdentityUser = new User() { Username = "John", Password = "Lösenord" } 
-            });
-            MechanicList._mechanicList.Add(new Mechanic() 
-            { 
-                Name = "Dave", DateOfBirthday = DateTime.Now, DateOfEmployment = DateTime.Now, DateOfEnd = DateTime.Now 
-            });
-
-            ErrandList.ErrandsList.Add(new Errands() 
-            {   Description = "blablabla", 
+            ErrandList.ErrandsList.Add(new Errands()
+            {
+                Description = "blablabla",
                 Vehicles = new Car() { ModelName = "Audi", RegistrationNumber = "abc123", OdoMeter = 3500, Registrated = DateTime.Now, Fuel = "Diesel" },
                 Problem = "Tyre",
-                Mechanic = null, Status = "Available"
+                Mechanic = null,
+                Status = "Available"
+            });
+
+            Errands errands = null;
+            foreach (var item in ErrandList.ErrandsList)
+            {
+                errands = item;
+            }
+            MechanicList._mechanicList.Add(new Mechanic() 
+            { 
+                Name = "John", DateOfBirthday = DateTime.Now, 
+                DateOfEmployment = DateTime.Now, 
+                DateOfEnd = DateTime.Now, 
+                IdentityUser = new User() { Username = "John", Password = "Lösenord" },
+                Errands = errands
+            });
+            MechanicList._mechanicList.Add(new Mechanic()
+            {
+                Name = "Dave",
+                DateOfBirthday = DateTime.Now,
+                DateOfEmployment = DateTime.Now,
+                DateOfEnd = DateTime.Now,
+                Breaks = true,
+                Engine = true
             });
 
             txtName.Text = "Lasse";
@@ -70,15 +99,17 @@ namespace GUI.Home
             txtUnEnmploymentday.Text = "22-10-24";
             #endregion
 
+            //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
             foreach (var item in MechanicList._mechanicList)
             {
-                cbBoxMechanics.Items.Add(item.Name);
+                cbBoxMechanics.Items.Add(item);
             }
         }
         private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
 
+        private Mechanic _choosenComboBoxMechanicObject;
         private const string _breakes = "Breaks";
         private const string _engine = "Engine";
         private const string _carbody = "Carbody";
@@ -161,6 +192,10 @@ namespace GUI.Home
             {
                 e.Cancel = true;
             }
+            if (headername == "Errands")
+            {
+                e.Cancel = true;
+            }
 
 
         }
@@ -183,6 +218,10 @@ namespace GUI.Home
                 e.Cancel = true;
             }
             if (headername == "IdentityUser")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Errands")
             {
                 e.Cancel = true;
             }
@@ -248,6 +287,25 @@ namespace GUI.Home
             mec.NotifyPropertyChanged(_windshield);
             mec.NotifyPropertyChanged(_tyre);
             MessageBox.Show("Uppdaterad");
+        }
+
+        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (_choosenComboBoxMechanicObject != null)
+            {
+
+            }
+        }
+
+        //Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
+        void OnDropDownClosed(object sender, EventArgs e)
+        {
+            if (cbBoxMechanics.IsDropDownOpen == false)
+            {
+                _choosenComboBoxMechanicObject = cbBoxMechanics.SelectedItem as Mechanic;
+
+                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.Errands.ID);
+            }
         }
     }
 }
