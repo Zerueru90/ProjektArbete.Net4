@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.Entities.Vehicles_Entities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -33,6 +34,11 @@ namespace Logic.Entities.Person_Entities
         public bool Tyre { get; set; }   //fråga ? wtf ?
 
         #endregion Alla bool är kanske tillfälligt, dom funkar bättre med WPF än List<string>. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå, WPF funkar.
+        #region Test Errands - Vi måste ha någon koppling med mekaniker och ens Errands.. Dock vet jag inte om detta är korrekt vill bara kunna arbeta med Bosse sidan
+
+        public Errands Errands { get; set; }
+
+        #endregion
 
         public User IdentityUser { get; set; } // create login and password
 

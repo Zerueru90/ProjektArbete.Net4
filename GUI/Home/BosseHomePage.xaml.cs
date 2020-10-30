@@ -89,9 +89,10 @@ namespace GUI.Home
             txtUnEnmploymentday.Text = "22-10-24";
             #endregion
 
+            //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
             foreach (var item in MechanicList._mechanicList)
             {
-                cbBoxMechanics.Items.Add(item.Name);
+                cbBoxMechanics.Items.Add(item);
             }
         }
         private User _newUser;
@@ -180,6 +181,10 @@ namespace GUI.Home
             {
                 e.Cancel = true;
             }
+            if (headername == "Errands")
+            {
+                e.Cancel = true;
+            }
 
 
         }
@@ -202,6 +207,10 @@ namespace GUI.Home
                 e.Cancel = true;
             }
             if (headername == "IdentityUser")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Errands")
             {
                 e.Cancel = true;
             }
@@ -267,6 +276,21 @@ namespace GUI.Home
             mec.NotifyPropertyChanged(_windshield);
             mec.NotifyPropertyChanged(_tyre);
             MessageBox.Show("Uppdaterad");
+        }
+
+        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        //Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
+        void OnDropDownClosed(object sender, EventArgs e)
+        {
+            if (cbBoxMechanics.IsDropDownOpen == false)
+            {
+                var obj = cbBoxMechanics.SelectedItem;
+
+            }
         }
     }
 }
