@@ -19,15 +19,20 @@
                 <CheckBox x:Name="Checkboxbody" Content="Kaross" HorizontalAlignment="Left" Margin="308,129,0,0" VerticalAlignment="Top"/>
                 <CheckBox x:Name="Checkboxtyres" Content="Däck" HorizontalAlignment="Left" Margin="308,153,0,0" VerticalAlignment="Top"/>
                 <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="27,368,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>
-
-
             </Grid>
         </TabItem>
 
         <TabItem FontSize="15" Header="Ärenden">
             <Grid Background="White">
+                <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
+                <DataGrid Margin="156,30,30,179">
+                    <DataGrid.Resources>
 
-
+                    </DataGrid.Resources>
+                </DataGrid>
+                <CheckBox x:Name="OngoingCheckbox" Content="Pågånde" HorizontalAlignment="Left" Margin="34,95,0,0" VerticalAlignment="Top"/>
+                <CheckBox x:Name="FinnishedCheckbox" Content="Avklarad" HorizontalAlignment="Left" Margin="34,129,0,0" VerticalAlignment="Top"/>
+                <Button x:Name="Btnsave" Content="Spara" HorizontalAlignment="Left" Margin="34,376,0,0" VerticalAlignment="Top" Width="75"/>
             </Grid>
         </TabItem>
 
