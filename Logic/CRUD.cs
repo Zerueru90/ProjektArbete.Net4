@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using Logic.Entities.Person_Entities;
+
 
 namespace Logic
 {
@@ -74,6 +74,9 @@ namespace Logic
                     Console.WriteLine("Finns ingen mekanik med detta kompetens!");
                     break;
             }
+
+
+
         }
 
         // 0 - Karen
@@ -121,10 +124,55 @@ namespace Logic
 
             Console.WriteLine("--------");
 
-            //karucel done list hajord dasin
-            //ev avelcacnel ayd listum mer uzac tvyalnere
-            //konkret mechanici donelistum avelacnel progresslistic todos
-            //1 2 3 4 5 6 7 8
+            
+        }
+
+        public void ShowProccesAndDoneTaskList()
+        {
+            short count = 1;
+            foreach (var item in Task.ProgressList)
+            {
+                //1) taskname
+                //2) taskname
+                Console.WriteLine($"{count++}) {item}");
+            }
+            ShowCurrentProccesTask(int.Parse(Console.ReadLine()));
+            //1) ProgressList[0]
+            //2) ProgressList[1]
+
+            count = 1;
+            foreach (var item in Task.DoneList)
+            {
+                //1) taskname
+                //2) taskname
+                Console.WriteLine($"{count++}) {item}");
+            }
+            ShowCurrentDoneTask(int.Parse(Console.ReadLine()));
+
+        }
+
+        //Kalla då när man behöver veta om vilken progress task är kopplad till vilken meckanikern
+
+        public void ShowCurrentProccesTask(int n) 
+        {
+            Progress progress = Task.ProgressList[n - 1];
+            Mechanic mechanic = MechanicList._mechanicList.FirstOrDefault(item => item.Id == progress.Id);
+
+            Console.WriteLine("Mechanic name: " + mechanic.Name);
+            Console.WriteLine("Current task" + progress._toDo);
+
+
+            
+        }
+
+        public void ShowCurrentDoneTask(int n)
+        {
+            Done done = Task.DoneList[n - 1];
+            Mechanic mechanic = MechanicList._mechanicList.FirstOrDefault(item => item.Id == done.Id);
+
+            Console.WriteLine("Mechanic name: " + mechanic.Name);
+            Console.WriteLine("Current task" + done._toDo);
+
         }
     }
 }

@@ -5,11 +5,11 @@ using Logic.Entities.Person_Entities;
 
 namespace Logic
 {
-    public  class Progress
+    public  class Progress // name change is Procces
     {
         public  Guid Id { get; set; }
         public  string _toDo { get; set; }
-        public int Count { get; set; }
+        public int Count { get; set; } // after deleting
     }
 
     public class Done
