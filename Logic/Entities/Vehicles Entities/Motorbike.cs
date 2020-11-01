@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Motobike : Vehicles
+    public class Motorbike : Vehicles
     {
-        List<Motobike> Motobikes = new List<Motobike>();
+
     }
 }

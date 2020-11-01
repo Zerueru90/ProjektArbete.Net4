@@ -6,7 +6,6 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Truck : Vehicles
     {
-        List<Truck> Trucks = new List<Truck>();
         private int _maxloadWeight;
     }
 }

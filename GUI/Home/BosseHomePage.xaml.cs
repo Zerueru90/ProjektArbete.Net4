@@ -85,12 +85,42 @@ namespace GUI.Home
             {
                 errands = item;
             }
+            //--------Lägga till new User
+            UserList.UserLists.Add(new User()
+            {
+                Username = "John",
+                Password = "password"
+            });
+            UserList.UserLists.Add(new User()
+            {
+                Username = "Dave",
+                Password = "password"
+            });
+            Guid JohnID = Guid.Empty;
+            Guid DaveID = Guid.Empty;
+
+            foreach (var item in UserList.UserLists)
+            {
+                if (item.Username == "John")
+                {
+                    JohnID = item.ID;
+                }
+                if (item.Username == "Dave")
+                {
+                    DaveID = item.ID;
+                }
+            }
+
+            //--------Lägga till new User ---STOP
+
+            //--------Lägga till new Mechanic och lägger in new User
             MechanicList._mechanicList.Add(new Mechanic()
             {
                 Name = "John",
                 DateOfBirthday = DateTime.Now,
                 DateOfEmployment = DateTime.Now,
                 DateOfEnd = DateTime.Now,
+                UserID = JohnID
             });
             MechanicList._mechanicList.Add(new Mechanic()
             {
@@ -99,8 +129,10 @@ namespace GUI.Home
                 DateOfEmployment = DateTime.Now,
                 DateOfEnd = DateTime.Now,
                 Breaks = true,
-                Engine = true
+                Engine = true,
+                UserID = DaveID
             });
+            //--------Lägga till new Mechanic ---STOP
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
@@ -111,7 +143,7 @@ namespace GUI.Home
             //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
             foreach (var item in MechanicList._mechanicList)
             {
-                cbBoxMechanics.Items.Add(item);
+                cbBoxMechanicShowErrands.Items.Add(item);
             }
         }
 
@@ -151,13 +183,12 @@ namespace GUI.Home
             Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
             var obj = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
             _crud.AddUser(_newUser);
-            mec.UserID = obj.ID; 
-            mec.MechanicUser = true;//För att trigga PropertyChanged 
+            mec.UserID = obj.ID; //Viktigt att detta görs, prop MechanicUser settar auto till true
+            mec.MechanicUser = true;//Här ska den vanligtvis setta men den triggar bara PropertyChanged så att WPFn ändras
             MessageBox.Show("Sparat ny användare");
 
 
             //}
-
         }
 
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
@@ -167,13 +198,62 @@ namespace GUI.Home
                 //Raderar inte själva mekanikern men raderar användarnamn och lösenord som den ska
                 Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
                 _crud.RemoveUser(mec.UserID);
-                mec.MechanicUser = false; //För att trigga PropertyChanged så gör man denna till falsk så ändras det checkboxen direkt.
+                mec.UserID = Guid.Empty;//Viktigt att detta görs, prop MechanicUser settar auto till false
+                mec.MechanicUser = false; //Här ska den vanligtvis setta men den triggar bara PropertyChanged så att WPFn ändras, så gör man denna till falsk så ändras det checkboxen direkt.
 
                 MessageBox.Show("Raderat användare");
             }
         }
 
-    # region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
+        private void BtnUpdateSkill_Click(object sender, RoutedEventArgs e)
+        {
+            //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
+            Mechanic mec = (dgMainPage.SelectedItem as Mechanic);
+            mec.NotifyPropertyChanged(_breakes);
+            mec.NotifyPropertyChanged(_engine);
+            mec.NotifyPropertyChanged(_carbody);
+            mec.NotifyPropertyChanged(_windshield);
+            mec.NotifyPropertyChanged(_tyre);
+            MessageBox.Show("Uppdaterad");
+        }
+
+        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (_choosenComboBoxMechanicObject != null)
+            {
+
+            }
+        }
+
+        private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+        # region Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
+        void OnDropDownClosed(object sender, EventArgs e)
+        {
+            if (cbBoxMechanicShowErrands.IsDropDownOpen == false)
+            {
+                _choosenComboBoxMechanicObject = cbBoxMechanicShowErrands.SelectedItem as Mechanic;
+
+                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.ErrandsID);
+            }
+        }
+        #endregion
+
+        #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
         private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
@@ -279,36 +359,5 @@ namespace GUI.Home
             }
         }
         #endregion
-
-        private void BtnUpdateSkill_Click(object sender, RoutedEventArgs e)
-        {
-            //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
-            Mechanic mec = (dgMainPage.SelectedItem as Mechanic);
-            mec.NotifyPropertyChanged(_breakes);
-            mec.NotifyPropertyChanged(_engine);
-            mec.NotifyPropertyChanged(_carbody);
-            mec.NotifyPropertyChanged(_windshield);
-            mec.NotifyPropertyChanged(_tyre);
-            MessageBox.Show("Uppdaterad");
-        }
-
-        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
-        {
-            if (_choosenComboBoxMechanicObject != null)
-            {
-
-            }
-        }
-
-        //Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
-        void OnDropDownClosed(object sender, EventArgs e)
-        {
-            if (cbBoxMechanics.IsDropDownOpen == false)
-            {
-                _choosenComboBoxMechanicObject = cbBoxMechanics.SelectedItem as Mechanic;
-
-                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.ErrandsID);
-            }
-        }
     }
 }

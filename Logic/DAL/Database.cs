@@ -9,7 +9,7 @@ namespace Logic.DAL
     public class Database
     {
         List<Car> ListofCars { get; set; }
-        List<Motobike> ListOfMotobikes { get; set; }
+        List<Motorbike> ListOfMotobikes { get; set; }
         List<Truck> ListofTrucks { get; set; }
         List<Bus> ListofBusses { get; set; }
         List<Errands> ListofErrands { get; set; }

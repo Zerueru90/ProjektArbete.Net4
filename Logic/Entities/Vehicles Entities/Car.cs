@@ -6,9 +6,14 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Car : Vehicles
     {
-        List<Car> Cars = new List<Car>();
         private bool _hasTowbar;
-       
+
+        enum CarType
+        {
+            Sedan,
+            Herrgårdsvagn,
+            Cabriolet,
+            Halvkombi,
+        };
     }
-    
 }
