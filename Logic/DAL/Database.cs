@@ -12,6 +12,6 @@ namespace Logic.DAL
         List<Motorbike> ListOfMotobikes { get; set; }
         List<Truck> ListofTrucks { get; set; }
         List<Bus> ListofBusses { get; set; }
-        List<Errands> ListofErrands { get; set; }
+        List<Errand> ListofErrands { get; set; }
     }
 }

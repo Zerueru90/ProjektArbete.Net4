@@ -50,24 +50,24 @@ namespace Logic
         {
             switch (skillNum)
             {
-                case (byte)Vehicelparts.Bromsar:
-                    Console.WriteLine(Vehicelparts.Bromsar);
+                case (byte)Enums.VehicelProblems.Bromsar:
+                    Console.WriteLine(Enums.VehicelProblems.Bromsar);
                     break;
 
-                case (byte)Vehicelparts.Motor:
-                    Console.WriteLine(Vehicelparts.Motor);
+                case (byte)Enums.VehicelProblems.Motor:
+                    Console.WriteLine(Enums.VehicelProblems.Motor);
                     break;
 
-                case (byte)Vehicelparts.Kaross:
-                    Console.WriteLine(Vehicelparts.Kaross);
+                case (byte)Enums.VehicelProblems.Kaross:
+                    Console.WriteLine(Enums.VehicelProblems.Kaross);
                     break;
 
-                case (byte)Vehicelparts.Vindruta:
-                    Console.WriteLine(Vehicelparts.Vindruta);
+                case (byte)Enums.VehicelProblems.Vindruta:
+                    Console.WriteLine(Enums.VehicelProblems.Vindruta);
                     break;
 
-                case (byte)Vehicelparts.Däck:
-                    Console.WriteLine(Vehicelparts.Motor);
+                case (byte)Enums.VehicelProblems.Däck:
+                    Console.WriteLine(Enums.VehicelProblems.Motor);
                     break;
 
                 default:

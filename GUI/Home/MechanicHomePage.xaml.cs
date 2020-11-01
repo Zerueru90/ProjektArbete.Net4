@@ -23,7 +23,7 @@ namespace GUI.Home
     /// </summary>
     public partial class MechanicHomePage : Page
     {
-        List<Errands> ForCurrentMecanichErrandsList = new List<Errands>();
+        List<Errand> ForCurrentMecanichErrandsList = new List<Errand>();
         public Mechanic _currentMechanic { get; set; }
         private CRUD _crud = new CRUD();
 
@@ -42,7 +42,7 @@ namespace GUI.Home
                       where err.ErrandsID == _currentMechanic.ErrandsID
                       select err;
 
-            Errands errands = null;
+            Errand errands = null;
             foreach (var item in obj)
             {
                 errands = item;

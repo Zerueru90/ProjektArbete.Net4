@@ -26,12 +26,9 @@ namespace GUI.Home
     /// </summary>
     public partial class BosseHomePage : Page
     {
-
         private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
-        private Vehicle _newVehicel;
-        
 
         private Mechanic _choosenComboBoxMechanicObject;
         private const string _breakes = "Breaks";
@@ -39,7 +36,6 @@ namespace GUI.Home
         private const string _carbody = "Carbody";
         private const string _windshield = "Windshield";
         private const string _tyre = "Tyre";
-
 
         public BosseHomePage()
         {
@@ -59,7 +55,7 @@ namespace GUI.Home
             }
             foreach (var item in ErrandList.ErrandsList)
             {
-                ErrandList.ErrandsList.Add(new Errands()
+                ErrandList.ErrandsList.Add(new Errand()
                 {
                     ErrandsID = item.ErrandsID,
                     Description = item.Description,
@@ -67,22 +63,36 @@ namespace GUI.Home
                     Status = item.Status
                 });
             }
+            foreach (var item in VehicleList.VehicleLists)
+            {
+                VehicleList.VehicleLists.Add(new Vehicle()
+                {
+                    ID = item.ID,
+                    ModelName = item.ModelName,
+                    RegistrationNumber = item.RegistrationNumber,
+                    OdoMeter = item.OdoMeter,
+                    RegistrationDate = item.RegistrationDate,
+                    Fuel = item.Fuel
+                });
+            }
 
             //Dessa tre är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
             dgErrands.ItemsSource = ErrandList.ErrandsList;
+            dgNewErrands.ItemsSource = ErrandList.ErrandsList;
+            dgVeichleList.ItemsSource = VehicleList.VehicleLists;
             //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
-            ErrandList.ErrandsList.Add(new Errands()
+            ErrandList.ErrandsList.Add(new Errand()
             {
                 Description = "blablabla",
                 Problem = "Tyre",
                 Status = "Available"
             });
 
-            Errands errands = null;
+            Errand errands = null;
             foreach (var item in ErrandList.ErrandsList)
             {
                 errands = item;
@@ -140,16 +150,40 @@ namespace GUI.Home
             txtEmployementday.Text = "20-10-24";
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
+
+            txtModelName.Text = "Audi";
+            txtRegNr.Text = "abc123";
+            txtOdoMeter.Text = "3000";
+            txtRegDate.Text = "20-10-11";
+            txtFuel.Text = "Diesel";
+
+            txtDescription.Text = "blablablblablablblablablblablabl";
             #endregion
 
             //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
             foreach (var item in MechanicList._mechanicList)
             {
-                cbBoxMechanicShowErrands.Items.Add(item);
-                cbBoxMechanicForErrands.Items.Add(item);
+                cbBoxMechanicForChaningErrands.Items.Add(item);
+                cbBoxMechanicForNewErrands.Items.Add(item);
+            }
+            foreach (var item in Enum.GetValues(typeof(Vehicle.VeichleType)))
+            {
+                cbBoxVeichleType.Items.Add(item.ToString());
+            }
+            foreach (var item in Enum.GetValues(typeof(Enums.VehicelProblems)))
+            {
+                cbBoxProblemsErrand.Items.Add(item.ToString());
+            }
+            foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
+            {
+                cbBoxStatusErrand.Items.Add(item.ToString());
             }
 
-
+            //Fyller comboboxen i Registrera ärenden -Fordon.
+            foreach (var item in VehicleList.VehicleLists)
+            {
+                cbBoxVeichlesErrand.Items.Add(item);
+            }
         }
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
@@ -232,33 +266,146 @@ namespace GUI.Home
 
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
+            var obj = cbBoxVeichleType.SelectedItem.ToString();
+            switch (obj)
+            {
+                case "Bil":
+                    Car _newCar = new Car();
+                    NewVehicleInputData(_newCar);
+                    if (checkBoxCarHook.IsChecked == true)
+                    {
+                        _newCar.SetTowbarValue(true);
+                    }
+                    VehicleList.VehicleLists.Add(_newCar);
+                    break;
 
+                case "Motorcykel":
+                    Motorbike _newMotorbike = new Motorbike();
+                    NewVehicleInputData(_newMotorbike);
+                    VehicleList.VehicleLists.Add(_newMotorbike);
+                    break;
+
+                case "Lastbil":
+                    Truck _newTruck = new Truck();
+                    NewVehicleInputData(_newTruck);
+                    _newTruck.SetMaxLoadWeight(Convert.ToDecimal(txtMaxLoadWeight.Text));
+                    VehicleList.VehicleLists.Add(_newTruck);
+                    break;
+
+                case "Buss":
+                    Bus _newBus = new Bus();
+                    NewVehicleInputData(_newBus);
+                    _newBus.SetPassengersValue(Convert.ToInt32(txtMaxPassanger.Text));
+                    VehicleList.VehicleLists.Add(_newBus);
+                    break;
+
+                default:
+                    break;
+            }
+            UpdateVechileCheckBoc();
+            MessageBox.Show("Sparad");
         }
 
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
+            var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
+            var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id).Select(y => y.Id);
+            Guid ID = Guid.Empty;
+            foreach (var item in IEnumiratedID)
+            {
+                ID = item;
+            }
 
+            Errand newErrand = new Errand();
+            newErrand.Description = txtDescription.Text;
+            newErrand.VeichleID = Guid.Parse(cbBoxVeichlesErrand.SelectedItem.ToString());
+            newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
+            newErrand.MechanicID = ID;
+            newErrand.Status = cbBoxStatusErrand.SelectedItem.ToString();
+
+            ErrandList.ErrandsList.Add(newErrand);
+            MessageBox.Show("Sparad");
         }
 
-
-
-
-
-
+        private void NewVehicleInputData(Vehicle vehicle)
+        {
+            vehicle.ModelName = txtModelName.Text;
+            vehicle.RegistrationNumber = txtRegNr.Text;
+            vehicle.OdoMeter = Convert.ToDecimal(txtOdoMeter.Text);
+            vehicle.RegistrationDate = Convert.ToDateTime(txtRegDate.Text);
+            vehicle.Fuel = txtFuel.Text;
+        }
+        private void UpdateMechanicCheckBoc()
+        {
+            cbBoxMechanicForChaningErrands.Items.Clear();
+            cbBoxMechanicForNewErrands.Items.Clear();
+            foreach (var item in MechanicList._mechanicList)
+            {
+                cbBoxMechanicForChaningErrands.Items.Add(item);
+                cbBoxMechanicForNewErrands.Items.Add(item);
+            }
+        }
+        private void UpdateVechileCheckBoc()
+        {
+            cbBoxVeichlesErrand.Items.Clear();
+            foreach (var item in VehicleList.VehicleLists)
+            {
+                cbBoxVeichlesErrand.Items.Add(item);
+            }
+        }
 
         # region Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
         void OnDropDownClosed(object sender, EventArgs e)
         {
-            if (cbBoxMechanicShowErrands.IsDropDownOpen == false)
+            if (cbBoxMechanicForChaningErrands.IsDropDownOpen == false)
             {
-                _choosenComboBoxMechanicObject = cbBoxMechanicShowErrands.SelectedItem as Mechanic;
+                _choosenComboBoxMechanicObject = cbBoxMechanicForChaningErrands.SelectedItem as Mechanic;
 
                 dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.ErrandsID);
             }
         }
-        #endregion
+        private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
+        {
+            if (cbBoxVeichleType.IsDropDownOpen == false)
+            {
+                if (cbBoxVeichleType.SelectedItem != null)
+                {
+                    checkBoxCarHook.Visibility = Visibility.Hidden;
+                    labelBilTyp.Visibility = Visibility.Hidden;
+                    cbBoxCarType.Visibility = Visibility.Hidden;
+                    labelMaxLoad.Visibility = Visibility.Hidden;
+                    txtMaxLoadWeight.Visibility = Visibility.Hidden;
+                    labelPassanger.Visibility = Visibility.Hidden;
+                    txtMaxPassanger.Visibility = Visibility.Hidden;
+                    cbBoxCarType.Items.Clear();
+                    if (cbBoxVeichleType.SelectedItem.ToString() == "Bil")
+                    {
+                        foreach (var item in Enum.GetValues(typeof(Car.CarType)))
+                        {
+                            cbBoxCarType.Items.Add(item.ToString());
+                        }
 
-        #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.
+                        checkBoxCarHook.Visibility = Visibility.Visible;
+                        labelBilTyp.Visibility = Visibility.Visible;
+                        cbBoxCarType.Visibility = Visibility.Visible;
+                    }
+                    if (cbBoxVeichleType.SelectedItem.ToString() == "Lastbil")
+                    {
+                        labelMaxLoad.Visibility = Visibility.Visible;
+                        txtMaxLoadWeight.Visibility = Visibility.Visible;
+                    }
+                    if (cbBoxVeichleType.SelectedItem.ToString() == "Buss")
+                    {
+                        labelPassanger.Visibility = Visibility.Visible;
+                        txtMaxPassanger.Visibility = Visibility.Visible;
+                    }
+                }
+            }
+        }
+
+        #endregion   
+
+    #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.   
         private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
