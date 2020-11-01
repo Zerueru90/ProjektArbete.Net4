@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Motorbike : Vehicles
+    public class Motorbike : Vehicle
     {
 
     }

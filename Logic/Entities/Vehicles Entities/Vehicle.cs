@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public abstract class Vehicles
+    public abstract class Vehicle
     {
         public Guid ID { get; set; } = Guid.NewGuid();
-        public Guid? RegNrID { get; set; }
+        public Guid? RegNrID { get; set; } //Vet inte om denna behövs? samt reg nr klassen.
         public string ModelName { get; set; }
         public string RegistrationNumber { get; set; }
         public decimal OdoMeter { get; set; }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Errands : Vehicles
+    public class Errands : Vehicle
     {
         public List<Errands> OngoingErrands { get; set; }
         public List<Errands> finnishedErrands { get; set; }
@@ -22,7 +22,7 @@ namespace Logic.Entities.Vehicles_Entities
         //Inlagd av Samson, tillfällig.
         public string Status { get; set; }
         //_-------------------
-        public bool TryToAdd(Vehicles vehicles)
+        public bool TryToAdd(Vehicle vehicles)
         {
             var counter = 0;
             if (counter <= 2)
@@ -36,7 +36,7 @@ namespace Logic.Entities.Vehicles_Entities
                 return false;
             }
         }
-        public bool AddErrands(Vehicles vehicles)
+        public bool AddErrands(Vehicle vehicles)
         {
             var isOktoAdd = TryToAdd(vehicles);
             if (isOktoAdd)

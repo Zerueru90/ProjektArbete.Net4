@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Bus : Vehicles
+    public class Bus : Vehicle
     {
         private int _maxtotalPassengers;
     }

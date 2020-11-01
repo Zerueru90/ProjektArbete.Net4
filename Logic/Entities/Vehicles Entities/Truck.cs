@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Truck : Vehicles
+    public class Truck : Vehicle
     {
         private int _maxloadWeight;
     }

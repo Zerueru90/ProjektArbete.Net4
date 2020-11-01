@@ -30,6 +30,8 @@ namespace GUI.Home
         private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
+        private Vehicle _newVehicel;
+        
 
         private Mechanic _choosenComboBoxMechanicObject;
         private const string _breakes = "Breaks";
@@ -144,7 +146,10 @@ namespace GUI.Home
             foreach (var item in MechanicList._mechanicList)
             {
                 cbBoxMechanicShowErrands.Items.Add(item);
+                cbBoxMechanicForErrands.Items.Add(item);
             }
+
+
         }
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
