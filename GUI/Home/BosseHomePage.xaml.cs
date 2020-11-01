@@ -316,9 +316,17 @@ namespace GUI.Home
                 ID = item;
             }
 
+            var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
+            var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID).Select(y => y.ID);
+            Guid vehicleID = Guid.Empty;
+            foreach (var item in vID)
+            {
+                vehicleID = item;
+            }
+
             Errand newErrand = new Errand();
             newErrand.Description = txtDescription.Text;
-            newErrand.VeichleID = Guid.Parse(cbBoxVeichlesErrand.SelectedItem.ToString());
+            newErrand.VeichleID = vehicleID;
             newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
             newErrand.MechanicID = ID;
             newErrand.Status = cbBoxStatusErrand.SelectedItem.ToString();
