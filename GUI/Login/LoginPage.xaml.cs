@@ -25,6 +25,7 @@ namespace GUI.Login
         private const string _errorMsg = "Inloggningen misslyckades";
 
         private LoginService _loginService;
+
         public LoginPage()
         {
             InitializeComponent();
@@ -38,37 +39,31 @@ namespace GUI.Login
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
             string username = this.txtBoxUserName.Text;
             string password = this.txtBoxPassword.Password;
-
+            
             bool successful = _loginService.Login(username, password);
-
-
+            
             if (successful)
             {
                 BosseHomePage homePage = new BosseHomePage();
-
-                 this.NavigationService.Navigate(homePage);
-
-               
+            
+                this.NavigationService.Navigate(homePage);
             }
-            else if(username != "Bosse")
+            else if (username != "Bosse")
             {
                 MechanicHomePage mechanichomePage = new MechanicHomePage();
                 mechanichomePage._currentMechanic = MechanicList.Login(username);
                 this.NavigationService.Navigate(mechanichomePage);
+            
             }
             else
             {
-
+            
                 MessageBox.Show(_errorMsg);
                 this.txtBoxUserName.Clear();
                 this.txtBoxPassword.Clear();
             }
-            
         }
-
-      
     }
 }

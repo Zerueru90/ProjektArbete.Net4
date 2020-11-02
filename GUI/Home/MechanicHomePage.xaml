@@ -11,9 +11,6 @@
     <Grid Background="White">
         <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
         <DataGrid x:Name="dgErrends" Margin="221,35,35,35">
-            <DataGrid.Resources>
-
-            </DataGrid.Resources>
         </DataGrid>
 
         <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
