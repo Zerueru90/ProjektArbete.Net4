@@ -26,6 +26,7 @@ namespace GUI.Home
         List<Errand> ForCurrentMecanichErrandsList = new List<Errand>();
         public Mechanic _currentMechanic { get; set; }
         private CRUD _crud = new CRUD();
+        private Errand _errands { get; set; }
 
         private string _breakes = "Bromsar";
         private string _engine = "Motor";
@@ -52,44 +53,15 @@ namespace GUI.Home
 
             dgErrends.ItemsSource = ForCurrentMecanichErrandsList;
 
-            txtName.Text = _currentMechanic.Name;
-        }
-
-        private void SkillCheck(CheckBox checkBox, string skill)
-        {
-            if (checkBox.IsChecked == true)
+            //LableNamn.Name = _currentMechanic.Name;
+            foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
             {
-                _currentMechanic.SkillLista.Add(skill);
-                SetSkill(skill);
+                comboBoxErrands.Items.Add(item.ToString());
             }
         }
-        private void SetSkill(string skill)
-        {
-            if (skill == "Bromsar")
-            {
-                _currentMechanic.Breaks = true;
-            }
-            if (skill == "Motor")
-            {
-                _currentMechanic.Engine = true;
-            }
-            if (skill == "Kaross")
-            {
-                _currentMechanic.Carbody = true;
-            }
-            if (skill == "Vindruta")
-            {
-                _currentMechanic.Windshield = true;
-            }
-            if (skill == "Tyre")
-            {
-                _currentMechanic.Tyre = true;
-            }
-        }
-
         private void ClickbtnSave_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
     }
 }

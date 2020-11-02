@@ -56,9 +56,9 @@ namespace GUI.Login
             }
             else if(username != "Bosse")
             {
-                MechanicHomePage homePage = new MechanicHomePage();
-                homePage._currentMechanic = MechanicList.Login(username);
-                this.NavigationService.Navigate(homePage);
+                MechanicHomePage mechanichomePage = new MechanicHomePage();
+                mechanichomePage._currentMechanic = MechanicList.Login(username);
+                this.NavigationService.Navigate(mechanichomePage);
             }
             else
             {
@@ -70,11 +70,6 @@ namespace GUI.Login
             
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            MechanicHomePage homePage = new MechanicHomePage();
-            homePage._currentMechanic = MechanicList.Login(txtBoxUserName.Text);
-            this.NavigationService.Navigate(homePage);
-        }
+      
     }
 }

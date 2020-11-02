@@ -7,37 +7,22 @@
       mc:Ignorable="d" 
       d:DesignHeight="800" d:DesignWidth="900"
       Title="MechanicHomePage">
-    <TabControl>
 
-        <TabItem FontSize="15" Header="Användare">
-            <Grid Background="White">
-                <Label Content="Mekaniker:" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
-                <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="15,35,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                <CheckBox x:Name="Checkboxbreaks" Content="Brommsar" HorizontalAlignment="Left" Margin="308,57,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxengien" Content="Motor" HorizontalAlignment="Left" Margin="308,81,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxwindsheild" Content="Vindruta" HorizontalAlignment="Left" Margin="308,105,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxbody" Content="Kaross" HorizontalAlignment="Left" Margin="308,129,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="Checkboxtyres" Content="Däck" HorizontalAlignment="Left" Margin="308,153,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="27,368,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>
-            </Grid>
-        </TabItem>
+    <Grid Background="White">
+        <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
+        <DataGrid x:Name="dgErrends" Margin="221,35,35,35">
+            <DataGrid.Resources>
 
-        <TabItem FontSize="15" Header="Ärenden">
-            <Grid Background="White">
-                <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
-                <DataGrid x:Name="dgErrends" Margin="156,30,10,10">
-                    <DataGrid.Resources>
+            </DataGrid.Resources>
+        </DataGrid>
 
-                    </DataGrid.Resources>
-                </DataGrid>
-                <CheckBox x:Name="OngoingCheckbox" Content="Pågånde" HorizontalAlignment="Left" Margin="34,95,0,0" VerticalAlignment="Top"/>
-                <CheckBox x:Name="FinnishedCheckbox" Content="Avklarad" HorizontalAlignment="Left" Margin="34,129,0,0" VerticalAlignment="Top"/>
-                <Button x:Name="BtnupdateTaskClick" Content="Uppdatera" HorizontalAlignment="Left" Margin="34,376,0,0" VerticalAlignment="Top" Width="75"/>
-            </Grid>
-        </TabItem>
+        <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="34,706,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>
+        <Label x:Name="LableNamn" Content="Namn:" HorizontalAlignment="Left" Margin="15,34,0,0" VerticalAlignment="Top" Width="97"/>
+        <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,144,0,0" VerticalAlignment="Top" Width="120"/>
 
 
-    </TabControl>
+    </Grid>
 
 
 </Page>
