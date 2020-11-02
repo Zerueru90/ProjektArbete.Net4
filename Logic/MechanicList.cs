@@ -21,7 +21,6 @@ namespace Logic
         #region Tillfällig för att logga in enkelt.
         public static Mechanic Login(string username)
         {
-
             var obj = from mec in _mechanicList
                       where mec.Name == username
                       select mec;
