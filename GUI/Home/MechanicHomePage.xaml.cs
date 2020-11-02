@@ -1,9 +1,7 @@
 ﻿using Logic;
 using Logic.Entities.Person_Entities;
-using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,53 +13,30 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
 namespace GUI.Home
 {
     /// <summary>
-    /// Interaction logic for MechanicHomePage.xaml
+    /// Interaction logic for MechanichomePage.xaml
     /// </summary>
-    public partial class MechanicHomePage : Page
+    public partial class MechanichomePage : Page
     {
-        List<Errand> ForCurrentMecanichErrandsList = new List<Errand>();
-        public Mechanic _currentMechanic { get; set; }
-        private CRUD _crud = new CRUD();
-        private Errand _errands { get; set; }
-
-        private string _breakes = "Bromsar";
-        private string _engine = "Motor";
-        private string _carbody = "Kaross";
-        private string _windshield = "Vindruta";
-        private string _tyre = "Tyre";
-
-
-        public MechanicHomePage()
+        public Mechanic mechanic { get; set; }
+        public MechanichomePage()
         {
             InitializeComponent();
 
-            var obj = from err in ErrandList.ErrandsList
-                      where err.ErrandsID == _currentMechanic.ErrandsID
-                      select err;
+            dgErrends.ItemsSource = ErrandList.ErrandsList;
 
-            Errand errands = null;
-            foreach (var item in obj)
-            {
-                errands = item;
-            }
-
-            ForCurrentMecanichErrandsList.Add(errands);
-
-            dgErrends.ItemsSource = ForCurrentMecanichErrandsList;
-
-            //LableNamn.Name = _currentMechanic.Name;
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
             {
                 comboBoxErrands.Items.Add(item.ToString());
             }
+            mechanicnamelable.Name = mechanic.Name;
         }
-        private void ClickbtnSave_Click(object sender, RoutedEventArgs e)
+
+        private void saveBtnClick(object sender, RoutedEventArgs e)
         {
-            
+
         }
     }
 }

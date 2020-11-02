@@ -1,25 +1,28 @@
-﻿<Page x:Class="GUI.Home.MechanicHomePage"
+﻿<Page x:Class="GUI.Home.MechanichomePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
-      d:DesignHeight="800" d:DesignWidth="900"
-      Title="MechanicHomePage">
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MechanichomePage">
+
 
     <Grid Background="White">
         <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgErrends" Margin="221,35,35,35">
-        </DataGrid>
+        <DataGrid x:Name="dgErrends" Margin="221,35,35,35"/>
 
-        <Label Content="Mekaniker" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="34,706,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>
-        <Label x:Name="LableNamn" Content="Namn:" HorizontalAlignment="Left" Margin="15,34,0,0" VerticalAlignment="Top" Width="97"/>
+
+
+        <Label Content="Mekaniker:" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
+        <!--<Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="34,706,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>-->
+        <Label x:Name="mechanicnamelable" Content="Namn" HorizontalAlignment="Left" Margin="80,8,0,0" VerticalAlignment="Top" Width="97"/>
         <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,144,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Click="saveBtnClick" Content="Spara" HorizontalAlignment="Left" Margin="34,395,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="26,113,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
 
 
     </Grid>
-
 
 </Page>

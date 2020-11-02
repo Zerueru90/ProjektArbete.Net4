@@ -52,8 +52,8 @@ namespace GUI.Login
             }
             else if (username != "Bosse")
             {
-                MechanicHomePage mechanichomePage = new MechanicHomePage();
-                mechanichomePage._currentMechanic = MechanicList.Login(username);
+                MechanichomePage mechanichomePage = new MechanichomePage();
+                mechanichomePage.mechanic = MechanicList.Login(username);
                 this.NavigationService.Navigate(mechanichomePage);
             
             }
