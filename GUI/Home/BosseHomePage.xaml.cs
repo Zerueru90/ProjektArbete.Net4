@@ -79,7 +79,7 @@ namespace GUI.Home
             //Dessa tre är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList._mechanicList;
             dgMainPage.ItemsSource = MechanicList._mechanicList;
-            dgErrands.ItemsSource = ErrandList.ErrandsList;
+            //dgErrands.ItemsSource = ErrandList.ErrandsList;
             dgNewErrands.ItemsSource = ErrandList.ErrandsList;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
             //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
@@ -97,8 +97,8 @@ namespace GUI.Home
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
 
-            txtModelName.Text = "Audi";
-            txtRegNr.Text = "abc123";
+            txtModelName.Text = "Mercedes";
+            txtRegNr.Text = "ewr159";
             txtOdoMeter.Text = "3000";
             txtRegDate.Text = "20-10-11";
             txtFuel.Text = "Diesel";
@@ -119,7 +119,10 @@ namespace GUI.Home
             {
                 cbBoxStatusErrand.Items.Add(item.ToString());
             }
-
+            foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
+            {
+                cbBoxChangeErrandsStatus.Items.Add(item.ToString());
+            }
 
             UpdateMechanicCheckBox();
             //Fyller comboboxen i Registrera ärenden -Fordon.
@@ -197,11 +200,16 @@ namespace GUI.Home
             MessageBox.Show("Uppdaterad");
         }
 
-        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
+        private void BtnChangeErrand_Click(object sender, RoutedEventArgs e)
         {
             if (_choosenComboBoxMechanicObject != null)
             {
+                string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
+                Errand errand = dgChangeErrands.SelectedItem as Errand;
 
+                errand.Status = newStatus;
+                errand.NotifyPropertyChanged(errand.Status);
+                MessageBox.Show("Uppdaterad");
             }
         }
 
@@ -249,6 +257,7 @@ namespace GUI.Home
 
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
+            //Mycket av detta ska gå på logic.. just nu räcker det här
             var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
             var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id);
             Guid ID = Guid.Empty;
@@ -279,13 +288,16 @@ namespace GUI.Home
             newErrand.Description = txtDescription.Text;
             newErrand.VeichleID = vehicleID;
             newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
-            newErrand.MechanicID = ID;
             newErrand.Status = cbBoxStatusErrand.SelectedItem.ToString();
-            newErrand.ModelName = modelName;
-            newErrand.RegistrationNumber = regnr;
-            newErrand.OdoMeter = odometer;
-            newErrand.Fuel = fuel;
+            //Errands ärvdes av Vehicle...
+            //newErrand.ModelName = modelName;
+            //newErrand.RegistrationNumber = regnr;
+            //newErrand.OdoMeter = odometer;
+            //newErrand.Fuel = fuel;
+            newErrand.MechanicID = ID;
             newErrand.Mechanic = name;
+
+            obj.ErrandsID = newErrand.ErrandsID;
 
             ErrandList.ErrandsList.Add(newErrand);
 
@@ -337,7 +349,7 @@ namespace GUI.Home
             {
                 _choosenComboBoxMechanicObject = cbBoxMechanicForChaningErrands.SelectedItem as Mechanic;
 
-                dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList.Where(x => x.ID == _choosenComboBoxMechanicObject.ErrandsID);
+                dgChangeErrands.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == _choosenComboBoxMechanicObject.Id);
             }
         }
         private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
@@ -436,7 +448,7 @@ namespace GUI.Home
             }
         }
 
-        private void dgErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void dgChangeErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
 
@@ -461,23 +473,19 @@ namespace GUI.Home
             {
                 e.Cancel = true;
             }
-            if (headername == "RegistrationNumber")
-            {
-                e.Cancel = true;
-            }
             if (headername == "Registrated")
             {
                 e.Cancel = true;
             }
-            if (headername == "Fuel")
+            if (headername == "MechanicID")
             {
                 e.Cancel = true;
             }
-            if (headername == "OdoMeter")
+            if (headername == "VeichleID")
             {
                 e.Cancel = true;
             }
-            if (headername == "ModelName")
+            if (headername == "ErrandsID")
             {
                 e.Cancel = true;
             }
@@ -549,7 +557,62 @@ namespace GUI.Home
             }
 
         }
-        #endregion
 
+        #endregion
+        private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgNewErrands.SelectedItem != null)
+            {
+                _crud.RemoveErrand(dgNewErrands.SelectedItem as Errand);
+            }
+        }
+
+        //funkar att uppdatera men det ändras i inte på datagriden...
+        private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgNewErrands.SelectedItem != null)
+            {
+                Errand errands = dgNewErrands.SelectedItem as Errand;
+
+                var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
+                var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id);
+                Guid ID = Guid.Empty;
+                string name = "";
+                foreach (var item in IEnumiratedID)
+                {
+                    ID = item.Id;
+                    name = item.Name;
+                }
+
+                var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
+                var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID);
+                Guid vehicleID = Guid.Empty;
+                foreach (var item in vID)
+                {
+                    vehicleID = item.ID;
+                }
+
+                errands.Description = txtDescription.Text;
+                errands.VeichleID = vehicleID;
+                errands.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
+                errands.Status = cbBoxStatusErrand.SelectedItem.ToString();
+                //Errands ärvdes av Vehicle...
+                //newErrand.ModelName = modelName;
+                //newErrand.RegistrationNumber = regnr;
+                //newErrand.OdoMeter = odometer;
+                //newErrand.Fuel = fuel;
+                errands.MechanicID = ID;
+                errands.Mechanic = name;
+
+                obj.ErrandsID = errands.ErrandsID;
+
+                errands.NotifyPropertyChanged(txtDescription.Text);
+                errands.NotifyPropertyChanged(cbBoxProblemsErrand.SelectedItem.ToString());
+                errands.NotifyPropertyChanged(cbBoxStatusErrand.SelectedItem.ToString());
+                errands.NotifyPropertyChanged(name);
+
+                MessageBox.Show("Uppdaterad");
+            }
+        }
     }
 }

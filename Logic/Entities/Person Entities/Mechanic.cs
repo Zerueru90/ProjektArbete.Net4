@@ -53,7 +53,6 @@ namespace Logic.Entities.Person_Entities
             }
             set
             {
-
                 NotifyPropertyChanged(); //viktig
             }
         }

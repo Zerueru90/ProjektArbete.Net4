@@ -1,11 +1,13 @@
 ﻿using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Errand : Vehicle
+    public class Errand : INotifyPropertyChanged
     {
         public Guid ErrandsID { get; set; } = Guid.NewGuid();
         public Guid VeichleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
@@ -14,7 +16,6 @@ namespace Logic.Entities.Vehicles_Entities
         public string Description { get; set; }
         public string Problem { get; set; }
         public string Status { get; set; }
-
 
         //public List<Errand> OngoingErrands { get; set; }
         //public List<Errand> finnishedErrands { get; set; }
@@ -66,5 +67,13 @@ namespace Logic.Entities.Vehicles_Entities
         //    }
         //}
 
+        //Denna är för att varje gång vi gör några ändringar så kallas detta.
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void NotifyPropertyChanged([CallerMemberName] string propName = "")
+        {
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Logic.Entities;
 using Logic.Entities.Person_Entities;
+using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,20 @@ namespace Logic
         {
             var obj = UserList.UserLists.FirstOrDefault(x => x.ID == UserId);
             UserList.UserLists.Remove(obj);
+        }
+
+        public void RemoveErrand(Errand errand)
+        {
+            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
+
+            //Anledningen för denna är att om en Mekaniker redan är tilldelad ett Ärende som ska raderas så måste Mechanic.ErrandsID nollställas.
+            var objMechanicClassErrandsID = MechanicList._mechanicList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
+            if (objMechanicClassErrandsID.ErrandsID != Guid.Empty)
+            {
+                objMechanicClassErrandsID.ErrandsID = Guid.Empty;
+            }
+
+            ErrandList.ErrandsList.Remove(obj);
         }
 
         //show mechanic
