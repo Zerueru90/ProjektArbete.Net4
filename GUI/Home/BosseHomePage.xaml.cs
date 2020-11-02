@@ -85,66 +85,12 @@ namespace GUI.Home
             //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
-            ErrandList.ErrandsList.Add(new Errand()
-            {
-                Description = "blablabla",
-                Problem = "Tyre",
-                Status = "Available"
-            });
 
-            Errand errands = null;
-            foreach (var item in ErrandList.ErrandsList)
-            {
-                errands = item;
-            }
-            //--------Lägga till new User
-            UserList.UserLists.Add(new User()
-            {
-                Username = "John",
-                Password = "password"
-            });
-            UserList.UserLists.Add(new User()
-            {
-                Username = "Dave",
-                Password = "password"
-            });
-            Guid JohnID = Guid.Empty;
-            Guid DaveID = Guid.Empty;
+            //DummyData.ErrandData();
+            DummyData.UserData();
+            DummyData.MecanichData();
+            DummyData.VehicleData();
 
-            foreach (var item in UserList.UserLists)
-            {
-                if (item.Username == "John")
-                {
-                    JohnID = item.ID;
-                }
-                if (item.Username == "Dave")
-                {
-                    DaveID = item.ID;
-                }
-            }
-
-            //--------Lägga till new User ---STOP
-
-            //--------Lägga till new Mechanic och lägger in new User
-            MechanicList._mechanicList.Add(new Mechanic()
-            {
-                Name = "John",
-                DateOfBirthday = DateTime.Now,
-                DateOfEmployment = DateTime.Now,
-                DateOfEnd = DateTime.Now,
-                UserID = JohnID
-            });
-            MechanicList._mechanicList.Add(new Mechanic()
-            {
-                Name = "Dave",
-                DateOfBirthday = DateTime.Now,
-                DateOfEmployment = DateTime.Now,
-                DateOfEnd = DateTime.Now,
-                Breaks = true,
-                Engine = true,
-                UserID = DaveID
-            });
-            //--------Lägga till new Mechanic ---STOP
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
@@ -161,11 +107,6 @@ namespace GUI.Home
             #endregion
 
             //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
-            foreach (var item in MechanicList._mechanicList)
-            {
-                cbBoxMechanicForChaningErrands.Items.Add(item);
-                cbBoxMechanicForNewErrands.Items.Add(item);
-            }
             foreach (var item in Enum.GetValues(typeof(Vehicle.VeichleType)))
             {
                 cbBoxVeichleType.Items.Add(item.ToString());
@@ -179,11 +120,10 @@ namespace GUI.Home
                 cbBoxStatusErrand.Items.Add(item.ToString());
             }
 
+
+            UpdateMechanicCheckBox();
             //Fyller comboboxen i Registrera ärenden -Fordon.
-            foreach (var item in VehicleList.VehicleLists)
-            {
-                cbBoxVeichlesErrand.Items.Add(item);
-            }
+            UpdateVechileCheckBoc();
         }
 
         private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
@@ -199,6 +139,7 @@ namespace GUI.Home
                 };
                 _crud.AddMechanic(_mechanic);
 
+                UpdateMechanicCheckBox();
                 MessageBox.Show("Saved");
             }
         }
@@ -309,19 +250,29 @@ namespace GUI.Home
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
             var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
-            var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id).Select(y => y.Id);
+            var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id);
             Guid ID = Guid.Empty;
+            string name = "";
             foreach (var item in IEnumiratedID)
             {
-                ID = item;
+                ID = item.Id;
+                name = item.Name;
             }
 
             var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-            var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID).Select(y => y.ID);
+            var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID);
             Guid vehicleID = Guid.Empty;
+            string modelName = "";
+            string regnr = "";
+            decimal odometer = 0;
+            string fuel = "";
             foreach (var item in vID)
             {
-                vehicleID = item;
+                vehicleID = item.ID;
+                modelName = item.ModelName;
+                regnr = item.RegistrationNumber;
+                odometer = item.OdoMeter;
+                fuel = item.Fuel;
             }
 
             Errand newErrand = new Errand();
@@ -330,8 +281,14 @@ namespace GUI.Home
             newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
             newErrand.MechanicID = ID;
             newErrand.Status = cbBoxStatusErrand.SelectedItem.ToString();
+            newErrand.ModelName = modelName;
+            newErrand.RegistrationNumber = regnr;
+            newErrand.OdoMeter = odometer;
+            newErrand.Fuel = fuel;
+            newErrand.Mechanic = name;
 
             ErrandList.ErrandsList.Add(newErrand);
+
             MessageBox.Show("Sparad");
         }
 
@@ -359,6 +316,17 @@ namespace GUI.Home
             foreach (var item in VehicleList.VehicleLists)
             {
                 cbBoxVeichlesErrand.Items.Add(item);
+            }
+        }
+
+        private void UpdateMechanicCheckBox()
+        {
+            cbBoxMechanicForChaningErrands.Items.Clear();
+            cbBoxMechanicForNewErrands.Items.Clear();
+            foreach (var item in MechanicList._mechanicList)
+            {
+                cbBoxMechanicForChaningErrands.Items.Add(item);
+                cbBoxMechanicForNewErrands.Items.Add(item);
             }
         }
 
@@ -413,37 +381,8 @@ namespace GUI.Home
 
         #endregion   
 
-    #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.   
-        private void DG1_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "SkillLista")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicProgressList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicDoneList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "UserID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
-
-
-        }
-
-        private void DG2_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.   
+        private void dgMainPage_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
 
@@ -470,7 +409,32 @@ namespace GUI.Home
             }
         }
 
+        private void dgUserAccess_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
 
+            //Cancel the column you don't want to generate
+            if (headername == "SkillLista")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "MechanicProgressList")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "MechanicDoneList")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "UserID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ErrandsID")
+            {
+                e.Cancel = true;
+            }
+        }
 
         private void dgErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
@@ -518,6 +482,74 @@ namespace GUI.Home
                 e.Cancel = true;
             }
         }
+
+        private void dgVeichleList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
+
+            //Cancel the column you don't want to generate
+            if (headername == "Id")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "UserID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ErrandsID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "DateOfBirthday")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "DateOfEmployment")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "DateOfEnd")
+            {
+                e.Cancel = true;
+            }
+        }
+
+        private void dgNewErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            string headername = e.Column.Header.ToString();
+
+            //Cancel the column you don't want to generate
+            if (headername == "ID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "MechanicID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "OdoMeter")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "RegistrationDate")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "Fuel")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ErrandsID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "VeichleID")
+            {
+                e.Cancel = true;
+            }
+
+        }
         #endregion
+
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Logic.Entities.Person_Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Logic.Entities.Vehicles_Entities
 {
-    public class Vehicle
+    public class Vehicle 
     {
         public Guid ID { get; set; } = Guid.NewGuid();
         public string ModelName { get; set; }

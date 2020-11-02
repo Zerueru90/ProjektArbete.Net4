@@ -6,7 +6,9 @@
       xmlns:local="clr-namespace:GUI.Home"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="861"
-      Title="BosseHomePage">
+      Title="BosseHomePage"
+      WindowHeight="850"
+      WindowWidth="1500">
 
     <!--WindowHeight="850"
       WindowWidth="1500"-->
@@ -15,7 +17,7 @@
         <TabControl>
             <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="dgMainPage" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="DG1_AutoGeneratingColumn">
+                    <DataGrid Name="dgMainPage" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="dgMainPage_AutoGeneratingColumn">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Style.Triggers>
@@ -64,7 +66,7 @@
                     <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
-                    <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="DG2_AutoGeneratingColumn"/>
+                    <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgUserAccess_AutoGeneratingColumn"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Skapa nya ärenden/fordon">
@@ -80,15 +82,15 @@
                     <Label Content="Du måste först skapa ett fordon för att sen kunna skapa ett ärenden" FontSize="10" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="320"/>
 
                     <Label Content="Fordons lista" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0,1,0,0"/>
-                    <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0"/>
+                    <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgVeichleList_AutoGeneratingColumn"/>
 
-                    <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1"/>
-                    <DataGrid Name="dgNewErrands" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0"/>
+                    <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
+                    <DataGrid DisplayMemberPath="Name" Name="dgNewErrands" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgNewErrands_AutoGeneratingColumn"/>
 
                     <!--Registrera fordon-->
-                    <GroupBox Grid.Column="0" Grid.Row="0" Margin="0,31,40,0">Registrera fordon</GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="0" Margin="0,31,40,0" Header="Registrera fordon"></GroupBox>
                     <Label Content="Fordons typ" FontSize="10" HorizontalAlignment="Left" Margin="194,38,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
-                    <ComboBox Name="cbBoxVeichleType" Margin="194,61,114,180" Grid.Column="0" Grid.Row="0" DropDownClosed="cbBoxVeichleType_DropDownClosed"/>
+                    <ComboBox Name="cbBoxVeichleType" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="120" Grid.Column="0" Grid.Row="0" DropDownClosed="cbBoxVeichleType_DropDownClosed" Margin="194,61,114,180"/>
 
                     <Label Content="Modell namn" FontSize="10" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
                     <TextBox Name="txtModelName" HorizontalAlignment="Left" Margin="20,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
@@ -106,37 +108,37 @@
                     <TextBox Name="txtFuel" HorizontalAlignment="Left" Margin="20,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
 
                     <Label Name="labelBilTyp" Content="Bil typ" FontSize="10" HorizontalAlignment="Left" Margin="194,81,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
-                    <ComboBox Name="cbBoxCarType" Margin="194,104,114,135" Grid.Column="0" Grid.Row="0" Visibility="Hidden"/>
+                    <ComboBox Name="cbBoxCarType" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="194,104,114,135" Grid.Column="0" Grid.Row="0" Visibility="Hidden"/>
 
-                    <CheckBox Name="checkBoxCarHook" Margin="194,139,132,102" Visibility="Hidden">Dragkrock?</CheckBox>
+                    <CheckBox HorizontalAlignment="Left" VerticalAlignment="Top" Name="checkBoxCarHook" Margin="194,139,132,102" Visibility="Hidden">Dragkrock?</CheckBox>
 
-                    <Label Name="labelMaxLoad" Content="Max last (kg)" FontSize="10" Visibility="Hidden" HorizontalAlignment="Left" Margin="194,86,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
+                    <Label  Name="labelMaxLoad" Content="Max last (kg)" FontSize="10" Visibility="Hidden" HorizontalAlignment="Left" Margin="194,86,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
                     <TextBox Name="txtMaxLoadWeight" Visibility="Collapsed" HorizontalAlignment="Left" Margin="194,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
 
                     <Label Name="labelPassanger" Visibility="Hidden" Content="Max antal passagerare" FontSize="10" HorizontalAlignment="Left" Margin="194,90,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
                     <TextBox Name="txtMaxPassanger" Visibility="Hidden" HorizontalAlignment="Left" Margin="194,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
 
-                    <Button Margin="214,221,56,11" Grid.Column="0" Grid.Row="0" Click="BtnSaveVeichle_Click">Spara</Button>
+                    <Button Margin="214,221,56,11" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="0" Click="BtnSaveVeichle_Click">Spara</Button>
 
 
                     <!--Registrera ärenden-->
-                    <GroupBox Grid.Column="0" Grid.Row="1" Margin="0,1,40,0">Registrera ärenden</GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="1" Margin="0,1,40,0" Header="Registrera ärenden"></GroupBox>
                     <Label Content="Beskrivning" FontSize="10" HorizontalAlignment="Left" Margin="20,25,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="1"/>
-                    <TextBox Name="txtDescription" HorizontalAlignment="Left" Margin="20,48,0,0" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Name="txtDescription" HorizontalAlignment="Left" Margin="20,48,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="1"/>
 
                     <Label Content="Fordon" FontSize="10" HorizontalAlignment="Left" Margin="20,71,0,0" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="1"/>
-                    <ComboBox Name="cbBoxVeichlesErrand" DisplayMemberPath="RegistrationNumber" Margin="20,94,288,149" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxVeichlesErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" DisplayMemberPath="RegistrationNumber" Margin="20,94,288,149" Grid.Column="0" Grid.Row="1"/>
 
                     <Label Content="Problem" FontSize="10" HorizontalAlignment="Left" Margin="20,112,0,0" VerticalAlignment="Top" Width="73" Grid.Column="0" Grid.Row="1"/>
-                    <ComboBox Name="cbBoxProblemsErrand" Margin="20,131,288,112" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxProblemsErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" Margin="20,131,288,112" Grid.Column="0" Grid.Row="1"/>
 
                     <Label Content="Mekaniker" FontSize="10" HorizontalAlignment="Left" Margin="20,153,0,0" VerticalAlignment="Top" Width="99" Grid.Column="0" Grid.Row="1"/>
-                    <ComboBox Name="cbBoxMechanicForNewErrands" DisplayMemberPath="Name" Margin="20,176,288,67" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxMechanicForNewErrands" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" DisplayMemberPath="Name" Margin="20,176,288,67" Grid.Column="0" Grid.Row="1"/>
 
                     <Label Content="Status" FontSize="10" HorizontalAlignment="Left" Margin="20,194,0,0" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="1"/>
-                    <ComboBox Name="cbBoxStatusErrand" Margin="20,217,288,26" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxStatusErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" Margin="20,217,288,26" Grid.Column="0" Grid.Row="1"/>
 
-                    <Button Margin="214,206,56,26" Grid.Column="0" Grid.Row="1" Click="BtnSaveErrand_Click">Spara</Button>
+                    <Button Margin="214,206,56,26" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnSaveErrand_Click">Spara</Button>
 
                 </Grid>
             </TabItem>

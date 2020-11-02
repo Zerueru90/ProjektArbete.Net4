@@ -57,10 +57,6 @@ namespace Logic.Entities.Person_Entities
                 NotifyPropertyChanged(); //viktig
             }
         }
-        public void Testar(bool value)
-        {
-            MechanicUser = value;
-        }
         #endregion
 
         public List<string> SkillLista { get; set; }
