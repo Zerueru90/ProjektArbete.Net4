@@ -49,14 +49,32 @@ namespace Logic
         {
             var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
 
+
             //Anledningen för denna är att om en Mekaniker redan är tilldelad ett Ärende som ska raderas så måste Mechanic.ErrandsID nollställas.
-            var objMechanicClassErrandsID = MechanicList.MechanicLists.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
-            if (objMechanicClassErrandsID.ErrandsID != Guid.Empty)
+            Guid Key = Guid.Empty;
+            Mechanic mec = null;
+            int count = 0;
+            foreach (var item in MechanicList.MechanicLists)
             {
-                objMechanicClassErrandsID.ErrandsID = Guid.Empty;
+                foreach (var item2 in item.ErrandsID)
+                {
+                    count++;
+                    if (item2 == obj.ErrandsID)
+                    {
+                        mec = item;
+                    }
+                }
+                count = 0;
             }
 
+            mec.ErrandsID[mec.ErrandsID.FindIndex(x => x.Equals(count))] = Key;
+
             ErrandList.ErrandsList.Remove(obj);
+        }
+
+        public void RemoveFromMechanicProgressList(Mechanic mechanic, string ErrandID)
+        {
+            mechanic.MechanicProgressList.Remove(ErrandID);
         }
 
         //show mechanic

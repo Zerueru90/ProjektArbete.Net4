@@ -30,7 +30,6 @@ namespace Logic
         }
         public enum VehicelStatus
         {
-            Ledig,
             Pågående,
             Klar,
         }

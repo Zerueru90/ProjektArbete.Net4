@@ -14,12 +14,15 @@ namespace Logic.Entities.Person_Entities
             Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet.
             MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
+            MechanicDoneList = new List<string>();
+            ErrandsID = new List<Guid>();
         }
         public Guid Id { get; set; }
 
         public Guid UserID { get; set; } //Detta är för när mekaniker får en User log in.
 
-        public Guid ErrandsID { get; set; } 
+        //Ska kunna hålla 2 IDn
+        public List<Guid> ErrandsID { get; set; } 
 
         public string Name { get; set; }
 

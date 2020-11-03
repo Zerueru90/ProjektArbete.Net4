@@ -53,8 +53,8 @@ namespace GUI.Home
 
             //DummyData.ErrandData();
             //DummyData.UserData();
-            //DummyData.MecanichData();
-            //DummyData.VehicleData();
+            DummyData.MecanichData();
+            DummyData.VehicleData();
 
 
             txtName.Text = "Lasse";
@@ -79,10 +79,6 @@ namespace GUI.Home
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelProblems)))
             {
                 cbBoxProblemsErrand.Items.Add(item.ToString());
-            }
-            foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
-            {
-                cbBoxStatusErrand.Items.Add(item.ToString());
             }
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
             {
@@ -165,15 +161,22 @@ namespace GUI.Home
             MessageBox.Show("Uppdaterad");
         }
 
-        private void BtnChangeErrand_Click(object sender, RoutedEventArgs e)
+        private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
         {
             if (_choosenComboBoxMechanicObject != null)
             {
                 string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
-                Errand errand = dgChangeErrands.SelectedItem as Errand;
+                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                var objErrand = dgChangeErrands.SelectedItem as Errand;
 
-                errand.ChangeStatus = newStatus;
-                MessageBox.Show("Uppdaterad");
+                if (newStatus == "Klar")
+                {
+                    //Funkar inte, eftersom MechanicDoneList är null
+                    Task.AddDoneList(objMechanic, objErrand.ErrandsID.ToString());
+
+                    objErrand.ChangeStatus = newStatus;
+                    MessageBox.Show("Uppdaterad");
+                }
             }
         }
 
@@ -219,49 +222,70 @@ namespace GUI.Home
             MessageBox.Show("Sparad");
         }
 
+        //Kan förmodligen flyttas till Logik... som en massa andra i denna blad.
+        private void FillingSkillList(Mechanic mec)
+        {
+            if (mec.Breaks == true)
+            {
+                mec.SkillLista.Add("Bromsar");
+            }
+            if (mec.Engine == true)
+            {
+                mec.SkillLista.Add("Motor");
+            }
+            if (mec.Carbody == true)
+            {
+                mec.SkillLista.Add("Kaross");
+            }
+            if (mec.Windshield == true)
+            {
+                mec.SkillLista.Add("Vindruta");
+            }
+            if (mec.Tyre == true)
+            {
+                mec.SkillLista.Add("Däck");
+            }
+        }
+
+        private void BtnGiveMechanicErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgChangeErrands != null)
+            {
+                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                var objErrands = dgChangeErrands.SelectedItem as Errand;
+
+                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
+                {
+                    objErrands.MechanicID = objMechanic.Id;
+                    objErrands.ChangeMechanic = objMechanic.Name;
+                    objErrands.ChangeStatus = "Pågående"; //När Bosse tilldelar ett ärende så ska den automatisk gå på Pågående.
+
+                    objMechanic.ErrandsID.Add(objErrands.ErrandsID);
+
+                    //Funkar
+                    Task.AddProgressList(objMechanic, objErrands.ErrandsID.ToString());
+
+                    MessageBox.Show($"{objMechanic.Name} har blivit tilldelat ett ärende");
+                }
+                else
+                    MessageBox.Show($"{objMechanic.Name} har redan två ärenden pågående");
+            }
+        }
+
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
-            //Mycket av detta ska gå på logic.. just nu räcker det här
-            var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
-            var IEnumiratedID = MechanicList.MechanicLists.Where(x => x.Id == obj.Id);
-            Guid ID = Guid.Empty;
-            string name = "";
-            foreach (var item in IEnumiratedID)
-            {
-                ID = item.Id;
-                name = item.Name;
-            }
-
             var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-            var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID);
-            Guid vehicleID = Guid.Empty;
-            string modelName = "";
-            string regnr = "";
-            decimal odometer = 0;
-            string fuel = "";
-            foreach (var item in vID)
-            {
-                vehicleID = item.ID;
-                modelName = item.ModelName;
-                regnr = item.RegistrationNumber;
-                odometer = item.OdoMeter;
-                fuel = item.Fuel;
-            }
 
             Errand newErrand = new Errand();
             newErrand.Description = txtDescription.Text;
-            newErrand.VeichleID = vehicleID;
             newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
-            newErrand.ChangeStatus = cbBoxStatusErrand.SelectedItem.ToString();
-            newErrand.MechanicID = ID;
-            newErrand.Mechanic = name;
-
-            obj.ErrandsID = newErrand.ErrandsID;
+            newErrand.VeichleID = objVehicle.ID;
 
             ErrandList.ErrandsList.Add(newErrand);
 
             MessageBox.Show("Sparad");
         }
+
         private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
         {
             if (dgNewErrands.SelectedItem != null)
@@ -276,33 +300,14 @@ namespace GUI.Home
             if (dgNewErrands.SelectedItem != null)
             {
                 Errand errands = dgNewErrands.SelectedItem as Errand;
-
-                var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
-                var IEnumiratedID = MechanicList.MechanicLists.Where(x => x.Id == obj.Id);
-                Guid ID = Guid.Empty;
-                string name = "";
-                foreach (var item in IEnumiratedID)
-                {
-                    ID = item.Id;
-                    name = item.Name;
-                }
-
                 var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-                var vID = VehicleList.VehicleLists.Where(x => x.ID == objVehicle.ID);
-                Guid vehicleID = Guid.Empty;
-                foreach (var item in vID)
-                {
-                    vehicleID = item.ID;
-                }
 
                 errands.ChangeDescription = txtDescription.Text;
-                errands.ChangeVeichleID = vehicleID;
+                errands.ChangeVeichleID = objVehicle.ID;
                 errands.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
-                errands.ChangeStatus = cbBoxStatusErrand.SelectedItem.ToString();
-                errands.ChangeMechanicID = ID;
-                errands.ChangeMechanic = name;
 
-                obj.ErrandsID = errands.ErrandsID;
+                //obj.ErrandsID[obj.ErrandsID.FindIndex(x => x.Equals(cbBoxVeichlesErrand.SelectedIndex))] = errands.ErrandsID;
+
 
                 MessageBox.Show("Uppdaterad");
             }
@@ -327,23 +332,35 @@ namespace GUI.Home
         }
         private void UpdateMechanicCheckBox()
         {
-            cbBoxMechanicForChaningErrands.Items.Clear();
-            cbBoxMechanicForNewErrands.Items.Clear();
+            cbBoxAppointMechanicAnErrand.Items.Clear();
             foreach (var item in MechanicList.MechanicLists)
             {
-                cbBoxMechanicForChaningErrands.Items.Add(item);
-                cbBoxMechanicForNewErrands.Items.Add(item);
+                cbBoxAppointMechanicAnErrand.Items.Add(item);
             }
         }
         #endregion
-        #region Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
-        void OnDropDownClosed(object sender, EventArgs e)
-        {
-            if (cbBoxMechanicForChaningErrands.IsDropDownOpen == false)
-            {
-                _choosenComboBoxMechanicObject = cbBoxMechanicForChaningErrands.SelectedItem as Mechanic;
 
-                dgChangeErrands.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == _choosenComboBoxMechanicObject.Id);
+        #region Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
+        void cbBoxAppointMechanicAnErrand_OnDropDownClosed(object sender, EventArgs e)
+        {
+            cbBoxChangeErrandsStatus.Visibility = Visibility.Hidden;
+            btnChangeStatusErrand.Visibility = Visibility.Hidden;
+
+            if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
+            {
+                _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                FillingSkillList(_choosenComboBoxMechanicObject);
+
+                //Kollar igenom SkillListan och varje Ärende som har det problemet mekanikern har kompetensen så öppnas den.
+                foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
+                {
+                    dgChangeErrands.ItemsSource = ErrandList.ErrandsList.Where(x => x.Problem == item);
+                }
+                if (_choosenComboBoxMechanicObject.ErrandsID.Count != 0)
+                {
+                    cbBoxChangeErrandsStatus.Visibility = Visibility.Visible;
+                    btnChangeStatusErrand.Visibility = Visibility.Visible;
+                }
             }
         }
         private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
@@ -602,6 +619,7 @@ namespace GUI.Home
         }
 
         #endregion
-  
+
+        
     }
 }

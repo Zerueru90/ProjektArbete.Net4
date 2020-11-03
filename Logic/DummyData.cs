@@ -64,17 +64,13 @@ namespace Logic
                 DateOfBirthday = DateTime.Now,
                 DateOfEmployment = DateTime.Now,
                 DateOfEnd = DateTime.Now,
-                UserID = JohnID
             });
             MechanicList.MechanicLists.Add(new Mechanic()
             {
                 Name = "Dave",
                 DateOfBirthday = DateTime.Now,
                 DateOfEmployment = DateTime.Now,
-                DateOfEnd = DateTime.Now,
-                Breaks = true,
-                Engine = true,
-                UserID = DaveID
+                DateOfEnd = DateTime.Now
             });
         }
 
@@ -92,6 +88,22 @@ namespace Logic
             {
                 ModelName = "Volvo",
                 RegistrationNumber = "dfg321",
+                OdoMeter = 4500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Bensin"
+            });
+            VehicleList.VehicleLists.Add(new Vehicle()
+            {
+                ModelName = "Audi",
+                RegistrationNumber = "grt123",
+                OdoMeter = 2500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Diesel"
+            });
+            VehicleList.VehicleLists.Add(new Vehicle()
+            {
+                ModelName = "Ferrari",
+                RegistrationNumber = "aaa001",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"

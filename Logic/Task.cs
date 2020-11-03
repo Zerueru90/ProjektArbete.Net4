@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Logic.Entities.Person_Entities;
+using Logic.Entities.Vehicles_Entities;
 
 namespace Logic
 {
@@ -22,7 +23,7 @@ namespace Logic
    {
       
         public static List<string> ToDoList { get; set; }
-         public static List<Progress> ProgressList { get; set; }
+        public static List<Progress> ProgressList { get; set; }
         public static List<Done> DoneList { get; set; }
 
 
@@ -43,7 +44,7 @@ namespace Logic
         /// Progress create
         /// n - 
         /// </summary>
-        public static void AddProgressList(int ToDoN, Mechanic mechanic)
+        public static void AddProgressList(/*int ToDoN,*/ Mechanic mechanic, string ErrandID)
         {
             if(mechanic.MechanicProgressList.Count == 2)
             {
@@ -51,10 +52,12 @@ namespace Logic
             }
             else
             {
-                mechanic.MechanicProgressList.Add(ToDoList[ToDoN]);
-                Progress progress = new Progress { Id = mechanic.Id, _toDo = ToDoList[ToDoN] };
+                //Står att man ska kunna se den valda mekanikerns pågående och avslutade ärenden, så för att kunna koppla Errands så behöver vi ErrandsID så att vi sen kan hämta Ärendet för att visa på WPF.
+                mechanic.MechanicProgressList.Add(ErrandID);
 
-                ProgressList.Add(progress);
+                //mechanic.MechanicProgressList.Add(ToDoList[ToDoN]);
+                //Progress progress = new Progress { Id = mechanic.Id, _toDo = ToDoList[ToDoN] };
+                //ProgressList.Add(progress);
             }
            
         }
@@ -63,14 +66,19 @@ namespace Logic
         //     m2  
          //    m1
 
-        public static void AddDoneList(int ProgressN)
+        public static void AddDoneList(/*int ProgressN*/ Mechanic mechanic, string ErrandID)
         {
-            Progress progress = ProgressList[ProgressN];
-           
-            Done done = new Done { Id = progress.Id, _toDo = progress._toDo };
-            
 
-            ProgressList.RemoveAt(ProgressN);
+            mechanic.MechanicDoneList.Add(ErrandID);
+            CRUD cRUD = new CRUD();// Kanske borde göra till static?
+            cRUD.RemoveFromMechanicProgressList(mechanic, ErrandID);
+
+            //Jag vet inte om Progress och Done klassen är nödvändigt, jag förstår poängen men eftersom att vi redan kan spara ErrandID så blir det mycket om vi även ska spara Progress/Done ID och hämta och jämföra där också.
+            //Progress progress = ProgressList[ProgressN];
+           
+            //Done done = new Done { Id = progress.Id, _toDo = progress._toDo };
+
+            //ProgressList.RemoveAt(ProgressN);
            
         }
 
