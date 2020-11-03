@@ -74,6 +74,18 @@ namespace GUI.Home
             {
                 e.Cancel = true;
             }
+            if (headername == "ErrandsID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "VeichleID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "MechanicID")
+            {
+                e.Cancel = true;
+            }
         }
     }
 }
