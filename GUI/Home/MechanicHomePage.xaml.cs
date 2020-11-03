@@ -32,6 +32,7 @@ namespace GUI.Home
             labelName.Content = currentMech.Name.ToString();
             dgErrends.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == currentMech.Id);
 
+            CheckingBoxes();
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
             {
                 comboBoxErrands.Items.Add(item.ToString());
@@ -40,9 +41,66 @@ namespace GUI.Home
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
             Errand errand = dgErrends.SelectedItem as Errand;
+            if (dgErrends.SelectedItem != null)
+            {
+                errand.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
+            }
 
-            errand.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
+            UpdatingBoxes();
+            _currentMechanic.NotifyPropertyChanged("Breaks");
+            _currentMechanic.NotifyPropertyChanged("Engine");
+            _currentMechanic.NotifyPropertyChanged("Carbody");
+            _currentMechanic.NotifyPropertyChanged("Windshield");
+            _currentMechanic.NotifyPropertyChanged("Tyre");
+        }
 
+        //Finns säkert ett bättre sätt men det funkar!
+        private void UpdatingBoxes()
+        {
+            if (checkBoxBreaks.IsChecked == true)
+            {
+                _currentMechanic.Breaks = true;
+            }
+            if (checkBoxEngine.IsChecked == true)
+            {
+                _currentMechanic.Engine = true;
+            }
+            if (checkBoxCarbody.IsChecked == true)
+            {
+                _currentMechanic.Carbody = true;
+            }
+            if (checkBoxWindshield.IsChecked == true)
+            {
+                _currentMechanic.Windshield = true;
+            }
+            if (checkBoxTyre.IsChecked == true)
+            {
+                _currentMechanic.Tyre = true;
+            }
+        }
+
+        private void CheckingBoxes()
+        {
+            if (_currentMechanic.Breaks == true)
+            {
+                checkBoxBreaks.IsChecked = true;
+            }
+            if (_currentMechanic.Engine == true)
+            {
+                checkBoxEngine.IsChecked = true;
+            }
+            if (_currentMechanic.Carbody == true)
+            {
+                checkBoxCarbody.IsChecked = true;
+            }
+            if (_currentMechanic.Windshield == true)
+            {
+                checkBoxWindshield.IsChecked = true;
+            }
+            if (_currentMechanic.Tyre == true)
+            {
+                checkBoxTyre.IsChecked = true;
+            }
         }
 
         private void dgErrends_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

@@ -12,7 +12,7 @@ namespace Logic.Entities.Vehicles_Entities
         public Guid ErrandsID { get; set; } = Guid.NewGuid();
         public Guid VeichleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
         public Guid MechanicID { get; set; }
-        public string Mechanic { get; set; }
+        public string Mechanic { get; set; } //Denna finns så att man kan se vilken mekaniker det är som har jobbet, dock kaaanske det finns ett sätt att skapa en column och sätta värdet som Mekaniker och sen hämta namnet från MechanicList och jämnföra med MechanicID. Dock så räcker denna för tillfället, mycket mer kod annars.
         public string Description { get; set; }
         public string Problem { get; set; }
         public string Status { get; set; }

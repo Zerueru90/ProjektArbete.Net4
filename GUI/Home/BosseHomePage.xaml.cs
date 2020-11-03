@@ -41,41 +41,6 @@ namespace GUI.Home
         {
             InitializeComponent();
 
-            //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
-            foreach (var item in MechanicList.MechanicLists)
-            {
-                MechanicList.MechanicLists.Add(new Mechanic() 
-                { 
-                    Id = item.Id, Name = item.Name,
-                    DateOfBirthday = item.DateOfBirthday, 
-                    DateOfEmployment = item.DateOfEmployment, 
-                    DateOfEnd = item.DateOfEnd, 
-                    MechanicUser = item.MechanicUser
-                });
-            }
-            foreach (var item in ErrandList.ErrandsList)
-            {
-                ErrandList.ErrandsList.Add(new Errand()
-                {
-                    ErrandsID = item.ErrandsID,
-                    Description = item.Description,
-                    Problem = item.Problem,
-                    Status = item.Status
-                });
-            }
-            foreach (var item in VehicleList.VehicleLists)
-            {
-                VehicleList.VehicleLists.Add(new Vehicle()
-                {
-                    ID = item.ID,
-                    ModelName = item.ModelName,
-                    RegistrationNumber = item.RegistrationNumber,
-                    OdoMeter = item.OdoMeter,
-                    RegistrationDate = item.RegistrationDate,
-                    Fuel = item.Fuel
-                });
-            }
-
             //Dessa tre är för att fylla vår datagrid/lista av mekaniker från listan.
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMainPage.ItemsSource = MechanicList.MechanicLists;
@@ -87,9 +52,9 @@ namespace GUI.Home
             #region DummyData
 
             //DummyData.ErrandData();
-            DummyData.UserData();
-            DummyData.MecanichData();
-            DummyData.VehicleData();
+            //DummyData.UserData();
+            //DummyData.MecanichData();
+            //DummyData.VehicleData();
 
 
             txtName.Text = "Lasse";

@@ -10,14 +10,20 @@
 
 
     <Grid>
-        <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="220,3,0,0" VerticalAlignment="Top"/>
-        <DataGrid Name="dgErrends" Margin="221,35,35,35" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrends_AutoGeneratingColumn"/>
+        <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Center" Margin="0,5,0,0" VerticalAlignment="Top"/>
+        <DataGrid Name="dgErrends" Margin="367,35,35,35" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrends_AutoGeneratingColumn"/>
 
         <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,92,0,0" VerticalAlignment="Top" Width="120"/>
         <Button Click="BtnUpdateStatus_Click" Content="Uppdatera" HorizontalAlignment="Left" Margin="42,193,0,0" VerticalAlignment="Top" Width="104"/>
         <Label Content="Status" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
         <Label FontSize="17" Content="Vällkommen:" HorizontalAlignment="Left" Margin="0,-2,0,0" VerticalAlignment="Top" Width="106" Height="32"/>
         <Label FontSize="17" x:Name="labelName" Content="Namn" HorizontalAlignment="Left" Margin="106,-2,0,0" VerticalAlignment="Top" Width="85" Height="32"/>
+        <Label FontSize="15" Content="Kompetenser" HorizontalAlignment="Left" Margin="190,71,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxBreaks" Content="Bromsar" HorizontalAlignment="Left" Margin="203,106,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxEngine" Content="Motor" HorizontalAlignment="Left" Margin="203,126,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxCarbody" Content="Kaross" HorizontalAlignment="Left" Margin="203,146,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxWindshield" Content="Ruta" HorizontalAlignment="Left" Margin="203,166,0,0" VerticalAlignment="Top"/>
+        <CheckBox Name="checkBoxTyre" Content="Däck" HorizontalAlignment="Left" Margin="203,186,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

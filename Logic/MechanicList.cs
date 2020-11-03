@@ -25,6 +25,7 @@ namespace Logic
             }
             set
             {
+                //Denna behövs inte kallas men OM vi vill sätta värdet lista till null så kan man göra det med MechanicList.MechanicLists = null. Inte exakt därför men denna är nåbar om man gör något på det viset.
                 _mechanicList = value;
             }
         }
