@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 namespace Logic.Entities.Person_Entities
 {
     //Testar stuff..
-    public class Mechanic : INotifyPropertyChanged
+    public class Mechanic : ObservableObject
     {
         public Mechanic()
         {
@@ -64,13 +64,5 @@ namespace Logic.Entities.Person_Entities
 
         public List<string> MechanicDoneList { get; set; }
 
-        //Denna är för att varje gång vi gör några ändringar så kallas detta.
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged([CallerMemberName] string propName = "")
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
     }
 }

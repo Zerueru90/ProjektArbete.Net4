@@ -10,12 +10,14 @@
 
 
     <Grid>
-        <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
+        <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="220,3,0,0" VerticalAlignment="Top"/>
         <DataGrid Name="dgErrends" Margin="221,35,35,35" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrends_AutoGeneratingColumn"/>
 
-        <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Click="saveBtnClick" Content="Spara" HorizontalAlignment="Left" Margin="34,135,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="26,35,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
+        <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,92,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Click="BtnUpdateStatus_Click" Content="Uppdatera" HorizontalAlignment="Left" Margin="42,193,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
+        <Label FontSize="17" Content="Vällkommen:" HorizontalAlignment="Left" Margin="0,-2,0,0" VerticalAlignment="Top" Width="106" Height="32"/>
+        <Label FontSize="17" x:Name="labelName" Content="Namn" HorizontalAlignment="Left" Margin="106,-2,0,0" VerticalAlignment="Top" Width="85" Height="32"/>
 
 
     </Grid>
