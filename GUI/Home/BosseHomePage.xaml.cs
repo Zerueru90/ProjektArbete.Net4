@@ -42,9 +42,9 @@ namespace GUI.Home
             InitializeComponent();
 
             //Hämtar från Listan och lägger upp allt i DataGrid, längre fram så kommer det innehålla mekaniker i listan från Json filen.
-            foreach (var item in MechanicList._mechanicList)
+            foreach (var item in MechanicList.MechanicLists)
             {
-                MechanicList._mechanicList.Add(new Mechanic() 
+                MechanicList.MechanicLists.Add(new Mechanic() 
                 { 
                     Id = item.Id, Name = item.Name,
                     DateOfBirthday = item.DateOfBirthday, 
@@ -77,8 +77,8 @@ namespace GUI.Home
             }
 
             //Dessa tre är för att fylla vår datagrid/lista av mekaniker från listan.
-            dgUserAccess.ItemsSource = MechanicList._mechanicList;
-            dgMainPage.ItemsSource = MechanicList._mechanicList;
+            dgUserAccess.ItemsSource = MechanicList.MechanicLists;
+            dgMainPage.ItemsSource = MechanicList.MechanicLists;
             //dgErrands.ItemsSource = ErrandList.ErrandsList;
             dgNewErrands.ItemsSource = ErrandList.ErrandsList;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
@@ -259,7 +259,7 @@ namespace GUI.Home
         {
             //Mycket av detta ska gå på logic.. just nu räcker det här
             var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
-            var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id);
+            var IEnumiratedID = MechanicList.MechanicLists.Where(x => x.Id == obj.Id);
             Guid ID = Guid.Empty;
             string name = "";
             foreach (var item in IEnumiratedID)
@@ -316,7 +316,7 @@ namespace GUI.Home
         {
             cbBoxMechanicForChaningErrands.Items.Clear();
             cbBoxMechanicForNewErrands.Items.Clear();
-            foreach (var item in MechanicList._mechanicList)
+            foreach (var item in MechanicList.MechanicLists)
             {
                 cbBoxMechanicForChaningErrands.Items.Add(item);
                 cbBoxMechanicForNewErrands.Items.Add(item);
@@ -335,7 +335,7 @@ namespace GUI.Home
         {
             cbBoxMechanicForChaningErrands.Items.Clear();
             cbBoxMechanicForNewErrands.Items.Clear();
-            foreach (var item in MechanicList._mechanicList)
+            foreach (var item in MechanicList.MechanicLists)
             {
                 cbBoxMechanicForChaningErrands.Items.Add(item);
                 cbBoxMechanicForNewErrands.Items.Add(item);
@@ -575,7 +575,7 @@ namespace GUI.Home
                 Errand errands = dgNewErrands.SelectedItem as Errand;
 
                 var obj = cbBoxMechanicForNewErrands.SelectedItem as Mechanic;
-                var IEnumiratedID = MechanicList._mechanicList.Where(x => x.Id == obj.Id);
+                var IEnumiratedID = MechanicList.MechanicLists.Where(x => x.Id == obj.Id);
                 Guid ID = Guid.Empty;
                 string name = "";
                 foreach (var item in IEnumiratedID)

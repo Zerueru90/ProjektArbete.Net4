@@ -1,5 +1,6 @@
 ﻿using GUI.Home;
 using Logic;
+using Logic.Entities.Person_Entities;
 using Logic.Services;
 using System;
 using System.Collections.Generic;
@@ -52,8 +53,8 @@ namespace GUI.Login
             }
             else if (username != "Bosse")
             {
-                MechanichomePage mechanichomePage = new MechanichomePage();
-                mechanichomePage.mechanic = MechanicList.Login(username);
+                Mechanic user = MechanicList.Login(username);
+                MechanichomePage mechanichomePage = new MechanichomePage(user);
                 this.NavigationService.Navigate(mechanichomePage);
             
             }

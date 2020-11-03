@@ -11,17 +11,28 @@ namespace Logic
 {
     public static class MechanicList
     {
-        static MechanicList()
+        private static ObservableCollection<Mechanic> _mechanicList;
+
+        public static ObservableCollection<Mechanic> MechanicLists
         {
-            _mechanicList = new ObservableCollection<Mechanic>();
+            get
+            {
+                if (_mechanicList == null)
+                {
+                    return _mechanicList = new ObservableCollection<Mechanic>();
+                }
+                return _mechanicList;
+            }
+            set
+            {
+                _mechanicList = value;
+            }
         }
-        
-        public static ObservableCollection<Mechanic> _mechanicList { get ; set; }
 
         #region Tillfällig för att logga in enkelt.
         public static Mechanic Login(string username)
         {
-            var obj = from mec in _mechanicList
+            var obj = from mec in MechanicLists
                       where mec.Name == username
                       select mec;
 

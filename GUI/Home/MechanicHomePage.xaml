@@ -9,18 +9,13 @@
       Title="MechanichomePage">
 
 
-    <Grid Background="White">
+    <Grid>
         <Label FontSize="15" Content="Ärenden" HorizontalAlignment="Left" Margin="252,0,0,0" VerticalAlignment="Top"/>
-        <DataGrid x:Name="dgErrends" Margin="221,35,35,35"/>
+        <DataGrid Name="dgErrends" Margin="221,35,35,35" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrends_AutoGeneratingColumn"/>
 
-
-
-        <Label Content="Mekaniker:" HorizontalAlignment="Left" Margin="15,8,0,0" VerticalAlignment="Top"/>
-        <!--<Button x:Name="ClickbtnSave" Content="Spara" HorizontalAlignment="Left" Margin="34,706,0,0" VerticalAlignment="Top" Width="108" Click="ClickbtnSave_Click"/>-->
-        <Label x:Name="mechanicnamelable" Content="Namn" HorizontalAlignment="Left" Margin="80,8,0,0" VerticalAlignment="Top" Width="97"/>
-        <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,144,0,0" VerticalAlignment="Top" Width="120"/>
-        <Button Click="saveBtnClick" Content="Spara" HorizontalAlignment="Left" Margin="34,395,0,0" VerticalAlignment="Top" Width="104"/>
-        <Label Content="Status" HorizontalAlignment="Left" Margin="26,113,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
+        <ComboBox x:Name="comboBoxErrands" HorizontalAlignment="Left" Margin="26,66,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button Click="saveBtnClick" Content="Spara" HorizontalAlignment="Left" Margin="34,135,0,0" VerticalAlignment="Top" Width="104"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="26,35,0,0" VerticalAlignment="Top" Width="54" Height="26"/>
 
 
     </Grid>

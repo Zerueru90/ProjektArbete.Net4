@@ -14,24 +14,24 @@ namespace Logic
     {
         public void AddMechanic(Mechanic NewMechanic)
         {
-            MechanicList._mechanicList.Add(NewMechanic);
+            MechanicList.MechanicLists.Add(NewMechanic);
         }
 
         public void RemoveMechanic(Mechanic mechanic)
         {
-            MechanicList._mechanicList.Remove(mechanic);
+            MechanicList.MechanicLists.Remove(mechanic);
         }
 
         public void AddMekchanicSkill(Guid _id, string skill)
         {
-            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == _id);
+            Mechanic mekanik = MechanicList.MechanicLists.FirstOrDefault(item => item.Id == _id);
 
             mekanik.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
         }
 
         public void RemoveMechanicSkill(Guid _id, string skill)
         {
-            Mechanic mekanik = MechanicList._mechanicList.FirstOrDefault(item => item.Id == _id);
+            Mechanic mekanik = MechanicList.MechanicLists.FirstOrDefault(item => item.Id == _id);
             mekanik.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
         }
 
@@ -50,7 +50,7 @@ namespace Logic
             var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
 
             //Anledningen för denna är att om en Mekaniker redan är tilldelad ett Ärende som ska raderas så måste Mechanic.ErrandsID nollställas.
-            var objMechanicClassErrandsID = MechanicList._mechanicList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
+            var objMechanicClassErrandsID = MechanicList.MechanicLists.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
             if (objMechanicClassErrandsID.ErrandsID != Guid.Empty)
             {
                 objMechanicClassErrandsID.ErrandsID = Guid.Empty;
@@ -100,7 +100,7 @@ namespace Logic
         public void ShowAllMechanic()
         {
             int x = 0;
-            foreach (var item in MechanicList._mechanicList)
+            foreach (var item in MechanicList.MechanicLists)
             {
                 Console.WriteLine($"{x++} - {item.Name}"); //id start 0 for mechanic , if id int
             }
@@ -109,7 +109,7 @@ namespace Logic
 
         public void ShowCurrentMechanic(int Id)
         {
-            Mechanic mechanic = MechanicList._mechanicList[Id];
+            Mechanic mechanic = MechanicList.MechanicLists[Id];
             var listDone = mechanic.MechanicDoneList;
 
             Console.WriteLine($"Name - {mechanic.Name}");
@@ -171,7 +171,7 @@ namespace Logic
         public void ShowCurrentProccesTask(int n) 
         {
             Progress progress = Task.ProgressList[n - 1];
-            Mechanic mechanic = MechanicList._mechanicList.FirstOrDefault(item => item.Id == progress.Id);
+            Mechanic mechanic = MechanicList.MechanicLists.FirstOrDefault(item => item.Id == progress.Id);
 
             Console.WriteLine("Mechanic name: " + mechanic.Name);
             Console.WriteLine("Current task" + progress._toDo);
@@ -183,7 +183,7 @@ namespace Logic
         public void ShowCurrentDoneTask(int n)
         {
             Done done = Task.DoneList[n - 1];
-            Mechanic mechanic = MechanicList._mechanicList.FirstOrDefault(item => item.Id == done.Id);
+            Mechanic mechanic = MechanicList.MechanicLists.FirstOrDefault(item => item.Id == done.Id);
 
             Console.WriteLine("Mechanic name: " + mechanic.Name);
             Console.WriteLine("Current task" + done._toDo);

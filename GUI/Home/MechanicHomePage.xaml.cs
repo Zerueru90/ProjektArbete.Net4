@@ -2,6 +2,7 @@
 using Logic.Entities.Person_Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,21 +21,28 @@ namespace GUI.Home
     /// </summary>
     public partial class MechanichomePage : Page
     {
-        public Mechanic mechanic { get; set; }
-        public MechanichomePage()
+
+        public Mechanic CurrentMechanic { get; set; }
+
+        public MechanichomePage(Mechanic currentMech)
         {
             InitializeComponent();
 
-            dgErrends.ItemsSource = ErrandList.ErrandsList;
+            CurrentMechanic = currentMech;
+
+            dgErrends.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == CurrentMechanic.Id);
 
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
             {
                 comboBoxErrands.Items.Add(item.ToString());
             }
-            mechanicnamelable.Name = mechanic.Name;
+        }
+        private void saveBtnClick(object sender, RoutedEventArgs e)
+        {
+
         }
 
-        private void saveBtnClick(object sender, RoutedEventArgs e)
+        private void dgErrends_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
 
         }

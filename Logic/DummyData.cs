@@ -58,7 +58,7 @@ namespace Logic
 
         public static void MecanichData()
         {
-            MechanicList._mechanicList.Add(new Mechanic()
+            MechanicList.MechanicLists.Add(new Mechanic()
             {
                 Name = "John",
                 DateOfBirthday = DateTime.Now,
@@ -66,7 +66,7 @@ namespace Logic
                 DateOfEnd = DateTime.Now,
                 UserID = JohnID
             });
-            MechanicList._mechanicList.Add(new Mechanic()
+            MechanicList.MechanicLists.Add(new Mechanic()
             {
                 Name = "Dave",
                 DateOfBirthday = DateTime.Now,
