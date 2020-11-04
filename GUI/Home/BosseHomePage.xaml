@@ -10,12 +10,9 @@
       WindowHeight="850"
       WindowWidth="1500">
 
-    <!--WindowHeight="850"
-      WindowWidth="1500"-->
-
     <Grid>
         <TabControl>
-            <TabItem Header="Skapa/Radera mekaniker">
+            <TabItem Header="Mekaniker">
                 <Grid Background="#FFE5E5E5">
                     <DataGrid Name="dgMechanicList" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="dgMechanicList_AutoGeneratingColumn">
                         <DataGrid.Resources>
@@ -24,7 +21,7 @@
                                     <DataTrigger Value="Id" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
                                     </DataTrigger>
-                                    <DataTrigger Value="Name" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                    <!--<DataTrigger Value="Name" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
                                     </DataTrigger>
                                     <DataTrigger Value="DateOfBirthday" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
@@ -35,7 +32,7 @@
                                     </DataTrigger>
                                     <DataTrigger Value="DateOfEnd" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
-                                    </DataTrigger>
+                                    </DataTrigger>-->
                                     <DataTrigger Value="MechanicUser" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
                                         <Setter Property="IsEnabled"  Value="False" />
                                     </DataTrigger>
@@ -44,32 +41,43 @@
                         </DataGrid.Resources>
                     </DataGrid>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,124,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,170,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Namn" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
-                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic_Click"/>
-                    <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDeleteMechanic_Click"/>
-                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="18,350,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
+                    <Label FontSize="10" FontStyle="Italic" Content="Vill du ändra namn, datum osv. Gör det direkt från listan och tryck sen uppdatera" HorizontalAlignment="Left" Margin="330,3,0,0" VerticalAlignment="Top"/>
+
+                    <GroupBox Header="Skapa ny mekaniker här" HorizontalAlignment="Left" VerticalAlignment="Top" Height="274" Width="174"/>
+
+                    <Label Content="Namn" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Button Content="Spara" HorizontalAlignment="Left" Margin="56,229,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic_Click"/>
+
+                    <Label FontSize="10" Content="Välj från listan innan du trycker på knappen" HorizontalAlignment="Left" Margin="0,305,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="45,333,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.514,0.533" Height="32" Width="75" Click="BtnDeleteMechanic_Click"/>
+                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="45,370,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.564" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
+
                 </Grid>
             </TabItem>
-            <TabItem Header="Ge mekaniker User access">
+            <TabItem Header="User inlogg">
                 <Grid Background="#FFE5E5E5">
-                    <Label Content="Klicka på den mekanikern du vill ge User privilegier och ge hen ett lösenord" HorizontalAlignment="Left" Margin="11,0,0,0" VerticalAlignment="Top"/>
+                    <Label FontSize="10" FontStyle="Italic" Content="Välj en mekanikern från listan och ge hen ett användarn namn och lösenord" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
                     <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Username" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Användarnamn" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
                     <Button Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
                     <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgUserAccess_AutoGeneratingColumn"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Skapa nya ärenden/fordon">
+            <TabItem Header="Fordon och Ärenden">
                 <Grid Background="#FFE5E5E5" >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -138,7 +146,7 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Ärenden">
+            <TabItem Header="Tilldela ärenden">
                 <Grid Background="#FFE5E5E5" >
                     <Label Content="Välj mekaniker här" FontSize="12" HorizontalAlignment="Left" Margin="40,15,0,0" VerticalAlignment="Top"/>
                     <ComboBox Name="cbBoxAppointMechanicAnErrand" DisplayMemberPath="Name" StaysOpenOnEdit="true" DropDownClosed="cbBoxAppointMechanicAnErrand_OnDropDownClosed" HorizontalAlignment="Left" Margin="40,41,0,0" VerticalAlignment="Top" Width="163" Height="31"/>

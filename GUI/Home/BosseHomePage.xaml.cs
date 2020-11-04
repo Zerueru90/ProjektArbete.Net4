@@ -58,10 +58,10 @@ namespace GUI.Home
             DummyData.VehicleData();
 
 
-            txtName.Text = "Lasse";
-            txtEmployementday.Text = "20-10-24";
-            txtBirthday.Text = "20-10-24";
-            txtUnEnmploymentday.Text = "22-10-24";
+            //txtName.Text = "Lasse";
+            //txtEmployementday.Text = "20-10-24";
+            //txtBirthday.Text = "20-10-24";
+            //txtUnEnmploymentday.Text = "22-10-24";
 
             txtModelName.Text = "Mercedes";
             txtRegNr.Text = "ewr159";
@@ -123,12 +123,6 @@ namespace GUI.Home
             if (dgMechanicList.SelectedItem != null)
             {
                 var objMechanic = dgMechanicList.SelectedItem as Mechanic;
-
-                objMechanic.Name = txtName.Text;
-                objMechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
-                objMechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
-                objMechanic.DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text);
-
                 //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
                 objMechanic.NotifyPropertyChanged(_breakes);
                 objMechanic.NotifyPropertyChanged(_engine);
