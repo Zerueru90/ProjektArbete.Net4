@@ -9,7 +9,12 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Errand : ObservableObject
     {
-        public Guid ErrandsID { get; set; } = Guid.NewGuid();
+        public Errand()
+        {
+            ID = Guid.NewGuid(); // För att varje gång ett nytt ärende skapas så ska en ny Guid skapas, FAST NÄR MAN UPPDATERAR SÅ SKA DENNA INTE GÖRAS, VILKET DEN INTE GÖR DÅ CTOR BARA GÅR IGENOM MED = new Errand();
+        }
+
+        public Guid ID { get; set; }
         public Guid VeichleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
         public Guid MechanicID { get; set; }
         public string Mechanic { get; set; } //Denna finns så att man kan se vilken mekaniker det är som har jobbet, dock kaaanske det finns ett sätt att skapa en column och sätta värdet som Mekaniker och sen hämta namnet från MechanicList och jämnföra med MechanicID. Dock så räcker denna för tillfället, mycket mer kod annars.

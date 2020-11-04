@@ -29,8 +29,11 @@ namespace GUI.Home
         private User _newUser;
         private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
-
         private Mechanic _choosenComboBoxMechanicObject;
+
+        private string[] _unwantedColumns = new string[] { "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandsID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID",
+                                                            "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem"};
+
         private const string _breakes = "Breaks";
         private const string _engine = "Engine";
         private const string _carbody = "Carbody";
@@ -41,13 +44,11 @@ namespace GUI.Home
         {
             InitializeComponent();
 
-            //Dessa tre är för att fylla vår datagrid/lista av mekaniker från listan.
+            //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
-            dgMainPage.ItemsSource = MechanicList.MechanicLists;
-            //dgErrands.ItemsSource = ErrandList.ErrandsList;
-            dgNewErrands.ItemsSource = ErrandList.ErrandsList;
+            dgMechanicList.ItemsSource = MechanicList.MechanicLists;
+            dgErrandList.ItemsSource = ErrandList.ErrandsList;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
-            //dgErrandOngoingAndDone.ItemsSource = ErrandList.ErrandsList;
 
             #region DummyData
 
@@ -71,7 +72,7 @@ namespace GUI.Home
             txtDescription.Text = "blablablblablablblablablblablabl";
             #endregion
 
-            //Viktig, denna fyller i comboboxen med objekt av Mechanic MEN visar bara Namen på mekaniker. Ordnade i XAML.
+            //Viktig, denna fyller i comboboxen.
             foreach (var item in Enum.GetValues(typeof(Vehicle.VeichleType)))
             {
                 cbBoxVeichleType.Items.Add(item.ToString());
@@ -85,12 +86,13 @@ namespace GUI.Home
                 cbBoxChangeErrandsStatus.Items.Add(item.ToString());
             }
 
+            //Ska dessa vara här?
             UpdateMechanicCheckBox();
-            //Fyller comboboxen i Registrera ärenden -Fordon.
             UpdateVechileCheckBox();
         }
 
-        private void BtnSaveNewMechanic(object sender, RoutedEventArgs e)
+        #region Mekaniker: Skapa/Radera/Uppdatera. Första sidan.
+        private void BtnSaveNewMechanic_Click(object sender, RoutedEventArgs e)
         { 
             if (!(txtName.Text == null) || !(txtName.Text == ""))
             {
@@ -107,17 +109,38 @@ namespace GUI.Home
                 MessageBox.Show("Saved");
             }
         }
-
-        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
         {
-            if (dgMainPage.SelectedItem != null)
+            if (dgMechanicList.SelectedItem != null)
             {//SelectedItem innebär vilken rad av mekaniker på datagriden man väljer
-                _crud.RemoveMechanic(dgMainPage.SelectedItem as Mechanic);
+                _crud.RemoveMechanic(dgMechanicList.SelectedItem as Mechanic);
 
                 MessageBox.Show("Raderat mekaniker");
             }
         }
+        private void BtnUpdateMechanic_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgMechanicList.SelectedItem != null)
+            {
+                var objMechanic = dgMechanicList.SelectedItem as Mechanic;
 
+                objMechanic.Name = txtName.Text;
+                objMechanic.DateOfBirthday = Convert.ToDateTime(txtBirthday.Text);
+                objMechanic.DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text);
+                objMechanic.DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text);
+
+                //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
+                objMechanic.NotifyPropertyChanged(_breakes);
+                objMechanic.NotifyPropertyChanged(_engine);
+                objMechanic.NotifyPropertyChanged(_carbody);
+                objMechanic.NotifyPropertyChanged(_windshield);
+                objMechanic.NotifyPropertyChanged(_tyre);
+                MessageBox.Show("Uppdaterad");
+            }
+        }
+        #endregion
+
+        #region User: Skapa/Radera User inlogg. Andra sidan.
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
             //var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
@@ -134,7 +157,6 @@ namespace GUI.Home
 
             //}
         }
-
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
             if (dgUserAccess.SelectedItem != null)
@@ -148,38 +170,9 @@ namespace GUI.Home
                 MessageBox.Show("Raderat användare");
             }
         }
+        #endregion
 
-        private void BtnUpdateSkill_Click(object sender, RoutedEventArgs e)
-        {
-            //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
-            Mechanic mec = (dgMainPage.SelectedItem as Mechanic);
-            mec.NotifyPropertyChanged(_breakes);
-            mec.NotifyPropertyChanged(_engine);
-            mec.NotifyPropertyChanged(_carbody);
-            mec.NotifyPropertyChanged(_windshield);
-            mec.NotifyPropertyChanged(_tyre);
-            MessageBox.Show("Uppdaterad");
-        }
-
-        private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
-        {
-            if (_choosenComboBoxMechanicObject != null)
-            {
-                string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
-                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objErrand = dgChangeErrands.SelectedItem as Errand;
-
-                if (newStatus == "Klar")
-                {
-                    //Funkar inte, eftersom MechanicDoneList är null
-                    Task.AddDoneList(objMechanic, objErrand.ErrandsID.ToString());
-
-                    objErrand.ChangeStatus = newStatus;
-                    MessageBox.Show("Uppdaterad");
-                }
-            }
-        }
-
+        #region Fordon: Skapa. har en metod för upprepande kod. Tredje sidan. (Antar att radera ej behövs, man ska ha koll på alla klargjorda fordon)
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
             var obj = cbBoxVeichleType.SelectedItem.ToString();
@@ -221,8 +214,119 @@ namespace GUI.Home
             UpdateVechileCheckBox();
             MessageBox.Show("Sparad");
         }
+        private void NewVehicleInputData(Vehicle vehicle)
+        {
+            vehicle.ModelName = txtModelName.Text;
+            vehicle.RegistrationNumber = txtRegNr.Text;
+            vehicle.OdoMeter = Convert.ToDecimal(txtOdoMeter.Text);
+            vehicle.RegistrationDate = Convert.ToDateTime(txtRegDate.Text);
+            vehicle.Fuel = txtFuel.Text;
+        }
+        #endregion
 
-        //Kan förmodligen flyttas till Logik... som en massa andra i denna blad.
+        #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
+        private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
+        {
+            var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
+
+            Errand newErrand = new Errand();
+            newErrand.Description = txtDescription.Text;
+            newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
+            newErrand.VeichleID = objVehicle.ID;
+
+            ErrandList.ErrandsList.Add(newErrand);
+
+            MessageBox.Show("Sparad");
+        }
+
+        private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgErrandList.SelectedItem != null)
+            {
+                _crud.RemoveErrand(dgErrandList.SelectedItem as Errand);
+            }
+        }
+
+        private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgErrandList.SelectedItem != null)
+            {
+                var objErrand = dgErrandList.SelectedItem as Errand;
+                var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
+
+                objErrand.ChangeDescription = txtDescription.Text;
+                objErrand.ChangeVeichleID = objVehicle.ID;
+                objErrand.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
+
+                MessageBox.Show("Uppdaterad");
+            }
+        }
+        #endregion
+
+        #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
+        private void BtnGiveMechanicErrand_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgSkillList != null)
+            {
+                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                var objErrands = dgSkillList.SelectedItem as Errand;
+
+                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
+                {
+                    objErrands.MechanicID = objMechanic.Id;
+                    objErrands.ChangeMechanic = objMechanic.Name;
+                    objErrands.ChangeStatus = "Pågående"; //När Bosse tilldelar ett ärende så ska den automatisk gå på Pågående.
+
+                    objMechanic.ErrandsID.Add(objErrands.ID);
+
+                    //Funkar
+                    Task.AddProgressList(objMechanic, objErrands.ID.ToString());
+
+                    MessageBox.Show($"{objMechanic.Name} har blivit tilldelat ett ärende");
+                }
+                else
+                    MessageBox.Show($"{objMechanic.Name} har redan två ärenden pågående");
+            }
+        }
+        private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
+        {
+            if (_choosenComboBoxMechanicObject != null)
+            {
+                string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
+                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                var objErrand = dgSkillList.SelectedItem as Errand;
+
+                if (newStatus == "Klar")
+                {
+                    Task.AddDoneList(objMechanic, objErrand.ID.ToString());
+
+                    objErrand.ChangeStatus = newStatus;
+                    MessageBox.Show("Uppdaterad");
+                }
+            }
+        }
+        #endregion
+
+        #region Håller Chechboxen uppdaterade, kallas när man skapar något nytt i.e Mekaniker, Fordon
+        private void UpdateVechileCheckBox()
+        {
+            cbBoxVeichlesErrand.Items.Clear();
+            foreach (var item in VehicleList.VehicleLists)
+            {
+                cbBoxVeichlesErrand.Items.Add(item);
+            }
+        }
+        private void UpdateMechanicCheckBox()
+        {
+            cbBoxAppointMechanicAnErrand.Items.Clear();
+            foreach (var item in MechanicList.MechanicLists)
+            {
+                cbBoxAppointMechanicAnErrand.Items.Add(item);
+            }
+        }
+        #endregion
+
+        #region Håller koll på vad som väljs i vissa comboxar och skapar objekt
         private void FillingSkillList(Mechanic mec)
         {
             if (mec.Breaks == true)
@@ -246,101 +350,6 @@ namespace GUI.Home
                 mec.SkillLista.Add("Däck");
             }
         }
-
-        private void BtnGiveMechanicErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgChangeErrands != null)
-            {
-                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objErrands = dgChangeErrands.SelectedItem as Errand;
-
-                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
-                {
-                    objErrands.MechanicID = objMechanic.Id;
-                    objErrands.ChangeMechanic = objMechanic.Name;
-                    objErrands.ChangeStatus = "Pågående"; //När Bosse tilldelar ett ärende så ska den automatisk gå på Pågående.
-
-                    objMechanic.ErrandsID.Add(objErrands.ErrandsID);
-
-                    //Funkar
-                    Task.AddProgressList(objMechanic, objErrands.ErrandsID.ToString());
-
-                    MessageBox.Show($"{objMechanic.Name} har blivit tilldelat ett ärende");
-                }
-                else
-                    MessageBox.Show($"{objMechanic.Name} har redan två ärenden pågående");
-            }
-        }
-
-        private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
-        {
-            var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-
-            Errand newErrand = new Errand();
-            newErrand.Description = txtDescription.Text;
-            newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
-            newErrand.VeichleID = objVehicle.ID;
-
-            ErrandList.ErrandsList.Add(newErrand);
-
-            MessageBox.Show("Sparad");
-        }
-
-        private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgNewErrands.SelectedItem != null)
-            {
-                _crud.RemoveErrand(dgNewErrands.SelectedItem as Errand);
-            }
-        }
-
-        //funkar att uppdatera men det ändras i inte på datagriden...
-        private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgNewErrands.SelectedItem != null)
-            {
-                Errand errands = dgNewErrands.SelectedItem as Errand;
-                var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-
-                errands.ChangeDescription = txtDescription.Text;
-                errands.ChangeVeichleID = objVehicle.ID;
-                errands.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
-
-                //obj.ErrandsID[obj.ErrandsID.FindIndex(x => x.Equals(cbBoxVeichlesErrand.SelectedIndex))] = errands.ErrandsID;
-
-
-                MessageBox.Show("Uppdaterad");
-            }
-        }
-        private void NewVehicleInputData(Vehicle vehicle)
-        {
-            vehicle.ModelName = txtModelName.Text;
-            vehicle.RegistrationNumber = txtRegNr.Text;
-            vehicle.OdoMeter = Convert.ToDecimal(txtOdoMeter.Text);
-            vehicle.RegistrationDate = Convert.ToDateTime(txtRegDate.Text);
-            vehicle.Fuel = txtFuel.Text;
-        }
-
-        #region Håller Chechboxen uppdaterade, kallas när man skapar något nytt.
-        private void UpdateVechileCheckBox()
-        {
-            cbBoxVeichlesErrand.Items.Clear();
-            foreach (var item in VehicleList.VehicleLists)
-            {
-                cbBoxVeichlesErrand.Items.Add(item);
-            }
-        }
-        private void UpdateMechanicCheckBox()
-        {
-            cbBoxAppointMechanicAnErrand.Items.Clear();
-            foreach (var item in MechanicList.MechanicLists)
-            {
-                cbBoxAppointMechanicAnErrand.Items.Add(item);
-            }
-        }
-        #endregion
-
-        #region Denna har med comboxboxen att göra, det som är så nice är att när man väljer ett namn från listan så lagras mekaniker objektet i "var obj" och inte bara namnet sen därifrån så kan man enkelt arbeta med att lägga till Task/Errands osv.
         void cbBoxAppointMechanicAnErrand_OnDropDownClosed(object sender, EventArgs e)
         {
             cbBoxChangeErrandsStatus.Visibility = Visibility.Hidden;
@@ -354,7 +363,7 @@ namespace GUI.Home
                 //Kollar igenom SkillListan och varje Ärende som har det problemet mekanikern har kompetensen så öppnas den.
                 foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
                 {
-                    dgChangeErrands.ItemsSource = ErrandList.ErrandsList.Where(x => x.Problem == item);
+                    dgSkillList.ItemsSource = ErrandList.ErrandsList.Where(x => x.Problem == item);
                 }
                 if (_choosenComboBoxMechanicObject.ErrandsID.Count != 0)
                 {
@@ -405,221 +414,46 @@ namespace GUI.Home
         #endregion   
 
         #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.   
-        private void dgMainPage_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+
+        private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
 
             //Cancel the column you don't want to generate
-            if (headername == "SkillLista")
+
+            for (int i = 0; i < _unwantedColumns.Length; i++)
             {
-                e.Cancel = true;
+                if (headername == _unwantedColumns[i])
+                {
+                    e.Cancel = true;
+                }
             }
-            if (headername == "MechanicProgressList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicDoneList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "UserID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
+        }
+
+        private void dgMechanicList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            CancelUnwantedColumnHeaderName(e);
         }
 
         private void dgUserAccess_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "SkillLista")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicProgressList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicDoneList")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "UserID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
+            CancelUnwantedColumnHeaderName(e);
         }
 
-        private void dgChangeErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void dgSkillList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "OngoingErrands")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "finnishedErrands")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "Isfinnished")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "RegNrID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "Registrated")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "VeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeStatus")
-            {
-                e.Cancel = true;
-            }
-
-
-            if (headername == "ChangeVeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanic")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeDescription")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeProblem")
-            {
-                e.Cancel = true;
-            }
+            CancelUnwantedColumnHeaderName(e);
         }
 
         private void dgVeichleList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "Id")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "UserID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "DateOfBirthday")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "DateOfEmployment")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "DateOfEnd")
-            {
-                e.Cancel = true;
-            }
+            CancelUnwantedColumnHeaderName(e);
         }
 
-        private void dgNewErrands_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void dgErrandList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
-            string headername = e.Column.Header.ToString();
-
-            //Cancel the column you don't want to generate
-            if (headername == "ID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "OdoMeter")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "RegistrationDate")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "Fuel")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "VeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeStatus")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeVeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanic")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeDescription")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeProblem")
-            {
-                e.Cancel = true;
-            }
+            CancelUnwantedColumnHeaderName(e);
         }
-
         #endregion
-
-        
     }
 }

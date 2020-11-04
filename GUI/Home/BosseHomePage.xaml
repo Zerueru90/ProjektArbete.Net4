@@ -17,7 +17,7 @@
         <TabControl>
             <TabItem Header="Skapa/Radera mekaniker">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="dgMainPage" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="dgMainPage_AutoGeneratingColumn">
+                    <DataGrid Name="dgMechanicList" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="dgMechanicList_AutoGeneratingColumn">
                         <DataGrid.Resources>
                             <Style TargetType="{x:Type DataGridCell}">
                                 <Style.Triggers>
@@ -52,9 +52,9 @@
                     <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
                     <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top"/>
                     <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,142,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic"/>
-                    <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDelete_Click"/>
-                    <Button Content="Uppdatera kompetenser" HorizontalAlignment="Left" Margin="18,417,0,0" VerticalAlignment="Top" Height="27" Width="158" Click="BtnUpdateSkill_Click"/>
+                    <Button Content="Spara" HorizontalAlignment="Left" Margin="18,233,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic_Click"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="18,292,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnDeleteMechanic_Click"/>
+                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="18,350,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.707,0.503" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Ge mekaniker User access">
@@ -85,7 +85,7 @@
                     <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgVeichleList_AutoGeneratingColumn"/>
 
                     <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
-                    <DataGrid DisplayMemberPath="Name" Name="dgNewErrands" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgNewErrands_AutoGeneratingColumn"/>
+                    <DataGrid DisplayMemberPath="Name" Name="dgErrandList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrandList_AutoGeneratingColumn"/>
 
                     <!--Registrera fordon-->
                     <GroupBox Grid.Column="0" Grid.Row="0" Margin="0,31,40,0" Header="Registrera fordon"></GroupBox>
@@ -146,7 +146,7 @@
                     <Button Name="btnChangeStatusErrand" Visibility="Hidden" Click="BtnChangesStatusOnly_Click" Content="Ändra status" HorizontalAlignment="Left" Margin="87,129,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
                     <Button Name="btnGiveMechanicErrand" Click="BtnGiveMechanicErrand_Click" Content="Spara ärende" HorizontalAlignment="Left" Margin="87,172,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
 
-                    <DataGrid Name="dgChangeErrands" Margin="272,28,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgChangeErrands_AutoGeneratingColumn"/>
+                    <DataGrid Name="dgSkillList" Margin="272,28,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgSkillList_AutoGeneratingColumn"/>
                     <Label Content="Endast fordon med mekanikers kompetens visas" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,2,0,0" VerticalAlignment="Top"/>
 
 

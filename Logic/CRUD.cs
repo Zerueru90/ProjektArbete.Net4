@@ -47,7 +47,7 @@ namespace Logic
 
         public void RemoveErrand(Errand errand)
         {
-            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ErrandsID == errand.ErrandsID);
+            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ID);
 
 
             //Anledningen för denna är att om en Mekaniker redan är tilldelad ett Ärende som ska raderas så måste Mechanic.ErrandsID nollställas.
@@ -59,7 +59,7 @@ namespace Logic
                 foreach (var item2 in item.ErrandsID)
                 {
                     count++;
-                    if (item2 == obj.ErrandsID)
+                    if (item2 == obj.ID)
                     {
                         mec = item;
                     }
