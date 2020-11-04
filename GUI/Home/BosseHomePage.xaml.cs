@@ -31,8 +31,10 @@ namespace GUI.Home
         private CRUD _crud = new CRUD();
         private Mechanic _choosenComboBoxMechanicObject;
 
-        private string[] _unwantedColumns = new string[] { "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandsID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID",
-                                                            "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem"};
+        private string[] _unwantedColumns = new string[] 
+        { 
+            "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandsID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber"
+        };
 
         private const string _breakes = "Breaks";
         private const string _engine = "Engine";
@@ -54,14 +56,14 @@ namespace GUI.Home
 
             //DummyData.ErrandData();
             //DummyData.UserData();
-            DummyData.MecanichData();
-            DummyData.VehicleData();
+            //DummyData.MecanichData();
+            //DummyData.VehicleData();
 
 
-            //txtName.Text = "Lasse";
-            //txtEmployementday.Text = "20-10-24";
-            //txtBirthday.Text = "20-10-24";
-            //txtUnEnmploymentday.Text = "22-10-24";
+            txtName.Text = "Lasse";
+            txtEmployementday.Text = "20-10-24";
+            txtBirthday.Text = "20-10-24";
+            txtUnEnmploymentday.Text = "22-10-24";
 
             txtModelName.Text = "Mercedes";
             txtRegNr.Text = "ewr159";
@@ -227,6 +229,8 @@ namespace GUI.Home
             newErrand.Description = txtDescription.Text;
             newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
             newErrand.VeichleID = objVehicle.ID;
+            newErrand.ModelName = objVehicle.ModelName;
+            newErrand.RegistrationNumber = objVehicle.RegistrationNumber;
 
             ErrandList.ErrandsList.Add(newErrand);
 
@@ -251,6 +255,8 @@ namespace GUI.Home
                 objErrand.ChangeDescription = txtDescription.Text;
                 objErrand.ChangeVeichleID = objVehicle.ID;
                 objErrand.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
+                objErrand.ChangeModelName = objVehicle.ModelName;
+                objErrand.ChangeRegistrationNumber = objVehicle.RegistrationNumber;
 
                 MessageBox.Show("Uppdaterad");
             }
@@ -267,7 +273,7 @@ namespace GUI.Home
 
                 if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
                 {
-                    objErrands.MechanicID = objMechanic.Id;
+                    objErrands.MechanicID = objMechanic.ID;
                     objErrands.ChangeMechanic = objMechanic.Name;
                     objErrands.ChangeStatus = "Pågående"; //När Bosse tilldelar ett ärende så ska den automatisk gå på Pågående.
 
@@ -348,6 +354,7 @@ namespace GUI.Home
         {
             cbBoxChangeErrandsStatus.Visibility = Visibility.Hidden;
             btnChangeStatusErrand.Visibility = Visibility.Hidden;
+            dgSkillList.ItemsSource = null;
 
             if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
             {

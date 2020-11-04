@@ -30,7 +30,7 @@ namespace GUI.Home
             _currentMechanic = currentMech;
 
             labelName.Content = currentMech.Name.ToString();
-            dgErrends.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == currentMech.Id);
+            dgErrends.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == currentMech.ID);
 
             CheckingBoxes();
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
@@ -141,6 +141,18 @@ namespace GUI.Home
                 e.Cancel = true;
             }
             if (headername == "MechanicID")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ChangeModelName")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ChangeRegistrationNumber")
+            {
+                e.Cancel = true;
+            }
+            if (headername == "ID")
             {
                 e.Cancel = true;
             }

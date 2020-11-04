@@ -11,13 +11,13 @@ namespace Logic.Entities.Person_Entities
     {
         public Mechanic()
         {
-            Id = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet.
+            ID = Guid.NewGuid(); // skriver med construktor för att den ska inte ta allt för mkt plats i minnet.
             MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
             MechanicDoneList = new List<string>();
             ErrandsID = new List<Guid>();
         }
-        public Guid Id { get; set; }
+        public Guid ID { get; set; }
 
         public Guid UserID { get; set; } //Detta är för när mekaniker får en User log in.
 
@@ -31,6 +31,12 @@ namespace Logic.Entities.Person_Entities
         public DateTime DateOfEmployment { get; set; }
 
         public DateTime? DateOfEnd { get; set; }
+
+        public List<string> SkillLista { get; set; }
+
+        public List<string> MechanicProgressList { get; set; }
+
+        public List<string> MechanicDoneList { get; set; }
 
         #region Bool funkar bättre med WPF än List<string> som blir en collection i GUI. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå
 
@@ -60,12 +66,5 @@ namespace Logic.Entities.Person_Entities
             }
         }
         #endregion
-
-        public List<string> SkillLista { get; set; }
-
-        public List<string> MechanicProgressList { get; set; }
-
-        public List<string> MechanicDoneList { get; set; }
-
     }
 }

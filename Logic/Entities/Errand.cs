@@ -17,12 +17,16 @@ namespace Logic.Entities.Vehicles_Entities
         public Guid ID { get; set; }
         public Guid VeichleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
         public Guid MechanicID { get; set; }
-        public string Mechanic { get; set; } //Denna finns så att man kan se vilken mekaniker det är som har jobbet, dock kaaanske det finns ett sätt att skapa en column och sätta värdet som Mekaniker och sen hämta namnet från MechanicList och jämnföra med MechanicID. Dock så räcker denna för tillfället, mycket mer kod annars.
+        public string ModelName { get; set; }
+        public string RegistrationNumber { get; set; }
+
         public string Description { get; set; }
         public string Problem { get; set; }
+        public string Mechanic { get; set; } //Denna finns så att man kan se vilken mekaniker det är som har jobbet, dock kaaanske det finns ett sätt att skapa en column och sätta värdet som Mekaniker och sen hämta namnet från MechanicList och jämnföra med MechanicID. Dock så räcker denna för tillfället, mycket mer kod annars.
         public string Status { get; set; }
 
-        #region Detta måste göras (finns säkert ett bättre sätt) så att WPFn håller sig uppdaterad på direkten. 
+        #region Detta måste göras så att WPFn håller sig uppdaterad på direkten. 
+        
         public Guid ChangeVeichleID
         {
             get
@@ -56,6 +60,41 @@ namespace Logic.Entities.Vehicles_Entities
                 NotifyPropertyChanged("MechanicID");
             }
         }
+
+        public string ChangeModelName
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(ModelName))
+                {
+                    return " ";
+                }
+                return ModelName;
+            }
+            set
+            {
+                ModelName = value;
+                NotifyPropertyChanged("ModelName");
+            }
+        }
+
+        public string ChangeRegistrationNumber
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(RegistrationNumber))
+                {
+                    return " ";
+                }
+                return RegistrationNumber;
+            }
+            set
+            {
+                RegistrationNumber = value;
+                NotifyPropertyChanged("RegistrationNumber");
+            }
+        }
+
         public string ChangeMechanic
         {
             get
@@ -124,57 +163,5 @@ namespace Logic.Entities.Vehicles_Entities
             }
         }
         #endregion
-
-
-        //public List<Errand> OngoingErrands { get; set; }
-        //public List<Errand> finnishedErrands { get; set; }
-        //public bool Isfinnished { get; set; }
-
-        //public bool TryToAdd(Vehicle vehicles)
-        //{
-        //    var counter = 0;
-        //    if (counter <= 2)
-        //    {
-        //        counter++;
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        //MessageBox.Show("Tyvärr kan en makaniker endast ha två ärenden samtidigt");
-        //        return false;
-        //    }
-        //}
-        //public bool AddErrands(Vehicle vehicles)
-        //{
-        //    var isOktoAdd = TryToAdd(vehicles);
-        //    if (isOktoAdd)
-        //    {
-        //        OngoingErrands.Add((Errand)vehicles);
-        //        return true;
-        //    }
-        //    else
-        //        return false;
-        //}
-        ////public string GetinfoOfErrand()
-        ////{
-        ////    //return $"Beskrvining: {Description}" +
-        ////    //    $"\nProblem: {Problem}" +
-        ////    //    $"\nMekaniker: {Mechanic}" +
-        ////    //    $"\nFordon: {Vehicles}" +
-        ////    //    $"\nÄrrende avslutat: {Isfinnish()}";
-
-        ////}
-        //public string Isfinnish()
-        //{
-        //    if (Isfinnished == true)
-        //    {
-        //        return "Ja";
-        //    }
-        //    else
-        //    {
-        //        return "Nej";
-        //    }
-        //}
-
     }
 }
