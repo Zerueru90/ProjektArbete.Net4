@@ -33,7 +33,7 @@ namespace GUI.Home
 
         private string[] _unwantedColumns = new string[] 
         { 
-            "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandsID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber"
+            "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName"
         };
 
         private const string _breakes = "Breaks";
@@ -49,8 +49,10 @@ namespace GUI.Home
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMechanicList.ItemsSource = MechanicList.MechanicLists;
-            dgErrandList.ItemsSource = ErrandList.ErrandsList;
+            //dgErrandList.ItemsSource = ErrandList.ErrandsList;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
+            dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
+            dgCommonViewList.ItemsSource = ErrandMechanicViewCombine.Source;
 
             #region DummyData
 
@@ -233,6 +235,7 @@ namespace GUI.Home
             newErrand.RegistrationNumber = objVehicle.RegistrationNumber;
 
             ErrandList.ErrandsList.Add(newErrand);
+            ErrandMechanicViewCombine.BuildSource();
 
             MessageBox.Show("Sparad");
         }
@@ -249,15 +252,25 @@ namespace GUI.Home
         {
             if (dgErrandList.SelectedItem != null)
             {
-                var objErrand = dgErrandList.SelectedItem as Errand;
+                var objCommonView = dgErrandList.SelectedItem as CommonView;
                 var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
 
-                objErrand.ChangeDescription = txtDescription.Text;
-                objErrand.ChangeVeichleID = objVehicle.ID;
-                objErrand.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
-                objErrand.ChangeModelName = objVehicle.ModelName;
-                objErrand.ChangeRegistrationNumber = objVehicle.RegistrationNumber;
+                //Denna ser till att GUI håller sig uppdaterads.
+                objCommonView.ChangeDescription = txtDescription.Text;
+                objCommonView.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
+                objCommonView.ChangeModelName = objVehicle.ModelName;
+                objCommonView.ChangeRegistrationNumber = objVehicle.RegistrationNumber;
 
+                //Denna ser till att Datan sparas.
+                var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+                foreach (var item in objErrand)
+                {
+                    item.Description = txtDescription.Text;
+                    item.VeichleID = objVehicle.ID;
+                    item.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
+                    item.ModelName = objVehicle.ModelName;
+                    item.RegistrationNumber = objVehicle.RegistrationNumber;
+                }
                 MessageBox.Show("Uppdaterad");
             }
         }
@@ -266,21 +279,30 @@ namespace GUI.Home
         #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
         private void BtnGiveMechanicErrand_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSkillList != null)
+            if (dgCommonViewList != null)
             {
                 var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objErrands = dgSkillList.SelectedItem as Errand;
+                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
 
                 if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
                 {
-                    objErrands.MechanicID = objMechanic.ID;
-                    objErrands.ChangeMechanic = objMechanic.Name;
-                    objErrands.ChangeStatus = "Pågående"; //När Bosse tilldelar ett ärende så ska den automatisk gå på Pågående.
+                    //Denna ser till att GUI håller sig uppdaterad
+                    objCommonView.ChangeMechanicID = objMechanic.ID;
+                    objCommonView.ChangeName = objMechanic.Name;
+                    objCommonView.ChangeStatus = "Pågående";
 
-                    objMechanic.ErrandsID.Add(objErrands.ID);
+                    //Denna ser till att Datan sparas.
+                    var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+                    foreach (var item in objErrands)
+                    {
+                        item.MechanicID = objMechanic.ID;
+                        item.Status = "Pågående";
+                        objMechanic.ErrandID.Add(item.ID);
 
-                    //Funkar
-                    Task.AddProgressList(objMechanic, objErrands.ID.ToString());
+                        //Funkar
+                        Task.AddProgressList(objMechanic, item.ID.ToString());
+                    }
+
 
                     MessageBox.Show($"{objMechanic.Name} har blivit tilldelat ett ärende");
                 }
@@ -294,13 +316,18 @@ namespace GUI.Home
             {
                 string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
                 var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objErrand = dgSkillList.SelectedItem as Errand;
+                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
 
                 if (newStatus == "Klar")
                 {
-                    Task.AddDoneList(objMechanic, objErrand.ID.ToString());
+                    var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+                    foreach (var item in objErrands)
+                    {
+                        Task.AddDoneList(objMechanic, item.ID.ToString());
+                        item.Status = newStatus;
+                    }
 
-                    objErrand.ChangeStatus = newStatus;
+                    objCommonView.ChangeStatus = newStatus;
                     MessageBox.Show("Uppdaterad");
                 }
             }
@@ -329,7 +356,7 @@ namespace GUI.Home
         #region OnDropDownClosed
         private void FillingSkillList(Mechanic mec)
         {
-            mec.SkillLista = null;
+            mec.SkillLista = new List<string>();
             if (mec.Breaks == true)
             {
                 mec.SkillLista.Add("Bromsar");
@@ -355,34 +382,34 @@ namespace GUI.Home
         {
             cbBoxChangeErrandsStatus.Visibility = Visibility.Hidden;
             btnChangeStatusErrand.Visibility = Visibility.Hidden;
-            dgSkillList.ItemsSource = null;
+            dgCommonViewList.ItemsSource = null;
 
-            if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
+            if (cbBoxAppointMechanicAnErrand.SelectedItem != null)
             {
-                _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                FillingSkillList(_choosenComboBoxMechanicObject);
-                List<Errand> tempListErrand = new List<Errand>();
-
-                //Kollar igenom SkillListan och varje Ärende som har det problemet mekanikern har kompetensen så öppnas den.
-                foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
+                if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
                 {
-                    //dgSkillList.Items.Add(ErrandList.ErrandsList.Where(x => x.Problem == item));
+                    _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                    FillingSkillList(_choosenComboBoxMechanicObject);
+                    List<CommonView> tempListErrand = new List<CommonView>();
 
-                    //varje gång en ny skill kommer in så raderar den bort den gamla.
-                    var obj = ErrandList.ErrandsList.Where(x => x.Problem == item);
-                    foreach (var _errand in obj)
+                    foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
                     {
-                        tempListErrand.Add(_errand);
+                        var obj = ErrandMechanicViewCombine.Source.Where(x => x.Problem == item);
+                        foreach (var _errand in obj)
+                        {
+                            tempListErrand.Add(_errand);
+                        }
                     }
-                }
-                if (_choosenComboBoxMechanicObject.ErrandsID.Count != 0)
-                {
-                    cbBoxChangeErrandsStatus.Visibility = Visibility.Visible;
-                    btnChangeStatusErrand.Visibility = Visibility.Visible;
-                }
+
+                    if (_choosenComboBoxMechanicObject.ErrandID.Count != 0)
+                    {
+                        cbBoxChangeErrandsStatus.Visibility = Visibility.Visible;
+                        btnChangeStatusErrand.Visibility = Visibility.Visible;
+                    }
 
 
-                dgSkillList.ItemsSource = tempListErrand;
+                    dgCommonViewList.ItemsSource = tempListErrand;
+                }
             }
         }
         private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
@@ -453,7 +480,7 @@ namespace GUI.Home
             CancelUnwantedColumnHeaderName(e);
         }
 
-        private void dgSkillList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        private void dgCommonView_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             CancelUnwantedColumnHeaderName(e);
         }

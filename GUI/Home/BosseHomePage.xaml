@@ -58,10 +58,8 @@
                     <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
 
                     <Button Content="Spara" HorizontalAlignment="Left" Margin="56,229,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic_Click"/>
-
-                    <Label FontSize="10" Content="Välj från listan innan du trycker på knappen" HorizontalAlignment="Left" Margin="0,305,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Radera" HorizontalAlignment="Left" Margin="45,333,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.514,0.533" Height="32" Width="75" Click="BtnDeleteMechanic_Click"/>
-                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="45,370,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.564" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="55,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.514,0.533" Height="32" Width="75" Click="BtnDeleteMechanic_Click"/>
+                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="56,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.564" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
 
                 </Grid>
             </TabItem>
@@ -94,7 +92,14 @@
 
                     <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
                     <DataGrid DisplayMemberPath="Name" Name="dgErrandList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrandList_AutoGeneratingColumn">
-                      
+                        <!--<DataGrid.Columns>
+                            <DataGridTextColumn Header="Model" Binding="{Binding ModelName}" Width="100"/>
+                            <DataGridTextColumn Header="Reg nr" Binding="{Binding RegistrationNumber}" Width="100" />
+                            <DataGridTextColumn Header="Beskrivning" Binding="{Binding Description}" Width="100" />
+                            <DataGridTextColumn Header="Problem" Binding="{Binding Problem}" Width="100" />
+                            <DataGridTextColumn Header="Mekaniker" Binding="{Binding Name}" Width="100" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
+                        </DataGrid.Columns>-->
                     </DataGrid>
 
                     <!--Registrera fordon-->
@@ -156,7 +161,7 @@
                     <Button Name="btnChangeStatusErrand" Visibility="Hidden" Click="BtnChangesStatusOnly_Click" Content="Ändra status" HorizontalAlignment="Left" Margin="87,129,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
                     <Button Name="btnGiveMechanicErrand" Click="BtnGiveMechanicErrand_Click" Content="Spara ärende" HorizontalAlignment="Left" Margin="87,172,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
 
-                    <DataGrid Name="dgSkillList" Margin="272,28,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgSkillList_AutoGeneratingColumn"/>
+                    <DataGrid Name="dgCommonViewList" Margin="272,28,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgCommonView_AutoGeneratingColumn"/>
                     <Label Content="Endast fordon med mekanikers kompetens visas" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,2,0,0" VerticalAlignment="Top"/>
 
 

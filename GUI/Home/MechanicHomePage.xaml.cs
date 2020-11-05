@@ -41,9 +41,12 @@ namespace GUI.Home
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
             Errand errand = dgErrends.SelectedItem as Errand;
+            var objerrand = dgErrends.SelectedItem as CommonView;
+
             if (dgErrends.SelectedItem != null)
             {
-                errand.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
+                errand.Status = comboBoxErrands.SelectedItem.ToString();
+                objerrand.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
             }
 
             UpdatingBoxes();

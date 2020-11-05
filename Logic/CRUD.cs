@@ -57,7 +57,7 @@ namespace Logic
                 int count = 0;
                 foreach (var item in MechanicList.MechanicLists)
                 {
-                    foreach (var item2 in item.ErrandsID)
+                    foreach (var item2 in item.ErrandID)
                     {
                         count++;
                         if (item2 == obj.ID)
@@ -68,7 +68,7 @@ namespace Logic
                     count = 0;
                 }
 
-                mec.ErrandsID[mec.ErrandsID.FindIndex(x => x.Equals(count))] = Key;
+                mec.ErrandID[mec.ErrandID.FindIndex(x => x.Equals(count))] = Key;
             }
 
             ErrandList.ErrandsList.Remove(obj);

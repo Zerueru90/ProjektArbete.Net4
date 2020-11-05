@@ -6,7 +6,6 @@ using System.Runtime.CompilerServices;
 
 namespace Logic.Entities.Person_Entities
 {
-    //Testar stuff..
     public class Mechanic : ObservableObject
     {
         public Mechanic()
@@ -15,14 +14,14 @@ namespace Logic.Entities.Person_Entities
             MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
             MechanicDoneList = new List<string>();
-            ErrandsID = new List<Guid>();
+            ErrandID = new List<Guid>();
         }
         public Guid ID { get; set; }
 
         public Guid UserID { get; set; } //Detta är för när mekaniker får en User log in.
 
-        //Ska kunna hålla 2 IDn
-        public List<Guid> ErrandsID { get; set; } 
+        //Ska kunna hålla 2 Ärranden
+        public List<Guid> ErrandID { get; set; } 
 
         public string Name { get; set; }
 
@@ -32,29 +31,14 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime? DateOfEnd { get; set; }
 
-        private List<string> _skillista;
-        public List<string> SkillLista
-        {
-            get
-            {
-                if (_skillista == null)
-                {
-                    return _skillista = new List<string>();
-                }
-                return _skillista;
-            }
-            set
-            {
-                _skillista = value;
-            }
-        }
+        public List<string> SkillLista { get; set; }
 
         public List<string> MechanicProgressList { get; set; }
 
         public List<string> MechanicDoneList { get; set; }
 
         #region Bool funkar bättre med WPF än List<string> som blir en collection i GUI. Med bool så får man checkbox i WPF. Man kan nog på något sätt kombinera dessa två att checka om de är sant eller falsk med listan. Men låt stå
-
+        //Kombinerar med SkillLista i Bosse.cs sidan
         public bool Breaks { get; set; }
         public bool Engine { get; set; }
         public bool Carbody { get; set; }
@@ -77,7 +61,7 @@ namespace Logic.Entities.Person_Entities
             }
             set
             {
-                NotifyPropertyChanged(); //viktig
+                NotifyPropertyChanged(); 
             }
         }
         #endregion
