@@ -32,7 +32,22 @@ namespace Logic.Entities.Person_Entities
 
         public DateTime? DateOfEnd { get; set; }
 
-        public List<string> SkillLista { get; set; }
+        private List<string> _skillista;
+        public List<string> SkillLista
+        {
+            get
+            {
+                if (_skillista == null)
+                {
+                    return _skillista = new List<string>();
+                }
+                return _skillista;
+            }
+            set
+            {
+                _skillista = value;
+            }
+        }
 
         public List<string> MechanicProgressList { get; set; }
 

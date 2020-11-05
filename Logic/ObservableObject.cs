@@ -8,8 +8,6 @@ namespace Logic
 {
     public class ObservableObject : INotifyPropertyChanged
     {
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void NotifyPropertyChanged([CallerMemberName] string propName = "")

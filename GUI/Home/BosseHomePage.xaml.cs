@@ -57,7 +57,7 @@ namespace GUI.Home
             //DummyData.ErrandData();
             //DummyData.UserData();
             //DummyData.MecanichData();
-            //DummyData.VehicleData();
+            DummyData.VehicleData();
 
 
             txtName.Text = "Lasse";
@@ -307,7 +307,7 @@ namespace GUI.Home
         }
         #endregion
 
-        #region Håller Chechboxen uppdaterade, kallas när man skapar något nytt i.e Mekaniker, Fordon
+        #region Uppdaterar Checkbox: kallas när man skapar något nytt i.e Mekaniker, Fordon
         private void UpdateVechileCheckBox()
         {
             cbBoxVeichlesErrand.Items.Clear();
@@ -326,9 +326,10 @@ namespace GUI.Home
         }
         #endregion
 
-        #region Håller koll på vad som väljs i vissa comboxar och skapar objekt
+        #region OnDropDownClosed
         private void FillingSkillList(Mechanic mec)
         {
+            mec.SkillLista = null;
             if (mec.Breaks == true)
             {
                 mec.SkillLista.Add("Bromsar");
@@ -360,17 +361,28 @@ namespace GUI.Home
             {
                 _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
                 FillingSkillList(_choosenComboBoxMechanicObject);
+                List<Errand> tempListErrand = new List<Errand>();
 
                 //Kollar igenom SkillListan och varje Ärende som har det problemet mekanikern har kompetensen så öppnas den.
                 foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
                 {
-                    dgSkillList.ItemsSource = ErrandList.ErrandsList.Where(x => x.Problem == item);
+                    //dgSkillList.Items.Add(ErrandList.ErrandsList.Where(x => x.Problem == item));
+
+                    //varje gång en ny skill kommer in så raderar den bort den gamla.
+                    var obj = ErrandList.ErrandsList.Where(x => x.Problem == item);
+                    foreach (var _errand in obj)
+                    {
+                        tempListErrand.Add(_errand);
+                    }
                 }
                 if (_choosenComboBoxMechanicObject.ErrandsID.Count != 0)
                 {
                     cbBoxChangeErrandsStatus.Visibility = Visibility.Visible;
                     btnChangeStatusErrand.Visibility = Visibility.Visible;
                 }
+
+
+                dgSkillList.ItemsSource = tempListErrand;
             }
         }
         private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
