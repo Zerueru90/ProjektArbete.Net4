@@ -6,13 +6,13 @@ namespace Logic
 {
     public static class Enums
     {
-        //public enum Vehicel
-        //{
-        //    Car = 1,
-        //    Bus = 2,
-        //    Truck = 3,
-        //    Motobike = 4,
-        //}
+        public enum VeichleType
+        {
+            Bil,
+            Motorcyckel,
+            Lastbil,
+            Buss
+        }
         //public enum Cartype
         //{
         //    sedan = 1,

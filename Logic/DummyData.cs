@@ -76,34 +76,50 @@ namespace Logic
 
         public static void VehicleData()
         {
-            VehicleList.VehicleLists.Add(new Vehicle()
+            VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Audi",
-                RegistrationNumber = "abc123",
+                RegistrationNumber = "aud123",
                 OdoMeter = 2500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Diesel"
             });
-            VehicleList.VehicleLists.Add(new Vehicle()
+            VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Volvo",
-                RegistrationNumber = "dfg321",
+                RegistrationNumber = "vol321",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"
             });
-            VehicleList.VehicleLists.Add(new Vehicle()
+            VehicleList.VehicleLists.Add(new Car()
             {
-                ModelName = "Audi",
-                RegistrationNumber = "grt123",
+                ModelName = "BMW",
+                RegistrationNumber = "bmw123",
                 OdoMeter = 2500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Diesel"
             });
-            VehicleList.VehicleLists.Add(new Vehicle()
+            VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Ferrari",
                 RegistrationNumber = "aaa001",
+                OdoMeter = 4500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Bensin"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                ModelName = "Kia",
+                RegistrationNumber = "kia627",
+                OdoMeter = 2500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Diesel"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                ModelName = "Saab",
+                RegistrationNumber = "saa951",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"

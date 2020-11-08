@@ -1,23 +1,11 @@
 ﻿using Logic;
-using Logic.DAL;
-using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GUI.Home
 {
@@ -26,8 +14,6 @@ namespace GUI.Home
     /// </summary>
     public partial class BosseHomePage : Page
     {
-        private User _newUser;
-        private Mechanic _mechanic;
         private CRUD _crud = new CRUD();
         private Mechanic _choosenComboBoxMechanicObject;
 
@@ -36,12 +22,6 @@ namespace GUI.Home
             "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName"
         };
 
-        private const string _breakes = "Breaks";
-        private const string _engine = "Engine";
-        private const string _carbody = "Carbody";
-        private const string _windshield = "Windshield";
-        private const string _tyre = "Tyre";
-
         public BosseHomePage()
         {
             InitializeComponent();
@@ -49,7 +29,6 @@ namespace GUI.Home
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMechanicList.ItemsSource = MechanicList.MechanicLists;
-            //dgErrandList.ItemsSource = ErrandList.ErrandsList;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
             dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
             dgCommonViewList.ItemsSource = ErrandMechanicViewCombine.Source;
@@ -67,17 +46,11 @@ namespace GUI.Home
             txtBirthday.Text = "20-10-24";
             txtUnEnmploymentday.Text = "22-10-24";
 
-            txtModelName.Text = "Mercedes";
-            txtRegNr.Text = "ewr159";
-            txtOdoMeter.Text = "3000";
-            txtRegDate.Text = "20-10-11";
-            txtFuel.Text = "Diesel";
-
             txtDescription.Text = "blablablblablablblablablblablabl";
             #endregion
 
             //Viktig, denna fyller i comboboxen.
-            foreach (var item in Enum.GetValues(typeof(Vehicle.VeichleType)))
+            foreach (var item in Enum.GetValues(typeof(Enums.VeichleType)))
             {
                 cbBoxVeichleType.Items.Add(item.ToString());
             }
@@ -100,14 +73,7 @@ namespace GUI.Home
         { 
             if (!(txtName.Text == null) || !(txtName.Text == ""))
             {
-                _mechanic = new Mechanic
-                {
-                    Name = txtName.Text,
-                    DateOfBirthday = Convert.ToDateTime(txtBirthday.Text),
-                    DateOfEmployment = Convert.ToDateTime(txtEmployementday.Text),
-                    DateOfEnd = Convert.ToDateTime(txtUnEnmploymentday.Text)
-                };
-                _crud.AddMechanic(_mechanic);
+                _crud.CreateNewMechanic(txtName.Text, Convert.ToDateTime(txtBirthday.Text), Convert.ToDateTime(txtEmployementday.Text), Convert.ToDateTime(txtUnEnmploymentday.Text));
 
                 UpdateMechanicCheckBox();
                 MessageBox.Show("Saved");
@@ -116,9 +82,8 @@ namespace GUI.Home
         private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
         {
             if (dgMechanicList.SelectedItem != null)
-            {//SelectedItem innebär vilken rad av mekaniker på datagriden man väljer
+            {
                 _crud.RemoveMechanic(dgMechanicList.SelectedItem as Mechanic);
-
                 MessageBox.Show("Raderat mekaniker");
             }
         }
@@ -126,13 +91,7 @@ namespace GUI.Home
         {
             if (dgMechanicList.SelectedItem != null)
             {
-                var objMechanic = dgMechanicList.SelectedItem as Mechanic;
-                //Varje gång man ändrar kompetenser och trycker på uppdatera så triggar den NotifyProp, då ändras båda fönstren
-                objMechanic.NotifyPropertyChanged(_breakes);
-                objMechanic.NotifyPropertyChanged(_engine);
-                objMechanic.NotifyPropertyChanged(_carbody);
-                objMechanic.NotifyPropertyChanged(_windshield);
-                objMechanic.NotifyPropertyChanged(_tyre);
+                _crud.UpdateMechanic(dgMechanicList.SelectedItem as Mechanic);
                 MessageBox.Show("Uppdaterad");
             }
         }
@@ -145,14 +104,8 @@ namespace GUI.Home
             //if (isMatch)
             //{
 
-            Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
-            var obj = _newUser = new User() { Username = txtUserName.Text, Password = txtPassword.Text };
-            _crud.AddUser(_newUser);
-            mec.UserID = obj.ID; //Viktigt att detta görs, prop MechanicUser settar auto till true
-            mec.MechanicUser = true;//Här ska den vanligtvis setta men den triggar bara PropertyChanged så att WPFn ändras
+            _crud.CreateNewUser(dgUserAccess.SelectedItem as Mechanic, txtUserName.Text, txtPassword.Text);
             MessageBox.Show("Sparat ny användare");
-
-
             //}
         }
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
@@ -160,11 +113,7 @@ namespace GUI.Home
             if (dgUserAccess.SelectedItem != null)
             {
                 //Raderar inte själva mekanikern men raderar användarnamn och lösenord som den ska
-                Mechanic mec = (dgUserAccess.SelectedItem as Mechanic);
-                _crud.RemoveUser(mec.UserID);
-                mec.UserID = Guid.Empty;//Viktigt att detta görs, prop MechanicUser settar auto till false
-                mec.MechanicUser = false; //Här ska den vanligtvis setta men den triggar bara PropertyChanged så att WPFn ändras, så gör man denna till falsk så ändras det checkboxen direkt.
-
+                _crud.RemoveUser(dgUserAccess.SelectedItem as Mechanic);
                 MessageBox.Show("Raderat användare");
             }
         }
@@ -173,70 +122,15 @@ namespace GUI.Home
         #region Fordon: Skapa. har en metod för upprepande kod. Tredje sidan. (Antar att radera ej behövs, man ska ha koll på alla klargjorda fordon)
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
-            var obj = cbBoxVeichleType.SelectedItem.ToString();
-            switch (obj)
-            {
-                case "Bil":
-                    Car _newCar = new Car();
-                    NewVehicleInputData(_newCar);
-                    if (checkBoxCarHook.IsChecked == true)
-                    {
-                        _newCar.SetTowbarValue(true);
-                    }
-                    VehicleList.VehicleLists.Add(_newCar);
-                    break;
+            _crud.CreateNewVehicle(cbBoxVeichleType.SelectedItem.ToString(), txtModelName.Text, txtRegNr.Text, Convert.ToDecimal(txtOdoMeter.Text), Convert.ToDateTime(txtRegDate.Text), txtFuel.Text, Convert.ToBoolean(checkBoxCarHook.IsChecked), Convert.ToDecimal(txtMaxLoadWeight.Text), Convert.ToInt32(txtMaxPassanger.Text));
 
-                case "Motorcykel":
-                    Motorbike _newMotorbike = new Motorbike();
-                    NewVehicleInputData(_newMotorbike);
-                    VehicleList.VehicleLists.Add(_newMotorbike);
-                    break;
-
-                case "Lastbil":
-                    Truck _newTruck = new Truck();
-                    NewVehicleInputData(_newTruck);
-                    _newTruck.SetMaxLoadWeight(Convert.ToDecimal(txtMaxLoadWeight.Text));
-                    VehicleList.VehicleLists.Add(_newTruck);
-                    break;
-
-                case "Buss":
-                    Bus _newBus = new Bus();
-                    NewVehicleInputData(_newBus);
-                    _newBus.SetPassengersValue(Convert.ToInt32(txtMaxPassanger.Text));
-                    VehicleList.VehicleLists.Add(_newBus);
-                    break;
-
-                default:
-                    break;
-            }
-            UpdateVechileCheckBox();
             MessageBox.Show("Sparad");
         }
-        private void NewVehicleInputData(Vehicle vehicle)
-        {
-            vehicle.ModelName = txtModelName.Text;
-            vehicle.RegistrationNumber = txtRegNr.Text;
-            vehicle.OdoMeter = Convert.ToDecimal(txtOdoMeter.Text);
-            vehicle.RegistrationDate = Convert.ToDateTime(txtRegDate.Text);
-            vehicle.Fuel = txtFuel.Text;
-        }
         #endregion
-
         #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
-            var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-
-            Errand newErrand = new Errand();
-            newErrand.Description = txtDescription.Text;
-            newErrand.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
-            newErrand.VeichleID = objVehicle.ID;
-            newErrand.ModelName = objVehicle.ModelName;
-            newErrand.RegistrationNumber = objVehicle.RegistrationNumber;
-
-            ErrandList.ErrandsList.Add(newErrand);
-            ErrandMechanicViewCombine.BuildSource();
-
+            _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
             MessageBox.Show("Sparad");
         }
 
@@ -252,84 +146,39 @@ namespace GUI.Home
         {
             if (dgErrandList.SelectedItem != null)
             {
-                var objCommonView = dgErrandList.SelectedItem as CommonView;
-                var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
-
-                //Denna ser till att GUI håller sig uppdaterads.
-                objCommonView.ChangeDescription = txtDescription.Text;
-                objCommonView.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
-                objCommonView.ChangeModelName = objVehicle.ModelName;
-                objCommonView.ChangeRegistrationNumber = objVehicle.RegistrationNumber;
-
-                //Denna ser till att Datan sparas.
-                var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
-                foreach (var item in objErrand)
-                {
-                    item.Description = txtDescription.Text;
-                    item.VeichleID = objVehicle.ID;
-                    item.Problem = cbBoxProblemsErrand.SelectedItem.ToString();
-                    item.ModelName = objVehicle.ModelName;
-                    item.RegistrationNumber = objVehicle.RegistrationNumber;
-                }
+                _crud.UpdateErrand(dgErrandList.SelectedItem as CommonView, cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
                 MessageBox.Show("Uppdaterad");
             }
         }
         #endregion
 
         #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
-        private void BtnGiveMechanicErrand_Click(object sender, RoutedEventArgs e)
+        private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
         {
             if (dgCommonViewList != null)
             {
-                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
+                var trueorfalse = _crud.AddMechanicErrandList(cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, dgCommonViewList.SelectedItem as CommonView);
 
-                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
+                if (trueorfalse)
                 {
-                    //Denna ser till att GUI håller sig uppdaterad
-                    objCommonView.ChangeMechanicID = objMechanic.ID;
-                    objCommonView.ChangeName = objMechanic.Name;
-                    objCommonView.ChangeStatus = "Pågående";
-
-                    //Denna ser till att Datan sparas.
-                    var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
-                    foreach (var item in objErrands)
-                    {
-                        item.MechanicID = objMechanic.ID;
-                        item.Status = "Pågående";
-                        objMechanic.ErrandID.Add(item.ID);
-
-                        //Funkar
-                        Task.AddProgressList(objMechanic, item.ID.ToString());
-                    }
-
-
-                    MessageBox.Show($"{objMechanic.Name} har blivit tilldelat ett ärende");
+                    MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
                 }
                 else
-                    MessageBox.Show($"{objMechanic.Name} har redan två ärenden pågående");
+                    MessageBox.Show($"Mekanikern har redan två ärenden pågående");
             }
         }
         private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
         {
             if (_choosenComboBoxMechanicObject != null)
             {
-                string newStatus = cbBoxChangeErrandsStatus.SelectedItem.ToString();
-                var objMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
+                var trueorfalse = _crud.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, cbBoxChangeErrandsStatus.SelectedItem.ToString());
 
-                if (newStatus == "Klar")
+                if (trueorfalse)
                 {
-                    var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
-                    foreach (var item in objErrands)
-                    {
-                        Task.AddDoneList(objMechanic, item.ID.ToString());
-                        item.Status = newStatus;
-                    }
-
-                    objCommonView.ChangeStatus = newStatus;
                     MessageBox.Show("Uppdaterad");
                 }
+                else
+                    MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
             }
         }
         #endregion
@@ -406,7 +255,6 @@ namespace GUI.Home
                         cbBoxChangeErrandsStatus.Visibility = Visibility.Visible;
                         btnChangeStatusErrand.Visibility = Visibility.Visible;
                     }
-
 
                     dgCommonViewList.ItemsSource = tempListErrand;
                 }
