@@ -40,13 +40,18 @@ namespace GUI.Home
         }
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
-            Errand errand = dgErrends.SelectedItem as Errand;
-            var objerrand = dgErrends.SelectedItem as CommonView;
+            //Errand errand = dgErrends.SelectedItem as Errand;
+            var objCommonView = dgErrends.SelectedItem as CommonView;
+
+            objCommonView.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
 
             if (dgErrends.SelectedItem != null)
             {
-                errand.Status = comboBoxErrands.SelectedItem.ToString();
-                objerrand.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
+                var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+                foreach (var item in objErrand)
+                {
+                    item.Status = comboBoxErrands.SelectedItem.ToString();
+                }
             }
 
             UpdatingBoxes();
@@ -55,6 +60,8 @@ namespace GUI.Home
             _currentMechanic.NotifyPropertyChanged("Carbody");
             _currentMechanic.NotifyPropertyChanged("Windshield");
             _currentMechanic.NotifyPropertyChanged("Tyre");
+
+            MessageBox.Show("Uppdaterad");
         }
 
         //Finns säkert ett bättre sätt men det funkar!
