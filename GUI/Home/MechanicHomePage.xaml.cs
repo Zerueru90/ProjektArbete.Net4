@@ -23,6 +23,16 @@ namespace GUI.Home
     public partial class MechanichomePage : Page
     {
         private Mechanic _currentMechanic;
+        private CRUD _crud;
+        private string[] _unwantedColumns = new string[]
+        {
+            "ChangeMechanicID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName", "ChangeDescription", "ChangeProblem", "ChangeStatus"
+        };
+        private string[] _skills = new string[] 
+        { 
+            "Breaks", "Engine", "Carbody", "Windshield", "Tyre"
+        };
+
         public MechanichomePage(Mechanic currentMech)
         {
             InitializeComponent();
@@ -30,7 +40,8 @@ namespace GUI.Home
             _currentMechanic = currentMech;
 
             labelName.Content = currentMech.Name.ToString();
-            dgErrends.ItemsSource = ErrandList.ErrandsList.Where(x => x.MechanicID == currentMech.ID);
+
+            dgErrends.ItemsSource = ErrandMechanicViewCombine.Source.Where(x => x.MechanicID == currentMech.ID);
 
             CheckingBoxes();
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
@@ -40,27 +51,32 @@ namespace GUI.Home
         }
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
-            //Errand errand = dgErrends.SelectedItem as Errand;
+            _crud = new CRUD();
+
             var objCommonView = dgErrends.SelectedItem as CommonView;
 
-            objCommonView.ChangeStatus = comboBoxErrands.SelectedItem.ToString();
-
-            if (dgErrends.SelectedItem != null)
+            if (comboBoxErrands.SelectedItem != null)
             {
-                var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
-                foreach (var item in objErrand)
+                var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
+                var status = "";
+                foreach (var item in test)
                 {
-                    item.Status = comboBoxErrands.SelectedItem.ToString();
+                    status = item.Status;
                 }
+
+                if (status != "Klar")
+                {
+                    _crud.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, comboBoxErrands.SelectedItem.ToString());
+                }
+                else
+                    MessageBox.Show("Ärendet är klart och går inte att ändra.");
             }
 
             UpdatingBoxes();
-            _currentMechanic.NotifyPropertyChanged("Breaks");
-            _currentMechanic.NotifyPropertyChanged("Engine");
-            _currentMechanic.NotifyPropertyChanged("Carbody");
-            _currentMechanic.NotifyPropertyChanged("Windshield");
-            _currentMechanic.NotifyPropertyChanged("Tyre");
-
+            for (int i = 0; i < _skills.Length; i++)
+            {
+                _currentMechanic.NotifyPropertyChanged(_skills[i]);
+            }
             MessageBox.Show("Uppdaterad");
         }
 
@@ -117,54 +133,15 @@ namespace GUI.Home
         {
             string headername = e.Column.Header.ToString();
 
-            //Cancel the column you don't want to generate
-            if (headername == "ChangeStatus")
+            //Tar bort kolumerna man inte vill ha med
+
+
+            for (int i = 0; i < _unwantedColumns.Length; i++)
             {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeVeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeMechanic")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeDescription")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeProblem")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ErrandsID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "VeichleID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "MechanicID")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeModelName")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ChangeRegistrationNumber")
-            {
-                e.Cancel = true;
-            }
-            if (headername == "ID")
-            {
-                e.Cancel = true;
+                if (headername == _unwantedColumns[i])
+                {
+                    e.Cancel = true;
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ namespace Logic
 {
     public class CRUD
     {
+        #region Mekaniker: Skapa/Radera/Uppdatera.
         public void CreateNewMechanic(string name, DateTime birtday, DateTime employmentday, DateTime employmentend)
         {
             Mechanic _mechanic = new Mechanic
@@ -39,7 +40,8 @@ namespace Logic
             objMechanic.NotifyPropertyChanged("Windshield");
             objMechanic.NotifyPropertyChanged("Tyre");
         }
-
+        #endregion
+        #region User: Skapa/Radera User inlogg. 
         public void CreateNewUser(Mechanic objMechanic, string username, string password)
         {
             User _newUser = new User()
@@ -60,7 +62,8 @@ namespace Logic
             objMechanic.UserID = Guid.Empty;//Viktigt att detta görs, prop MechanicUser settar auto till false
             objMechanic.MechanicUser = false; //Här ska den vanligtvis setta men den triggar bara PropertyChanged så att WPFn ändras, så gör man denna till falsk så ändras det checkboxen direkt.
         }
-
+        #endregion
+        #region Fordon: Skapa.
         public void CreateNewVehicle(string cases, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, bool checkBoxCarHook, decimal maxLoadWeight, int maxPassangers)
         {
             switch (cases)
@@ -104,7 +107,8 @@ namespace Logic
             vehicle.Fuel = fuel;
             VehicleList.VehicleLists.Add(vehicle);
         }
-
+        #endregion
+        #region Ärenden: Skapa/Radera/Uppdatera.
         public void CreateNewErrand(Vehicle objVehicle, string description, string problem)
         {
             Errand newErrand = new Errand();
@@ -166,7 +170,8 @@ namespace Logic
                 item.RegistrationNumber = objVehicle.RegistrationNumber;
             }
         }
-
+        #endregion
+        #region Tilldela Ärende till mekaniker
         public bool AddMechanicErrandList(Mechanic objMechanic, CommonView objCommonView)
         {
             if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
@@ -211,22 +216,19 @@ namespace Logic
             else
                 return false;
         }
-
+        #endregion
         public void AddMekchanicSkill(Guid _id, string skill)
         {
             Mechanic mekanik = MechanicList.MechanicLists.FirstOrDefault(item => item.ID == _id);
 
-            mekanik.SkillLista.Add(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
+            mekanik.SkillLista.Add(skill); 
         }
 
         public void RemoveMechanicSkill(Guid _id, string skill)
         {
             Mechanic mekanik = MechanicList.MechanicLists.FirstOrDefault(item => item.ID == _id);
-            mekanik.SkillLista.Remove(skill); //"t.ex MotorRenoverare" som bilmekanikerns kompentes
+            mekanik.SkillLista.Remove(skill); 
         }
-
-
-
 
         public void RemoveFromMechanicProgressList(Mechanic mechanic, string ErrandID)
         {

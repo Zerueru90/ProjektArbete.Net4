@@ -26,6 +26,7 @@ namespace GUI.Home
         {
             InitializeComponent();
 
+            VehicleList.VehicleLists = null;
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMechanicList.ItemsSource = MechanicList.MechanicLists;
@@ -40,6 +41,7 @@ namespace GUI.Home
             //DummyData.MecanichData();
             DummyData.VehicleData();
 
+            txtUserName.Text = "Lasse";
 
             txtName.Text = "Lasse";
             txtEmployementday.Text = "20-10-24";
@@ -151,7 +153,6 @@ namespace GUI.Home
             }
         }
         #endregion
-
         #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
         private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
         {
@@ -171,14 +172,26 @@ namespace GUI.Home
         {
             if (_choosenComboBoxMechanicObject != null)
             {
-                var trueorfalse = _crud.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, cbBoxChangeErrandsStatus.SelectedItem.ToString());
-
-                if (trueorfalse)
+                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
+                var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
+                var status = "";
+                foreach (var item in test)
                 {
-                    MessageBox.Show("Uppdaterad");
+                    status = item.Status;
+                }
+                if (status != "Klar")
+                {
+                    var trueorfalse = _crud.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, cbBoxChangeErrandsStatus.SelectedItem.ToString());
+
+                    if (trueorfalse)
+                    {
+                        MessageBox.Show("Uppdaterad");
+                    }
+                    else
+                        MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
                 }
                 else
-                    MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
+                    MessageBox.Show("Ärendet är klart och går inte att ändra, skapa ett nytt ärende om fordonet måste repareras om igen");
             }
         }
         #endregion
@@ -301,13 +314,13 @@ namespace GUI.Home
 
         #endregion   
 
-        #region Tagen från doc windows sidan, väldigt smidigt om man inte vill ha med något från Mekaniker egenskaperna till DataGrid listan.   
+        #region Kolumer: Tar bort dom man inte vill ha med.
 
         private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
 
-            //Cancel the column you don't want to generate
+            //Tar bort kolumerna man inte vill ha med
 
             for (int i = 0; i < _unwantedColumns.Length; i++)
             {
