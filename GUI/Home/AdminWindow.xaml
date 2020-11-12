@@ -1,0 +1,170 @@
+﻿<Window x:Class="GUI.Home.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI.Home"
+        mc:Ignorable="d"
+        Title="AdminPage" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Mekaniker">
+                <Grid Background="#FFE5E5E5">
+                    <DataGrid Name="dgMechanicList" Margin="207,26,0,0" DisplayMemberPath="Name" CanUserAddRows="False" AutoGenerateColumns="True" AutoGeneratingColumn="dgMechanicList_AutoGeneratingColumn">
+                        <DataGrid.Resources>
+                            <Style TargetType="{x:Type DataGridCell}">
+                                <Style.Triggers>
+                                    <DataTrigger Value="Id" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <!--<DataTrigger Value="Name" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfBirthday" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfEmployment" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Value="DateOfEnd" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>-->
+                                    <DataTrigger Value="MechanicUser" Binding="{Binding Path=Column.Header, RelativeSource={RelativeSource Self}}">
+                                        <Setter Property="IsEnabled"  Value="False" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.Resources>
+                    </DataGrid>
+                    <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top"/>
+                    <Label FontSize="10" FontStyle="Italic" Content="Vill du ändra namn, datum osv. Gör det direkt från listan och tryck sen uppdatera" HorizontalAlignment="Left" Margin="330,8,0,0" VerticalAlignment="Top"/>
+
+                    <GroupBox Header="Skapa ny mekaniker här" HorizontalAlignment="Left" VerticalAlignment="Top" Height="274" Width="174"/>
+
+                    <Label Content="Namn" HorizontalAlignment="Left" Margin="10,16,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtName" HorizontalAlignment="Left" Margin="10,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Födelsedag" HorizontalAlignment="Left" Margin="10,65,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtBirthday" HorizontalAlignment="Left" Margin="10,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Anställningsdatum" HorizontalAlignment="Left" Margin="10,114,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtEmployementday" HorizontalAlignment="Left" Margin="10,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Label Content="Slutdatum" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtUnEnmploymentday" HorizontalAlignment="Left" Margin="10,189,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Button Content="Spara" HorizontalAlignment="Left" Margin="56,229,0,0" VerticalAlignment="Top" Height="32" Width="74" Click="BtnSaveNewMechanic_Click"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="55,379,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.514,0.533" Height="32" Width="75" Click="BtnDeleteMechanic_Click"/>
+                    <Button Content="Uppdatera" HorizontalAlignment="Left" Margin="56,304,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.564" Height="32" Width="74" Click="BtnUpdateMechanic_Click"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="User inlogg">
+                <Grid Background="#FFE5E5E5">
+                    <Label FontSize="10" FontStyle="Italic" Content="Välj en mekanikern från listan och ge hen ett användarn namn och lösenord" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Användarnamn" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
+                    <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
+                    <Button Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
+                    <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgUserAccess_AutoGeneratingColumn"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Fordon och Ärenden">
+                <Grid Background="#FFE5E5E5" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Du måste först skapa ett fordon för att sen kunna skapa ett ärenden" FontSize="10" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="320"/>
+
+                    <Label Content="Fordons lista" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0,1,0,0"/>
+                    <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgVeichleList_AutoGeneratingColumn"/>
+
+                    <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
+                    <DataGrid DisplayMemberPath="Name" Name="dgErrandList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrandList_AutoGeneratingColumn">
+                        <!--<DataGrid.Columns>
+                            <DataGridTextColumn Header="Model" Binding="{Binding ModelName}" Width="100"/>
+                            <DataGridTextColumn Header="Reg nr" Binding="{Binding RegistrationNumber}" Width="100" />
+                            <DataGridTextColumn Header="Beskrivning" Binding="{Binding Description}" Width="100" />
+                            <DataGridTextColumn Header="Problem" Binding="{Binding Problem}" Width="100" />
+                            <DataGridTextColumn Header="Mekaniker" Binding="{Binding Name}" Width="100" />
+                            <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
+                        </DataGrid.Columns>-->
+                    </DataGrid>
+
+                    <!--Registrera fordon-->
+                    <GroupBox Grid.Column="0" Grid.Row="0" Margin="0,31,40,0" Header="Registrera fordon"></GroupBox>
+                    <Label Content="Fordons typ" FontSize="10" HorizontalAlignment="Left" Margin="194,38,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
+                    <ComboBox Name="cbBoxVeichleType" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="120" Grid.Column="0" Grid.Row="0" DropDownClosed="cbBoxVeichleType_DropDownClosed" Margin="194,61,114,180"/>
+
+                    <Label Content="Modell namn" FontSize="10" HorizontalAlignment="Left" Margin="20,50,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtModelName" HorizontalAlignment="Left" Margin="20,70,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Content="Reg nr" FontSize="10" HorizontalAlignment="Left" Margin="20,85,0,0" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtRegNr" HorizontalAlignment="Left" Margin="20,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Content="Mätarställning" FontSize="10" HorizontalAlignment="Left" Margin="20,127,0,0" VerticalAlignment="Top" Width="73" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtOdoMeter" HorizontalAlignment="Left" Margin="20,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Content="Registrerings datum" FontSize="10" HorizontalAlignment="Left" Margin="20,168,0,0" VerticalAlignment="Top" Width="99" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtRegDate" HorizontalAlignment="Left" Margin="20,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Content="Drivmedel" FontSize="10" HorizontalAlignment="Left" Margin="20,209,0,0" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtFuel" HorizontalAlignment="Left" Margin="20,232,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Name="labelBilTyp" Content="Bil typ" FontSize="10" HorizontalAlignment="Left" Margin="194,81,0,0" Visibility="Hidden" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
+                    <ComboBox Name="cbBoxCarType" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="194,104,114,135" Grid.Column="0" Grid.Row="0" Visibility="Hidden"/>
+
+                    <CheckBox HorizontalAlignment="Left" VerticalAlignment="Top" Name="checkBoxCarHook" Margin="194,139,132,102" Visibility="Hidden">Dragkrock?</CheckBox>
+
+                    <Label  Name="labelMaxLoad" Content="Max last (kg)" FontSize="10" Visibility="Hidden" HorizontalAlignment="Left" Margin="194,86,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtMaxLoadWeight" Visibility="Collapsed" HorizontalAlignment="Left" Margin="194,109,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Label Name="labelPassanger" Visibility="Hidden" Content="Max antal passagerare" FontSize="10" HorizontalAlignment="Left" Margin="194,90,0,0" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+                    <TextBox Name="txtMaxPassanger" Visibility="Hidden" HorizontalAlignment="Left" Margin="194,113,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="0"/>
+
+                    <Button Margin="214,221,56,11" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="0" Click="BtnSaveVeichle_Click">Spara</Button>
+
+
+                    <!--Registrera ärenden-->
+                    <GroupBox Grid.Column="0" Grid.Row="1" Margin="0,1,40,0" Header="Registrera ärenden"></GroupBox>
+                    <Label Content="Beskrivning" FontSize="10" HorizontalAlignment="Left" Margin="20,30,0,0" VerticalAlignment="Top" Width="69" Grid.Column="0" Grid.Row="1"/>
+                    <TextBox Name="txtDescription" HorizontalAlignment="Left" Margin="20,53,0,0" TextWrapping="NoWrap" VerticalAlignment="Top" Width="120" Grid.Column="0" Grid.Row="1"/>
+
+                    <Label Content="Fordon" FontSize="10" HorizontalAlignment="Left" Margin="20,82,0,0" VerticalAlignment="Top" Width="60" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxVeichlesErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" DisplayMemberPath="RegistrationNumber" Margin="20,105,0,0" Grid.Column="0" Grid.Row="1"/>
+
+                    <Label Content="Problem" FontSize="10" HorizontalAlignment="Left" Margin="20,135,0,0" VerticalAlignment="Top" Width="73" Grid.Column="0" Grid.Row="1"/>
+                    <ComboBox Name="cbBoxProblemsErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" Margin="20,158,0,0" Grid.Column="0" Grid.Row="1"/>
+
+                    <Button Margin="214,113,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnSaveErrand_Click" Content="Spara"/>
+                    <Button Margin="214,206,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnDeleteErrand_Click" Content="Radera"/>
+                    <Button Margin="214,160,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnUpdateErrand_Click" Content="Uppdatera"/>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tilldela ärenden">
+                <Grid Background="#FFE5E5E5" >
+                    <Label Content="Välj mekaniker här" FontSize="12" HorizontalAlignment="Left" Margin="40,15,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cbBoxAppointMechanicAnErrand" DisplayMemberPath="Name" StaysOpenOnEdit="true" DropDownClosed="cbBoxAppointMechanicAnErrand_OnDropDownClosed" HorizontalAlignment="Left" Margin="40,41,0,0" VerticalAlignment="Top" Width="163" Height="31"/>
+                    <ComboBox Name="cbBoxChangeErrandsStatus" Visibility="Hidden" Margin="39,77,0,0" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="164" Height="31"/>
+                    <Button Name="btnChangeStatusErrand" Visibility="Hidden" Click="BtnChangesStatusOnly_Click" Content="Ändra status" HorizontalAlignment="Left" Margin="87,129,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
+                    <Button Click="BtnAppointMechanicErrand_Click" Content="Tilldela ärende" HorizontalAlignment="Left" Margin="87,172,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
+
+                    <DataGrid Name="dgCommonViewList" Margin="272,28,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgCommonView_AutoGeneratingColumn"/>
+                    <Label Content="Endast fordon med mekanikers kompetens visas" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,2,0,0" VerticalAlignment="Top"/>
+
+
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

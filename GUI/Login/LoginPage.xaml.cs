@@ -1,6 +1,9 @@
 ﻿using GUI.Home;
 using Logic;
+using Logic.DAL;
+using Logic.Entities;
 using Logic.Entities.Person_Entities;
+using Logic.Entities.Vehicles_Entities;
 using Logic.Services;
 using System;
 using System.Collections.Generic;
@@ -26,16 +29,19 @@ namespace GUI.Login
         private const string _errorMsg = "Inloggningen misslyckades";
 
         private LoginService _loginService;
+        private BosseHomePage homePage;
+        private AdminWindow adminWindow;
 
         public LoginPage()
         {
             InitializeComponent();
 
+            DataAccessRead.ReadJsonFile();
+
             _loginService = new LoginService();
 
             txtBoxUserName.Text = "Bosse";
             txtBoxPassword.Password = "Meckarn123";
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -47,9 +53,23 @@ namespace GUI.Login
             
             if (successful)
             {
-                BosseHomePage homePage = new BosseHomePage();
-            
-                this.NavigationService.Navigate(homePage);
+                //homePage = new BosseHomePage();
+
+                //this.NavigationService.Navigate(homePage);
+
+
+
+                adminWindow = new AdminWindow();
+
+                adminWindow.Show();
+                adminWindow.Closing += delegate
+                {
+                    DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
+                    DataAccessWrite<User>.SaveData(UserList.UserLists);
+                    DataAccessWrite<Vehicle>.SaveData(VehicleList.VehicleLists);
+                    DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
+                };
+
             }
             else if (username != "Bosse")
             {
