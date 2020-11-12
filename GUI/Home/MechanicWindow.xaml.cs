@@ -1,6 +1,5 @@
 ﻿using Logic;
 using Logic.Entities.Person_Entities;
-using Logic.Entities.Vehicles_Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +11,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace GUI.Home
 {
     /// <summary>
-    /// Interaction logic for MechanichomePage.xaml
+    /// Interaction logic for MechanicWindow.xaml
     /// </summary>
-    public partial class MechanichomePage : Page
+    public partial class MechanicWindow : Window
     {
         private Mechanic _currentMechanic;
         private CRUD _crud;
@@ -28,12 +26,12 @@ namespace GUI.Home
         {
             "ChangeMechanicID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName", "ChangeDescription", "ChangeProblem", "ChangeStatus"
         };
-        private string[] _skills = new string[] 
-        { 
+        private string[] _skills = new string[]
+        {
             "Breaks", "Engine", "Carbody", "Windshield", "Tyre"
         };
 
-        public MechanichomePage(Mechanic currentMech)
+        public MechanicWindow(Mechanic currentMech)
         {
             InitializeComponent();
 
@@ -49,6 +47,7 @@ namespace GUI.Home
                 comboBoxErrands.Items.Add(item.ToString());
             }
         }
+
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
             _crud = new CRUD();

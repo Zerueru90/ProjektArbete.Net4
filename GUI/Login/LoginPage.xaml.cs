@@ -29,8 +29,8 @@ namespace GUI.Login
         private const string _errorMsg = "Inloggningen misslyckades";
 
         private LoginService _loginService;
-        private BosseHomePage homePage;
         private AdminWindow adminWindow;
+        private MechanicWindow mecWindow;
 
         public LoginPage()
         {
@@ -53,15 +53,8 @@ namespace GUI.Login
             
             if (successful)
             {
-                //homePage = new BosseHomePage();
-
-                //this.NavigationService.Navigate(homePage);
-
-
-
                 adminWindow = new AdminWindow();
 
-                adminWindow.Show();
                 adminWindow.Closing += delegate
                 {
                     DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
@@ -74,9 +67,12 @@ namespace GUI.Login
             else if (username != "Bosse")
             {
                 Mechanic user = MechanicList.Login(username);
-                MechanichomePage mechanichomePage = new MechanichomePage(user);
-                this.NavigationService.Navigate(mechanichomePage);
-            
+                mecWindow = new MechanicWindow(user);
+                mecWindow.Show();
+                mecWindow.Closing += delegate
+                {
+                    DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
+                };
             }
             else
             {
