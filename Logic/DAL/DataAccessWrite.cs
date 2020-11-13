@@ -1,12 +1,13 @@
 ﻿using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using Logic.Entities.Vehicles_Entities;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
+using System.Text.Json;
 
 namespace Logic.DAL
 {
@@ -17,45 +18,48 @@ namespace Logic.DAL
 
         public static void SaveData(ObservableCollection<T> observableData)
         {
-            DeclareFileName(observableData);
-            string path = $"{filename}.json";
-            string jsonFileAddress = Path.Combine(@"" + findMap + @"\" + path);
-
-            if (File.Exists(jsonFileAddress))
+            if (observableData.Count != 0)
             {
-                File.Delete(jsonFileAddress); //Raderar "gamla" filen och skapar en ny under med nya inkommande mekaniker.
+                DeclareFileName(observableData);
+                string path = $"{filename}.json";
+                string jsonFileAddress = Path.Combine(@"" + findMap + @"\" + path);
 
-                string jsonString = JsonConvert.SerializeObject(observableData);
-                jsonString = JsonPrettify(jsonString);
-                using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
+                if (File.Exists(jsonFileAddress))
                 {
-                    write.Write(jsonString);
-                    write.Close();
+                    File.Delete(jsonFileAddress); //Raderar "gamla" filen och skapar en ny under med nya inkommande mekaniker.
+
+                    string jsonString = JsonSerializer.Serialize(observableData);
+                    //jsonString = JsonPrettify(jsonString);
+                    using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
+                    {
+                        write.Write(jsonString);
+                        write.Close();
+                    }
                 }
-            }
-            else
-            {
-                string jsonString = JsonConvert.SerializeObject(observableData);
-                jsonString = JsonPrettify(jsonString);
-                using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
+                else
                 {
-                    write.Write(jsonString);
-                    write.Close();
+                    string jsonString = JsonSerializer.Serialize(observableData);
+                    //jsonString = JsonPrettify(jsonString);
+                    using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
+                    {
+                        write.Write(jsonString);
+                        write.Close();
+                    }
                 }
             }
         }
 
-        private static string JsonPrettify(string json)
-        {
-            using (var stringReader = new StringReader(json))
-            using (var stringWriter = new StringWriter())
-            {
-                var jsonReader = new JsonTextReader(stringReader);
-                var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
-                jsonWriter.WriteToken(jsonReader);
-                return stringWriter.ToString();
-            }
-        }
+        //private static string JsonPrettify(string json)
+        //{
+        //    using (var stringReader = new StringReader(json))
+        //    using (var stringWriter = new StringWriter())
+        //    {
+        //        var jsonReader = new JsonTextReader(stringReader);
+        //        var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
+        //        jsonWriter.WriteToken(jsonReader);
+        //        return stringWriter.ToString();
+        //    }
+        //}
 
         private static void DeclareFileName(ObservableCollection<T> observableData)
         {

@@ -31,7 +31,6 @@ namespace GUI.Home
         {
             InitializeComponent();
 
-            VehicleList.VehicleLists = null;
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMechanicList.ItemsSource = MechanicList.MechanicLists;
@@ -81,10 +80,20 @@ namespace GUI.Home
         {
             if (!(txtName.Text == null) || !(txtName.Text == ""))
             {
-                _crud.CreateNewMechanic(txtName.Text, Convert.ToDateTime(txtBirthday.Text), Convert.ToDateTime(txtEmployementday.Text), Convert.ToDateTime(txtUnEnmploymentday.Text));
-
-                UpdateMechanicCheckBox();
-                MessageBox.Show("Saved");
+                try
+                {
+                    _crud.CreateNewMechanic(txtName.Text, Convert.ToDateTime(txtBirthday.Text), Convert.ToDateTime(txtEmployementday.Text), Convert.ToDateTime(txtUnEnmploymentday.Text));
+                    UpdateMechanicCheckBox();
+                    MessageBox.Show("Saved");
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Du måste skriva in ett giltigt datum");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Du måste ange ett namn");
             }
         }
         private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
@@ -108,13 +117,13 @@ namespace GUI.Home
         #region User: Skapa/Radera User inlogg. Andra sidan.
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            //var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
-            //if (isMatch)
-            //{
+            var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
+            if (isMatch)
+            {
 
-            _crud.CreateNewUser(dgUserAccess.SelectedItem as Mechanic, txtUserName.Text, txtPassword.Text);
-            MessageBox.Show("Sparat ny användare");
-            //}
+                _crud.CreateNewUser(dgUserAccess.SelectedItem as Mechanic, txtUserName.Text, txtPassword.Text);
+                MessageBox.Show("Sparat ny användare");
+            }
         }
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
@@ -165,7 +174,7 @@ namespace GUI.Home
         {
             if (dgCommonViewList != null)
             {
-                var trueorfalse = _crud.AddMechanicErrandList(cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, dgCommonViewList.SelectedItem as CommonView);
+                var trueorfalse = MechanicSkill.AddMechanicErrandList(cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, dgCommonViewList.SelectedItem as CommonView);
 
                 if (trueorfalse)
                 {
@@ -188,7 +197,7 @@ namespace GUI.Home
                 }
                 if (status != "Klar")
                 {
-                    var trueorfalse = _crud.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, cbBoxChangeErrandsStatus.SelectedItem.ToString());
+                    var trueorfalse = MechanicSkill.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, cbBoxChangeErrandsStatus.SelectedItem.ToString());
 
                     if (trueorfalse)
                     {
@@ -223,30 +232,6 @@ namespace GUI.Home
         #endregion
 
         #region OnDropDownClosed
-        private void FillingSkillList(Mechanic mec)
-        {
-            mec.SkillLista = new List<string>();
-            if (mec.Breaks == true)
-            {
-                mec.SkillLista.Add("Bromsar");
-            }
-            if (mec.Engine == true)
-            {
-                mec.SkillLista.Add("Motor");
-            }
-            if (mec.Carbody == true)
-            {
-                mec.SkillLista.Add("Kaross");
-            }
-            if (mec.Windshield == true)
-            {
-                mec.SkillLista.Add("Vindruta");
-            }
-            if (mec.Tyre == true)
-            {
-                mec.SkillLista.Add("Däck");
-            }
-        }
         void cbBoxAppointMechanicAnErrand_OnDropDownClosed(object sender, EventArgs e)
         {
             cbBoxChangeErrandsStatus.Visibility = Visibility.Hidden;
@@ -258,7 +243,7 @@ namespace GUI.Home
                 if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
                 {
                     _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                    FillingSkillList(_choosenComboBoxMechanicObject);
+                    MechanicSkill.AddAndRemoveMechanicSkill(_choosenComboBoxMechanicObject);
                     List<CommonView> tempListErrand = new List<CommonView>();
 
                     foreach (var item in _choosenComboBoxMechanicObject.SkillLista)

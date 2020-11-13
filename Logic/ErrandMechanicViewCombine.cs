@@ -30,7 +30,10 @@ namespace Logic
 
         public static void BuildSource()
         {
-            _source.Clear();
+            if (Source.Count != 0)
+            {
+                _source.Clear();
+            }
             foreach (var errandItem in ErrandList.ErrandsList)
             {
                 string MechanicName = "";
@@ -62,5 +65,6 @@ namespace Logic
                 });
             }
         }
+        
     }
 }

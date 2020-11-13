@@ -40,7 +40,7 @@ namespace GUI.Login
 
             _loginService = new LoginService();
 
-            txtBoxUserName.Text = "Bosse";
+            txtBoxUserName.Text = "Bosse@hotmail.com";
             txtBoxPassword.Password = "Meckarn123";
         }
 
@@ -49,9 +49,9 @@ namespace GUI.Login
             string username = this.txtBoxUserName.Text;
             string password = this.txtBoxPassword.Password;
             
-            bool successful = _loginService.Login(username, password);
+            bool successful = _loginService.LoginAdmin(username, password);
             
-            if (successful)
+            if (successful && username == "Bosse@hotmail.com")
             {
                 adminWindow = new AdminWindow();
                 adminWindow.Show();
@@ -62,12 +62,13 @@ namespace GUI.Login
                     DataAccessWrite<Vehicle>.SaveData(VehicleList.VehicleLists);
                     DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
                 };
-
             }
-            else if (username != "Bosse")
+
+            bool successful1 = _loginService.LoginMec(username, password);
+
+            if (successful1 && username != "Bosse@hotmail.com")
             {
-                Mechanic user = MechanicList.Login(username);
-                mecWindow = new MechanicWindow(user);
+                mecWindow = new MechanicWindow(_loginService.GetMechanicObj());
                 mecWindow.Show();
                 mecWindow.Closing += delegate
                 {

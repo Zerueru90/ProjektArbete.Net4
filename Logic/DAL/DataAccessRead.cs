@@ -1,30 +1,34 @@
 ﻿using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using Logic.Entities.Vehicles_Entities;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+//Ändra ordning på "allfiles" så att först Mek, User, Vechile, Errends.
 namespace Logic.DAL
 {
     public static class DataAccessRead
     {
         private static string findMap = $@"{Directory.GetCurrentDirectory()}\DAL";
         private static string[] allFiles = Directory.GetFiles(findMap);
+        //private static List<Car> tempVehicleList = new List<Car>();
 
         public static void ReadJsonFile()
         {
+            Array.Reverse(allFiles);
             for (int i = 0; i < allFiles.Length; i++)
             {
                 string[] sort = allFiles[i].Split(new string[] { "\\" }, StringSplitOptions.None);
                 string filename = sort[12];
-                StreamRead(allFiles[i], filename);
+                StreamRead<Vehicle>(allFiles[i], filename);
             }
         }
 
-        private static void StreamRead(string fileadress, string filename)
+        private static void StreamRead<T>(string fileadress, string filename)
         {
             string json = "";
             using (StreamReader read = new StreamReader(fileadress, true))
@@ -35,32 +39,33 @@ namespace Logic.DAL
             switch (filename)
             {
                 case "Mechanic.json":
-                    var jsonReadMechanic = JsonConvert.DeserializeObject<List<Mechanic>>(json);
+                    var jsonReadMechanic = JsonSerializer.Deserialize<List<Mechanic>>(json);
                     foreach (var ReadMechanic in jsonReadMechanic)
                     {
                         MechanicList.MechanicLists.Add(ReadMechanic);
                     }
                     break;
                 case "User.json":
-                    var jsonReadUser = JsonConvert.DeserializeObject<List<User>>(json);
+                    var jsonReadUser = JsonSerializer.Deserialize<List<User>>(json);
                     foreach (var ReadUser in jsonReadUser)
                     {
                         UserList.UserLists.Add(ReadUser);
                     }
                     break;
                 case "Vehicle.json":
-                    var jsonReadVehicle = JsonConvert.DeserializeObject<List<Vehicle>>(json);
+                    var jsonReadVehicle = JsonSerializer.Deserialize<List<Vehicle>>(json);
                     foreach (var ReadVehicle in jsonReadVehicle)
                     {
                         VehicleList.VehicleLists.Add(ReadVehicle);
                     }
                     break;
                 case "Errand.json":
-                    var jsonReadErrand = JsonConvert.DeserializeObject<List<Errand>>(json);
+                    var jsonReadErrand = JsonSerializer.Deserialize<List<Errand>>(json);
                     foreach (var ReadErrand in jsonReadErrand)
                     {
                         ErrandList.ErrandsList.Add(ReadErrand);
                     }
+                    ErrandMechanicViewCombine.BuildSource();
                     break;
                 default:
                     break;

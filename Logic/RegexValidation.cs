@@ -12,7 +12,7 @@ namespace Logic
 {
     public static class RegexValidation
     {
-
+        #region VerifyEmail
         public static bool VerifyEmail(string email)
         {
             if (string.IsNullOrWhiteSpace(email))
@@ -55,6 +55,8 @@ namespace Logic
                 return false;
             }
         }
+        #endregion
+        #region PasswordVerf
         public static bool VerifyPassword(string password)
         {
             var input = password;
@@ -67,9 +69,7 @@ namespace Logic
 
             var hasNumber = new Regex(@"[0-9]+");
             var hasUpperChar = new Regex(@"[A-Z]+");
-            //var hasMiniMaxChars = new Regex(@".{4-20}");
             var hasLowerChar = new Regex(@"[a-z]+");
-            var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
 
             if (!hasLowerChar.IsMatch(input))
             {
@@ -81,28 +81,18 @@ namespace Logic
                 //ErrorMessage = "Password should contain At least one upper case letter";
                 return false;
             }
-            //else if (!hasMiniMaxChars.IsMatch(input))
-            //{
-            //    //ErrorMessage = "Password should not be less than 4 or greater than 20 characters";
-            //    return false;
-            //}
             else if (!hasNumber.IsMatch(input))
             {
                 //ErrorMessage = "Password should contain At least one numeric value";
                 return false;
             }
-
-            //else if (!hasSymbols.IsMatch(input))
-            //{
-            //    //ErrorMessage = "Password should contain At least one special case characters";
-            //    return false;
-            //}
             else
             {
                 return true;
             }
 
         }
+        #endregion
         public static bool checkForEmail(string email)
         {
             bool IsValid = false;

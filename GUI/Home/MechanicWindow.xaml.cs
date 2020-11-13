@@ -65,7 +65,7 @@ namespace GUI.Home
 
                 if (status != "Klar")
                 {
-                    _crud.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, comboBoxErrands.SelectedItem.ToString());
+                    MechanicSkill.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, comboBoxErrands.SelectedItem.ToString());
                 }
                 else
                     MessageBox.Show("Ärendet är klart och går inte att ändra.");

@@ -25,27 +25,8 @@ namespace Logic
             }
             set
             {
-                //Denna behövs inte kallas men OM vi vill sätta värdet lista till null så kan man göra det med MechanicList.MechanicLists = null. Inte exakt därför men denna är nåbar om man gör något på det viset.
                 _mechanicList = value;
             }
         }
-
-        #region Tillfällig för att logga in enkelt.
-        public static Mechanic Login(string username)
-        {
-            var obj = from mec in MechanicLists
-                      where mec.Name == username
-                      select mec;
-
-            Mechanic mechanic = null;
-
-            foreach (var item in obj)
-            {
-                mechanic = item;
-            }
-
-            return mechanic;
-        }
-        #endregion
     }
 }

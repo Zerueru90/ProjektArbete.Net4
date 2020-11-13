@@ -7,7 +7,7 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Car : Vehicle
     {
-        private bool _hasTowbar;
+        public bool HasTowbar { get; set; }
 
         public enum CarType
         {
@@ -17,13 +17,5 @@ namespace Logic.Entities.Vehicles_Entities
             Halvkombi,
         };
 
-        public bool GetTowbarValue()
-        {
-            return _hasTowbar;
-        }
-        public void SetTowbarValue(bool value)
-        {
-            _hasTowbar = value;
-        }
     }
 }

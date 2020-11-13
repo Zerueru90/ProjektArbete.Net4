@@ -6,15 +6,6 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Bus : Vehicle
     {
-        private int _maxtotalPassengers;
-
-        public int GetPassengersValue()
-        {
-            return _maxtotalPassengers;
-        }
-        public void SetPassengersValue(int value)
-        {
-            _maxtotalPassengers = value;
-        }
+        public int MaxTotalPassengers { get; set; }
     }
 }

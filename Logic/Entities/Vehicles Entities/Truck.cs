@@ -6,15 +6,6 @@ namespace Logic.Entities.Vehicles_Entities
 {
     public class Truck : Vehicle
     {
-        private decimal _maxloadWeight;
-
-        public decimal GetMaxLoadWeight()
-        {
-            return _maxloadWeight;
-        }
-        public void SetMaxLoadWeight(decimal value)
-        {
-            _maxloadWeight = value;
-        }
+        public decimal MaxLoadWeight { get; set; }
     }
 }
