@@ -131,7 +131,7 @@ namespace GUI.Home
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
             string txt = "0";
-            _crud.CreateNewVehicle(cbBoxVeichleType.SelectedItem.ToString(), txtModelName.Text, txtRegNr.Text, Convert.ToDecimal(txtOdoMeter.Text), Convert.ToDateTime(txtRegDate.Text), txtFuel.Text, Convert.ToBoolean(checkBoxCarHook.IsChecked), Convert.ToDecimal(txt), Convert.ToInt32(txt));
+            _crud.CreateNewVehicle(cbBoxVeichleType.SelectedItem.ToString(), txtModelName.Text, txtRegNr.Text.ToUpper(), Convert.ToDecimal(txtOdoMeter.Text), Convert.ToDateTime(txtRegDate.Text), txtFuel.Text, Convert.ToBoolean(checkBoxCarHook.IsChecked), Convert.ToDecimal(txt), Convert.ToInt32(txt));
 
             MessageBox.Show("Sparad");
         }

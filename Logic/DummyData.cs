@@ -79,7 +79,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Audi",
-                RegistrationNumber = "aud123",
+                RegistrationNumber = "AUD123",
                 OdoMeter = 2500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Diesel"
@@ -87,7 +87,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Volvo",
-                RegistrationNumber = "vol321",
+                RegistrationNumber = "VOL321",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"
@@ -95,7 +95,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "BMW",
-                RegistrationNumber = "bmw123",
+                RegistrationNumber = "BMW123",
                 OdoMeter = 2500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Diesel"
@@ -103,7 +103,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Ferrari",
-                RegistrationNumber = "aaa001",
+                RegistrationNumber = "AAA001",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"
@@ -111,7 +111,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Kia",
-                RegistrationNumber = "kia627",
+                RegistrationNumber = "KIA627",
                 OdoMeter = 2500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Diesel"
@@ -119,7 +119,7 @@ namespace Logic
             VehicleList.VehicleLists.Add(new Car()
             {
                 ModelName = "Saab",
-                RegistrationNumber = "saa951",
+                RegistrationNumber = "SAA951",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"
