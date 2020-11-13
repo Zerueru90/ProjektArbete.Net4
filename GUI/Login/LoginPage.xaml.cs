@@ -54,7 +54,7 @@ namespace GUI.Login
             if (successful)
             {
                 adminWindow = new AdminWindow();
-
+                adminWindow.Show();
                 adminWindow.Closing += delegate
                 {
                     DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);

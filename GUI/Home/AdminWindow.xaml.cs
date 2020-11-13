@@ -44,7 +44,7 @@ namespace GUI.Home
             //DummyData.ErrandData();
             //DummyData.UserData();
             //DummyData.MecanichData();
-            DummyData.VehicleData();
+            //DummyData.VehicleData();
 
             txtUserName.Text = "Lasse";
 
