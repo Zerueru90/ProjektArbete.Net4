@@ -24,9 +24,9 @@ namespace GUI.Home
         private CRUD _crud = new CRUD();
         private Mechanic _choosenComboBoxMechanicObject;
         private string[] _unwantedColumns = new string[]
-       {
+        {
             "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VeichleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName"
-       };
+        };
         public AdminWindow()
         {
             InitializeComponent();
@@ -73,7 +73,6 @@ namespace GUI.Home
             UpdateMechanicCheckBox();
             UpdateVechileCheckBox();
         }
-
 
         #region Mekaniker: Skapa/Radera/Uppdatera. Första sidan.
         private void BtnSaveNewMechanic_Click(object sender, RoutedEventArgs e)
@@ -145,6 +144,7 @@ namespace GUI.Home
             MessageBox.Show("Sparad");
         }
         #endregion
+
         #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
@@ -169,6 +169,7 @@ namespace GUI.Home
             }
         }
         #endregion
+
         #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
         private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
         {
