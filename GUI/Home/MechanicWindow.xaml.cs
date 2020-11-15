@@ -79,28 +79,52 @@ namespace GUI.Home
             MessageBox.Show("Uppdaterad");
         }
 
-        //Finns säkert ett bättre sätt men det funkar!
+        //Finns säkert ett bättre sätt men detta funkar
         private void UpdatingBoxes()
         {
             if (checkBoxBreaks.IsChecked == true)
             {
                 _currentMechanic.Breaks = true;
             }
+            else
+            {
+                _currentMechanic.Breaks = false;
+            }
+
             if (checkBoxEngine.IsChecked == true)
             {
                 _currentMechanic.Engine = true;
             }
+            else
+            {
+                _currentMechanic.Engine = false;
+            }
+
             if (checkBoxCarbody.IsChecked == true)
             {
                 _currentMechanic.Carbody = true;
             }
+            else
+            {
+                _currentMechanic.Carbody = false;
+            }
+
             if (checkBoxWindshield.IsChecked == true)
             {
                 _currentMechanic.Windshield = true;
             }
+            else
+            {
+                _currentMechanic.Windshield = false;
+            }
+
             if (checkBoxTyre.IsChecked == true)
             {
                 _currentMechanic.Tyre = true;
+            }
+            else
+            {
+                _currentMechanic.Tyre = false;
             }
         }
 

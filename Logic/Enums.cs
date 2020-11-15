@@ -13,13 +13,13 @@ namespace Logic
             Lastbil,
             Buss
         }
-        //public enum Cartype
-        //{
-        //    sedan = 1,
-        //    manorcar = 2,
-        //    convertible = 3,
-        //    hatckback = 4,
-        //}
+        public enum FuelType
+        {
+            El,
+            Bensin,
+            Diesel,
+            Etanol
+        }
         public enum VehicelProblems
         {
             Bromsar,

@@ -1,7 +1,6 @@
 ﻿using Logic.Entities;
 using Logic.Entities.Person_Entities;
 using Logic.Entities.Vehicles_Entities;
-//using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +25,7 @@ namespace Logic.DAL
 
                 if (File.Exists(jsonFileAddress))
                 {
-                    File.Delete(jsonFileAddress); //Raderar "gamla" filen och skapar en ny under med nya inkommande mekaniker.
+                    File.Delete(jsonFileAddress); 
 
                     string jsonString = JsonSerializer.Serialize(observableData);
                     //jsonString = JsonPrettify(jsonString);

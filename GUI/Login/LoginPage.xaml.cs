@@ -50,7 +50,8 @@ namespace GUI.Login
             string password = this.txtBoxPassword.Password;
             
             bool successful = _loginService.LoginAdmin(username, password);
-            
+            bool successful1 = _loginService.LoginMec(username, password);
+
             if (successful && username == "Bosse@hotmail.com")
             {
                 adminWindow = new AdminWindow();
@@ -64,9 +65,7 @@ namespace GUI.Login
                 };
             }
 
-            bool successful1 = _loginService.LoginMec(username, password);
-
-            if (successful1 && username != "Bosse@hotmail.com")
+            else if (successful1 && username != "Bosse@hotmail.com")
             {
                 mecWindow = new MechanicWindow(_loginService.GetMechanicObj());
                 mecWindow.Show();

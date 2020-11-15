@@ -78,6 +78,7 @@ namespace Logic
         {
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "Audi",
                 RegistrationNumber = "AUD123",
                 OdoMeter = 2500,
@@ -86,6 +87,7 @@ namespace Logic
             });
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "Volvo",
                 RegistrationNumber = "VOL321",
                 OdoMeter = 4500,
@@ -94,6 +96,7 @@ namespace Logic
             });
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "BMW",
                 RegistrationNumber = "BMW123",
                 OdoMeter = 2500,
@@ -102,6 +105,7 @@ namespace Logic
             });
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "Ferrari",
                 RegistrationNumber = "AAA001",
                 OdoMeter = 4500,
@@ -110,6 +114,7 @@ namespace Logic
             });
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "Kia",
                 RegistrationNumber = "KIA627",
                 OdoMeter = 2500,
@@ -118,8 +123,45 @@ namespace Logic
             });
             VehicleList.VehicleLists.Add(new Car()
             {
+                VehicleType = "Bil",
                 ModelName = "Saab",
                 RegistrationNumber = "SAA951",
+                OdoMeter = 4500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Bensin"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                VehicleType = "MC",
+                ModelName = "Harley Davidson",
+                RegistrationNumber = "HAD627",
+                OdoMeter = 2500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Diesel"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                VehicleType = "MC",
+                ModelName = "Honda",
+                RegistrationNumber = "HON951",
+                OdoMeter = 4500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Bensin"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                VehicleType = "Buss",
+                ModelName = "Mercedes",
+                RegistrationNumber = "MER627",
+                OdoMeter = 2500,
+                RegistrationDate = DateTime.Now,
+                Fuel = "Diesel"
+            });
+            VehicleList.VehicleLists.Add(new Car()
+            {
+                VehicleType = "Lastbil",
+                ModelName = "Volvo 957",
+                RegistrationNumber = "LBV951",
                 OdoMeter = 4500,
                 RegistrationDate = DateTime.Now,
                 Fuel = "Bensin"

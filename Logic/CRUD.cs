@@ -33,12 +33,18 @@ namespace Logic
 
         public void UpdateMechanic(Mechanic objMechanic)
         {
-            //Resten uppdateras direkt från GUI
+            //Ser till att GUI blir uppdaterad och ändrar även datan så att det sparas korrekt.
+            objMechanic.NotifyPropertyChanged("Name");
+            objMechanic.NotifyPropertyChanged("DateOfBirthday");
+            objMechanic.NotifyPropertyChanged("DateOfEmployment");
+            objMechanic.NotifyPropertyChanged("DateOfEnd");
             objMechanic.NotifyPropertyChanged("Breaks");
             objMechanic.NotifyPropertyChanged("Engine");
             objMechanic.NotifyPropertyChanged("Carbody");
             objMechanic.NotifyPropertyChanged("Windshield");
             objMechanic.NotifyPropertyChanged("Tyre");
+
+            MechanicSkill.AddAndRemoveMechanicSkill(objMechanic);
         }
         #endregion
         #region User: Skapa/Radera User inlogg. 
