@@ -23,7 +23,7 @@ namespace Logic.DAL
             for (int i = 0; i < allFiles.Length; i++)
             {
                 string[] sort = allFiles[i].Split(new string[] { "\\" }, StringSplitOptions.None);
-                string filename = sort[12];
+                string filename = sort[11];
                 StreamRead<Vehicle>(allFiles[i], filename);
             }
         }
