@@ -15,17 +15,43 @@ namespace Logic.DAL
     {
         private static string findMap = $@"{Directory.GetCurrentDirectory()}\DAL";
         private static string[] allFiles = Directory.GetFiles(findMap);
+        private static string[] jsonfiles = { "Mechanic.json", "User.json", "Errand.json", "Vehicle.json" };
         //private static List<Car> tempVehicleList = new List<Car>();
 
         public static void ReadJsonFile()
         {
             Array.Reverse(allFiles);
+            string filename = "";
             for (int i = 0; i < allFiles.Length; i++)
             {
                 string[] sort = allFiles[i].Split(new string[] { "\\" }, StringSplitOptions.None);
-                string filename = sort[11];
+                for (int j = 0; j < sort.Length; j++)
+                {
+                    if (CheckFile(sort[j]))
+                    {
+                        filename = sort[j];
+                    }
+                }
+
                 StreamRead<Vehicle>(allFiles[i], filename);
             }
+        }
+
+        private static bool CheckFile(string file)
+        {
+            switch (file)
+            {
+                case "Mechanic.json":
+                    return true;
+                case "User.json":
+                    return true;
+                case "Errand.json":
+                    return true;
+                case "Vehicle.json":
+                    return true;
+
+            }
+            return false;
         }
 
         private static void StreamRead<T>(string fileadress, string filename)
