@@ -36,11 +36,11 @@ namespace Logic
                     return match.Groups[1].Value + domainName;
                 }
             }
-            catch (RegexMatchTimeoutException e)
+            catch (RegexMatchTimeoutException reg)
             {
                 return false;
             }
-            catch (ArgumentException e)
+            catch (ArgumentException ex)
             {
                 return false;
             }
@@ -57,51 +57,96 @@ namespace Logic
         }
         #endregion
         #region PasswordVerf
-        public static bool VerifyPassword(string password)
+        public static void VerifyPassword(string password)
         {
+            IsNullorEmpty(password);
+
             var input = password;
-            //ErrorMessage = string.Empty;
-
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                throw new Exception("Password should not be empty");
-            }
-
             var hasNumber = new Regex(@"[0-9]+");
             var hasUpperChar = new Regex(@"[A-Z]+");
             var hasLowerChar = new Regex(@"[a-z]+");
 
             if (!hasLowerChar.IsMatch(input))
             {
-                //ErrorMessage = "Password should contain At least one lower case letter";
-                return false;
+                throw new ExceptionHandling.PasswordFormat();
             }
-            else if (!hasUpperChar.IsMatch(input))
+            else if(!hasUpperChar.IsMatch(input))
             {
-                //ErrorMessage = "Password should contain At least one upper case letter";
-                return false;
+                throw new ExceptionHandling.PasswordFormat();
             }
             else if (!hasNumber.IsMatch(input))
             {
-                //ErrorMessage = "Password should contain At least one numeric value";
-                return false;
-            }
-            else
-            {
-                return true;
+                throw new ExceptionHandling.PasswordFormat();
             }
 
         }
         #endregion
-        public static bool checkForEmail(string email)
+        #region EmailLightVersion
+        public static bool CheckForEmail(string email)
         {
+            IsNullorEmpty(email);
             bool IsValid = false;
             Regex r = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             if (r.IsMatch(email))
             {
                 IsValid = true;
             }
+            else
+            {
+                throw new ExceptionHandling.EmailFormatException();
+            }
             return IsValid;
         }
+        #endregion
+        #region LettersOnly
+        public static bool LettersOnly(string prop)
+        {
+            IsNullorEmpty(prop);
+            var text = new Regex(@"^[a-zA-Z]+$");
+
+            if (text.IsMatch(prop))
+            {
+                return true;
+            }
+            else
+                throw new ExceptionHandling.NameFormatException();
+                
+        }
+        #endregion
+        #region IsNullorEmpty
+        private static void IsNullorEmpty(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                throw new ExceptionHandling.EmptyTextBoxException();
+            }
+        }
+        #endregion
+        #region NumbersOnly
+        public static void NumberOnly(string input)
+        {
+            
+            var prop = new Regex(@"^[0-9]+$");
+
+            if (!prop.IsMatch(input))
+            {
+                throw new ExceptionHandling.NumbersOnlyException();
+            }
+            
+        }
+        #endregion
+        #region RegNumber
+        public static void RegistrationNumber(string properties)
+        {
+            var prop = new Regex(@"^(?=.{0,6}$)[A-Za-z]{3}[0-9]{2}[A-Za-z0-9]{1}");
+
+            if (!prop.IsMatch(properties))
+            {
+                throw new ExceptionHandling.RegNumberException();
+            }
+            
+        }
+        #endregion
     }
 }
+

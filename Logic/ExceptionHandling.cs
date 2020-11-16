@@ -8,7 +8,7 @@ namespace Logic
     {
         public class EmptyTextBoxException : Exception
         {
-            readonly string message = "Tom textbox";
+            readonly string message = "Du måste skriva in något";
             public override string ToString() => message;
         }
 
@@ -21,7 +21,7 @@ namespace Logic
         //SignIn and Update
         public class EmailFormatException : Exception
         {
-            readonly string emailFormat = "Fel email format";
+            readonly string emailFormat = "Du måste ha med @ i din mailadress";
             public override string ToString() => emailFormat;
         }
 
@@ -48,5 +48,11 @@ namespace Logic
             readonly string nonNumbers = "Nummer bara";
             public override string ToString() => nonNumbers;
         }
+        public class RegNumberException : Exception
+        {
+            readonly string regnumber = "Regnummber måste innehålla tre siffror och tre nummer";
+            public override string ToString() => regnumber;
+        }
+        
     }
 }

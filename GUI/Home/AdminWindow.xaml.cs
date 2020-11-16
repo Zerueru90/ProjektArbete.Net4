@@ -31,6 +31,11 @@ namespace GUI.Home
         {
             InitializeComponent();
 
+            txtModelName.Text = "Volvo";
+            txtOdoMeter.Text = "2000";
+            txtRegDate.Text = DateTime.Now.ToString();
+            
+
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgMechanicList.ItemsSource = MechanicList.MechanicLists;
@@ -79,23 +84,27 @@ namespace GUI.Home
         #region Mekaniker: Skapa/Radera/Uppdatera. Första sidan.
         private void BtnSaveNewMechanic_Click(object sender, RoutedEventArgs e)
         {
-            if (!(txtName.Text == null) || !(txtName.Text == ""))
+            // Mekaniker namn, födelsedatum, Datumföranställning och slutdatum för anställning.
+            try
             {
-                try
-                {
-                    _crud.CreateNewMechanic(txtName.Text, Convert.ToDateTime(txtBirthday.Text), Convert.ToDateTime(txtEmployementday.Text), Convert.ToDateTime(txtUnEnmploymentday.Text));
-                    UpdateMechanicCheckBox();
-                    MessageBox.Show("Saved");
-                }
-                catch (FormatException)
-                {
-                    MessageBox.Show("Du måste skriva in ett giltigt datum");
-                }
+                RegexValidation.LettersOnly(txtName.Text);
+                _crud.CreateNewMechanic(txtName.Text, Convert.ToDateTime(txtBirthday.Text), Convert.ToDateTime(txtEmployementday.Text), Convert.ToDateTime(txtUnEnmploymentday.Text));
+                UpdateMechanicCheckBox();
+                MessageBox.Show("Saved");
             }
-            else
+            catch (FormatException)
             {
-                MessageBox.Show("Du måste ange ett namn");
+                MessageBox.Show("Du måste skriva in ett giltigt datum");
             }
+            catch (ExceptionHandling.NameFormatException name)
+            {
+                MessageBox.Show(name.ToString());
+            }
+            catch (ExceptionHandling.EmptyTextBoxException text)
+            {
+                MessageBox.Show(text.ToString());
+            }
+
         }
         private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
         {
@@ -118,13 +127,31 @@ namespace GUI.Home
         #region User: Skapa/Radera User inlogg. Andra sidan.
         private void BtnNewUser_Click(object sender, RoutedEventArgs e)
         {
-            var isMatch = RegexValidation.VerifyEmail(txtUserName.Text) && RegexValidation.VerifyPassword(txtPassword.Text);
-            if (isMatch)
+            if (dgUserAccess.SelectedItem != null)
             {
+                try
+                {
+                    RegexValidation.CheckForEmail(txtUserName.Text);
+                    RegexValidation.VerifyPassword(txtPassword.Text);
+                    _crud.CreateNewUser(dgUserAccess.SelectedItem as Mechanic, txtUserName.Text, txtPassword.Text);
+                    MessageBox.Show("Sparat ny användare");
+                }
+                catch (ExceptionHandling.EmailFormatException email)
+                {
 
-                _crud.CreateNewUser(dgUserAccess.SelectedItem as Mechanic, txtUserName.Text, txtPassword.Text);
-                MessageBox.Show("Sparat ny användare");
+                    MessageBox.Show(email.ToString());
+                }
+                catch (ExceptionHandling.PasswordFormat password)
+                {
+                    MessageBox.Show(password.ToString());
+                }
+                catch (ExceptionHandling.EmptyTextBoxException text)
+                {
+                    MessageBox.Show(text.ToString());
+                }
             }
+            else
+                MessageBox.Show("Du måste välja någon ifrån listan");
         }
         private void BtnDeleteUser_Click(object sender, RoutedEventArgs e)
         {
@@ -141,31 +168,85 @@ namespace GUI.Home
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
             string txt = "0";
-            _crud.CreateNewVehicle(cbBoxVeichleType.SelectedItem.ToString(), txtModelName.Text, txtRegNr.Text.ToUpper(), Convert.ToDecimal(txtOdoMeter.Text), Convert.ToDateTime(txtRegDate.Text), cbBoxFuel.SelectedItem.ToString(), Convert.ToBoolean(checkBoxCarHook.IsChecked), Convert.ToDecimal(txt), Convert.ToInt32(txt));
+            if (cbBoxVeichleType.SelectedItem != null || cbBoxFuel.SelectedItem != null)
+            {
+                try
+                {
+                    RegexValidation.LettersOnly(txtModelName.Text);
+                    RegexValidation.NumberOnly(txtOdoMeter.Text);
+                    RegexValidation.RegistrationNumber(txtRegNr.Text);
 
-            UpdateVechileCheckBox();
-            MessageBox.Show("Sparad");
+                    _crud.CreateNewVehicle(cbBoxVeichleType.SelectedItem.ToString(),
+                        txtModelName.Text, txtRegNr.Text.ToUpper(),
+                        Convert.ToDecimal(txtOdoMeter.Text),
+                        Convert.ToDateTime(txtRegDate.Text),
+                        cbBoxFuel.SelectedItem.ToString(),
+                        Convert.ToBoolean(checkBoxCarHook.IsChecked),
+                        Convert.ToDecimal(txt),
+                        Convert.ToInt32(txt));
+
+                    UpdateVechileCheckBox();
+                    MessageBox.Show("Sparad");
+                }
+                catch (ExceptionHandling.NumbersOnlyException numb)
+                {
+                    MessageBox.Show(numb.ToString());
+
+                }
+                catch (ExceptionHandling.NameFormatException name)
+                {
+                    MessageBox.Show(name.ToString());
+                }
+                catch (ExceptionHandling.EmptyTextBoxException empty)
+                {
+                    MessageBox.Show(empty.ToString());
+                }
+                catch (ExceptionHandling.RegNumberException regnum)
+                {
+                    MessageBox.Show(regnum.ToString());
+                }
+                catch (FormatException)
+                {
+                    MessageBox.Show("Du måste skriva in ett giltigt datum");
+                }
+            }
+            else
+                MessageBox.Show("Du måste fylla i alla uppgifter");
+
         }
         #endregion
 
         #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
-            _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-            MessageBox.Show("Sparad");
+            if (cbBoxVeichlesErrand.SelectedItem != null || cbBoxProblemsErrand.SelectedItem != null)
+            {
+                _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
+                MessageBox.Show("Sparad");
+            }
+            else
+                MessageBox.Show("Du måste fylla i alla uppgifter");
         }
 
         private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
         {
-            if (dgErrandList.SelectedItem != null)
+            if (CheckDataGrid(dgErrandList))
             {
                 _crud.RemoveErrand(dgErrandList.SelectedItem as Errand);
             }
         }
-
+        private bool CheckDataGrid(DataGrid dataGrid)
+        {
+            if (dataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Du måste fylla i alla uppgifter");
+                return false;
+            }
+            return true;
+        }
         private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
         {
-            if (dgErrandList.SelectedItem != null)
+            if (CheckDataGrid(dgErrandList))
             {
                 _crud.UpdateErrand(dgErrandList.SelectedItem as CommonView, cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
                 MessageBox.Show("Uppdaterad");
@@ -218,9 +299,7 @@ namespace GUI.Home
             }
             else
                 MessageBox.Show("Du måste välja något från den övre listan");
-
         }
-
         private void BtnChangeStatusMechanicHistoric_Click(object sender, RoutedEventArgs e)
         {
             if (_choosenComboBoxMechanicObject != null)

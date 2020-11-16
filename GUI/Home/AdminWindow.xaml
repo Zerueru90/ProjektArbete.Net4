@@ -52,12 +52,15 @@
             <TabItem Header="User inlogg">
                 <Grid Background="#FFE5E5E5">
                     <Label FontSize="10" FontStyle="Italic" Content="Välj en mekanikern från listan och ge hen ett användarn namn och lösenord" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    
                     <Label Content="Emailadress" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
-                    <Button Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
-                    <Button Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
+                    <TextBox TabIndex="0" x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+                    
+                    <Label Content="Lösenord" HorizontalAlignment="Left" Margin="10,73,0,0" VerticalAlignment="Top"/>
+                    <TextBox TabIndex="1" x:Name="txtPassword" HorizontalAlignment="Left" Margin="10,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+
+                    <Button TabIndex="2" Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
+                    <Button TabIndex="3" Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
                     <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgUserAccess_AutoGeneratingColumn"/>
                     <Label FontSize="8" FontStyle="Italic" Content="Måste innehålla stor/liten bokstav och siffra" HorizontalAlignment="Left" Margin="7,117,0,0" VerticalAlignment="Top" Width="166"/>
                 </Grid>
