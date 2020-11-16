@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace Logic
 {
-    public class CRUD
+    public class CRUD : ICRUD
     {
         #region Mekaniker: Skapa/Radera/Uppdatera.
         public void CreateNewMechanic(string name, DateTime birtday, DateTime employmentday, DateTime employmentend)

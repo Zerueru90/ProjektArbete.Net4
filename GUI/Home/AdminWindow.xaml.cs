@@ -21,7 +21,7 @@ namespace GUI.Home
     /// </summary>
     public partial class AdminWindow : Window
     {
-        private CRUD _crud = new CRUD();
+        private ICRUD _crud = new CRUD();
         private Mechanic _choosenComboBoxMechanicObject;
         private string[] _unwantedColumns = new string[]
         {
