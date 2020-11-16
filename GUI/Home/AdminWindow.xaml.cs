@@ -34,7 +34,7 @@ namespace GUI.Home
             txtModelName.Text = "Volvo";
             txtOdoMeter.Text = "2000";
             txtRegDate.Text = DateTime.Now.ToString();
-            
+
 
             //Dessa är för att fylla vår datagrid
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
@@ -219,313 +219,322 @@ namespace GUI.Home
         #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
         private void BtnSaveErrand_Click(object sender, RoutedEventArgs e)
         {
-            if (cbBoxVeichlesErrand.SelectedItem != null || cbBoxProblemsErrand.SelectedItem != null)
+            if (cbBoxVeichlesErrand.SelectedItem != null && cbBoxProblemsErrand.SelectedItem != null)
             {
-                _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                MessageBox.Show("Sparad");
+
+                try
+                {
+                    _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
+                    MessageBox.Show("Sparad");
+                }
+                catch (NullReferenceException empty)
+                {
+                    MessageBox.Show(empty.ToString());
+                }
             }
             else
                 MessageBox.Show("Du måste fylla i alla uppgifter");
+
+        }
+    private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
+    {
+        if (CheckDataGrid(dgErrandList))
+        {
+            _crud.RemoveErrand(dgErrandList.SelectedItem as Errand);
         }
 
-        private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
+    }
+    private bool CheckDataGrid(DataGrid dataGrid)
+    {
+        if (dataGrid.SelectedItem == null)
         {
-            if (CheckDataGrid(dgErrandList))
-            {
-                _crud.RemoveErrand(dgErrandList.SelectedItem as Errand);
-            }
+            MessageBox.Show("Du måste välja något ifrån listan");
+            return false;
         }
-        private bool CheckDataGrid(DataGrid dataGrid)
+        return true;
+    }
+    private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
+    {
+        if (CheckDataGrid(dgErrandList))
         {
-            if (dataGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Du måste fylla i alla uppgifter");
-                return false;
-            }
-            return true;
+            _crud.UpdateErrand(dgErrandList.SelectedItem as CommonView, cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
+            MessageBox.Show("Uppdaterad");
         }
-        private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckDataGrid(dgErrandList))
-            {
-                _crud.UpdateErrand(dgErrandList.SelectedItem as CommonView, cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                MessageBox.Show("Uppdaterad");
-            }
-        }
-        #endregion
+    }
+    #endregion
 
-        #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
-        private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
+    #region Tilldelar en mekaniker ett ärende, kollar så att mekaniker inte har 2 pågående. Man kan även ändra status.
+    private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
+    {
+        if (dgCommonViewList != null)
         {
-            if (dgCommonViewList != null)
+            var trueorfalse = MechanicSkill.AddMechanicErrandList(cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, dgCommonViewList.SelectedItem as CommonView);
+
+            if (trueorfalse)
             {
-                var trueorfalse = MechanicSkill.AddMechanicErrandList(cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, dgCommonViewList.SelectedItem as CommonView);
+                MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
+            }
+            else
+                MessageBox.Show($"Mekanikern har redan två ärenden pågående");
+        }
+        else
+            MessageBox.Show("Du måste välja något från den övre listan");
+    }
+    private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
+    {
+        if (_choosenComboBoxMechanicObject != null)
+        {
+            var objCommonView = dgCommonViewList.SelectedItem as CommonView;
+            var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
+            var status = "";
+            foreach (var item in test)
+            {
+                status = item.Status;
+            }
+            if (status != "Klar")
+            {
+                var trueorfalse = MechanicSkill.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, "Klar");
 
                 if (trueorfalse)
                 {
-                    MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
+                    MessageBox.Show("Uppdaterad");
+                    dgCommonViewList.ItemsSource = null;
                 }
                 else
-                    MessageBox.Show($"Mekanikern har redan två ärenden pågående");
+                    MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
             }
             else
-                MessageBox.Show("Du måste välja något från den övre listan");
+                MessageBox.Show("Ärendet är klart och går inte att ändra, skapa ett nytt ärende om fordonet måste repareras om igen");
         }
-        private void BtnChangesStatusOnly_Click(object sender, RoutedEventArgs e)
+        else
+            MessageBox.Show("Du måste välja något från den övre listan");
+    }
+    private void BtnChangeStatusMechanicHistoric_Click(object sender, RoutedEventArgs e)
+    {
+        if (_choosenComboBoxMechanicObject != null)
         {
-            if (_choosenComboBoxMechanicObject != null)
+            var objCommonView = dgMechanicHistoric.SelectedItem as CommonView;
+            var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
+            var status = "";
+            foreach (var item in test)
             {
-                var objCommonView = dgCommonViewList.SelectedItem as CommonView;
-                var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
-                var status = "";
-                foreach (var item in test)
-                {
-                    status = item.Status;
-                }
-                if (status != "Klar")
-                {
-                    var trueorfalse = MechanicSkill.ChangeMechanicStatus(dgCommonViewList.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, "Klar");
+                status = item.Status;
+            }
+            if (status != "Klar")
+            {
+                var trueorfalse = MechanicSkill.ChangeMechanicStatus(dgMechanicHistoric.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, "Klar");
 
-                    if (trueorfalse)
-                    {
-                        MessageBox.Show("Uppdaterad");
-                        dgCommonViewList.ItemsSource = null;
-                    }
-                    else
-                        MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
+                if (trueorfalse)
+                {
+                    MessageBox.Show("Uppdaterad");
                 }
                 else
-                    MessageBox.Show("Ärendet är klart och går inte att ändra, skapa ett nytt ärende om fordonet måste repareras om igen");
+                    MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
             }
             else
-                MessageBox.Show("Du måste välja något från den övre listan");
+                MessageBox.Show("Ärendet är klart och går inte att ändra, skapa ett nytt ärende om fordonet måste repareras om igen");
         }
-        private void BtnChangeStatusMechanicHistoric_Click(object sender, RoutedEventArgs e)
-        {
-            if (_choosenComboBoxMechanicObject != null)
-            {
-                var objCommonView = dgMechanicHistoric.SelectedItem as CommonView;
-                var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
-                var status = "";
-                foreach (var item in test)
-                {
-                    status = item.Status;
-                }
-                if (status != "Klar")
-                {
-                    var trueorfalse = MechanicSkill.ChangeMechanicStatus(dgMechanicHistoric.SelectedItem as CommonView, cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic, "Klar");
+        else
+            MessageBox.Show("Du måste välja något från Historik listan");
+    }
+    #endregion
 
-                    if (trueorfalse)
+    #region Uppdaterar Checkbox: kallas när man skapar något nytt i.e Mekaniker, Fordon
+    private void UpdateVechileCheckBox()
+    {
+        cbBoxVeichlesErrand.Items.Clear();
+        foreach (var item in VehicleList.VehicleLists)
+        {
+            cbBoxVeichlesErrand.Items.Add(item);
+        }
+    }
+    private void UpdateMechanicCheckBox()
+    {
+        cbBoxAppointMechanicAnErrand.Items.Clear();
+        foreach (var item in MechanicList.MechanicLists)
+        {
+            cbBoxAppointMechanicAnErrand.Items.Add(item);
+        }
+    }
+    #endregion
+
+    #region OnDropDownClosed
+    void cbBoxAppointMechanicAnErrand_OnDropDownClosed(object sender, EventArgs e)
+    {
+        dgCommonViewList.ItemsSource = null;
+
+        if (cbBoxAppointMechanicAnErrand.SelectedItem != null)
+        {
+            if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
+            {
+                _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
+                MechanicSkill.AddAndRemoveMechanicSkill(_choosenComboBoxMechanicObject);
+                List<CommonView> availableErrandList = new List<CommonView>();
+                List<CommonView> tempListHistoricErrand = new List<CommonView>();
+
+
+                List<CommonView> compatibleErrandList = null;
+                compatibleErrandList = CompatibleErrands(_choosenComboBoxMechanicObject);
+
+                //Seperar pågående och klara ärenden med tillgängliga äreden.
+                foreach (var _errand in compatibleErrandList)
+                {
+                    if (_errand.MechanicID == _choosenComboBoxMechanicObject.ID)
                     {
-                        MessageBox.Show("Uppdaterad");
-                    }
-                    else
-                        MessageBox.Show("Ingen mekaniker är tilldelat det ärendet");
-                }
-                else
-                    MessageBox.Show("Ärendet är klart och går inte att ändra, skapa ett nytt ärende om fordonet måste repareras om igen");
-            }
-            else
-                MessageBox.Show("Du måste välja något från Historik listan");
-        }
-        #endregion
-
-        #region Uppdaterar Checkbox: kallas när man skapar något nytt i.e Mekaniker, Fordon
-        private void UpdateVechileCheckBox()
-        {
-            cbBoxVeichlesErrand.Items.Clear();
-            foreach (var item in VehicleList.VehicleLists)
-            {
-                cbBoxVeichlesErrand.Items.Add(item);
-            }
-        }
-        private void UpdateMechanicCheckBox()
-        {
-            cbBoxAppointMechanicAnErrand.Items.Clear();
-            foreach (var item in MechanicList.MechanicLists)
-            {
-                cbBoxAppointMechanicAnErrand.Items.Add(item);
-            }
-        }
-        #endregion
-
-        #region OnDropDownClosed
-        void cbBoxAppointMechanicAnErrand_OnDropDownClosed(object sender, EventArgs e)
-        {
-            dgCommonViewList.ItemsSource = null;
-
-            if (cbBoxAppointMechanicAnErrand.SelectedItem != null)
-            {
-                if (cbBoxAppointMechanicAnErrand.IsDropDownOpen == false)
-                {
-                    _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-                    MechanicSkill.AddAndRemoveMechanicSkill(_choosenComboBoxMechanicObject);
-                    List<CommonView> availableErrandList = new List<CommonView>();
-                    List<CommonView> tempListHistoricErrand = new List<CommonView>();
-
-
-                    List<CommonView> compatibleErrandList = null;
-                    compatibleErrandList = CompatibleErrands(_choosenComboBoxMechanicObject);
-
-                    //Seperar pågående och klara ärenden med tillgängliga äreden.
-                    foreach (var _errand in compatibleErrandList)
-                    {
-                        if (_errand.MechanicID == _choosenComboBoxMechanicObject.ID)
+                        if (_errand.Status == "Pågående" || _errand.Status == "Klar")
                         {
-                            if (_errand.Status == "Pågående" || _errand.Status == "Klar")
-                            {
-                                tempListHistoricErrand.Add(_errand);
-                            }
-                            else
-                                availableErrandList.Add(_errand);
+                            tempListHistoricErrand.Add(_errand);
                         }
                         else
                             availableErrandList.Add(_errand);
                     }
-
-                    //Här nedan dubbelkollar vi om mekanikern redan ett pågående ärende med "gammal" kompetens så ska den endå dyka upp i historik.
-                    List<CommonView> ghostedErrandList = null;
-                    ghostedErrandList = GhostedErrands(_choosenComboBoxMechanicObject);
-
-                    foreach (var item in ghostedErrandList)
-                    {
-                        tempListHistoricErrand.Add(item);
-                    }
-
-                    dgCommonViewList.ItemsSource = availableErrandList;
-                    dgMechanicHistoric.ItemsSource = tempListHistoricErrand;
+                    else
+                        availableErrandList.Add(_errand);
                 }
-            }
-        }
 
-        private List<CommonView> CompatibleErrands(Mechanic mechanic)
-        {
-            IEnumerable<CommonView> commonView = null;
-            List<CommonView> tempListErrand = new List<CommonView>();
+                //Här nedan dubbelkollar vi om mekanikern redan ett pågående ärende med "gammal" kompetens så ska den endå dyka upp i historik.
+                List<CommonView> ghostedErrandList = null;
+                ghostedErrandList = GhostedErrands(_choosenComboBoxMechanicObject);
 
-            //Gå igenom hela Errandlistan efter kompatibla kompetenser och lägg i lista.
-            foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
-            {
-                commonView = ErrandMechanicViewCombine.Source.Where(x => x.Problem == item);
-
-                foreach (var _errand in commonView)
+                foreach (var item in ghostedErrandList)
                 {
-                    tempListErrand.Add(_errand);
+                    tempListHistoricErrand.Add(item);
                 }
-            }
 
-            return tempListErrand;
-        }
-
-        private List<CommonView> GhostedErrands(Mechanic mechanic)
-        {
-            List<CommonView> ghostedErrands = new List<CommonView>();
-            List<CommonView> unCompatibleProblem = new List<CommonView>();
-
-            foreach (var item in ErrandMechanicViewCombine.Source)
-            {
-                var objrev = mechanic.SkillLista.Any(x => x.Contains(item.Problem));
-
-                if (objrev == false)
-                {
-                    unCompatibleProblem.Add(item);
-                }
-            }
-
-            var obj = unCompatibleProblem.Where(x => x.MechanicID == mechanic.ID);
-
-            foreach (var item in obj)
-            {
-                ghostedErrands.Add(item);
-            }
-
-            return ghostedErrands;
-        }
-
-        private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
-        {
-            if (cbBoxVeichleType.IsDropDownOpen == false)
-            {
-                if (cbBoxVeichleType.SelectedItem != null)
-                {
-                    checkBoxCarHook.Visibility = Visibility.Hidden;
-                    labelBilTyp.Visibility = Visibility.Hidden;
-                    cbBoxCarType.Visibility = Visibility.Hidden;
-                    labelMaxLoad.Visibility = Visibility.Hidden;
-                    txtMaxLoadWeight.Visibility = Visibility.Hidden;
-                    labelPassanger.Visibility = Visibility.Hidden;
-                    txtMaxPassanger.Visibility = Visibility.Hidden;
-                    cbBoxCarType.Items.Clear();
-                    if (cbBoxVeichleType.SelectedItem.ToString() == "Bil")
-                    {
-                        foreach (var item in Enum.GetValues(typeof(Car.CarType)))
-                        {
-                            cbBoxCarType.Items.Add(item.ToString());
-                        }
-
-                        checkBoxCarHook.Visibility = Visibility.Visible;
-                        labelBilTyp.Visibility = Visibility.Visible;
-                        cbBoxCarType.Visibility = Visibility.Visible;
-                    }
-                    if (cbBoxVeichleType.SelectedItem.ToString() == "Lastbil")
-                    {
-                        labelMaxLoad.Visibility = Visibility.Visible;
-                        txtMaxLoadWeight.Visibility = Visibility.Visible;
-                    }
-                    if (cbBoxVeichleType.SelectedItem.ToString() == "Buss")
-                    {
-                        labelPassanger.Visibility = Visibility.Visible;
-                        txtMaxPassanger.Visibility = Visibility.Visible;
-                    }
-                }
+                dgCommonViewList.ItemsSource = availableErrandList;
+                dgMechanicHistoric.ItemsSource = tempListHistoricErrand;
             }
         }
-
-        #endregion   
-
-        #region Kolumer: Tar bort dom man inte vill ha med.
-
-        private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
-        {
-            string headername = e.Column.Header.ToString();
-
-            //Tar bort kolumerna man inte vill ha med
-
-            for (int i = 0; i < _unwantedColumns.Length; i++)
-            {
-                if (headername == _unwantedColumns[i])
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
-
-        private void dgMechanicList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            CancelUnwantedColumnHeaderName(e);
-        }
-
-        private void dgUserAccess_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            CancelUnwantedColumnHeaderName(e);
-        }
-
-        private void dgCommonView_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            CancelUnwantedColumnHeaderName(e);
-        }
-
-        private void dgVeichleList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            CancelUnwantedColumnHeaderName(e);
-        }
-
-        private void dgErrandList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            CancelUnwantedColumnHeaderName(e);
-        }
-        #endregion
-
     }
+
+    private List<CommonView> CompatibleErrands(Mechanic mechanic)
+    {
+        IEnumerable<CommonView> commonView = null;
+        List<CommonView> tempListErrand = new List<CommonView>();
+
+        //Gå igenom hela Errandlistan efter kompatibla kompetenser och lägg i lista.
+        foreach (var item in _choosenComboBoxMechanicObject.SkillLista)
+        {
+            commonView = ErrandMechanicViewCombine.Source.Where(x => x.Problem == item);
+
+            foreach (var _errand in commonView)
+            {
+                tempListErrand.Add(_errand);
+            }
+        }
+
+        return tempListErrand;
+    }
+
+    private List<CommonView> GhostedErrands(Mechanic mechanic)
+    {
+        List<CommonView> ghostedErrands = new List<CommonView>();
+        List<CommonView> unCompatibleProblem = new List<CommonView>();
+
+        foreach (var item in ErrandMechanicViewCombine.Source)
+        {
+            var objrev = mechanic.SkillLista.Any(x => x.Contains(item.Problem));
+
+            if (objrev == false)
+            {
+                unCompatibleProblem.Add(item);
+            }
+        }
+
+        var obj = unCompatibleProblem.Where(x => x.MechanicID == mechanic.ID);
+
+        foreach (var item in obj)
+        {
+            ghostedErrands.Add(item);
+        }
+
+        return ghostedErrands;
+    }
+
+    private void cbBoxVeichleType_DropDownClosed(object sender, EventArgs e)
+    {
+        if (cbBoxVeichleType.IsDropDownOpen == false)
+        {
+            if (cbBoxVeichleType.SelectedItem != null)
+            {
+                checkBoxCarHook.Visibility = Visibility.Hidden;
+                labelBilTyp.Visibility = Visibility.Hidden;
+                cbBoxCarType.Visibility = Visibility.Hidden;
+                labelMaxLoad.Visibility = Visibility.Hidden;
+                txtMaxLoadWeight.Visibility = Visibility.Hidden;
+                labelPassanger.Visibility = Visibility.Hidden;
+                txtMaxPassanger.Visibility = Visibility.Hidden;
+                cbBoxCarType.Items.Clear();
+                if (cbBoxVeichleType.SelectedItem.ToString() == "Bil")
+                {
+                    foreach (var item in Enum.GetValues(typeof(Car.CarType)))
+                    {
+                        cbBoxCarType.Items.Add(item.ToString());
+                    }
+
+                    checkBoxCarHook.Visibility = Visibility.Visible;
+                    labelBilTyp.Visibility = Visibility.Visible;
+                    cbBoxCarType.Visibility = Visibility.Visible;
+                }
+                if (cbBoxVeichleType.SelectedItem.ToString() == "Lastbil")
+                {
+                    labelMaxLoad.Visibility = Visibility.Visible;
+                    txtMaxLoadWeight.Visibility = Visibility.Visible;
+                }
+                if (cbBoxVeichleType.SelectedItem.ToString() == "Buss")
+                {
+                    labelPassanger.Visibility = Visibility.Visible;
+                    txtMaxPassanger.Visibility = Visibility.Visible;
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Kolumer: Tar bort dom man inte vill ha med.
+
+    private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
+    {
+        string headername = e.Column.Header.ToString();
+
+        //Tar bort kolumerna man inte vill ha med
+
+        for (int i = 0; i < _unwantedColumns.Length; i++)
+        {
+            if (headername == _unwantedColumns[i])
+            {
+                e.Cancel = true;
+            }
+        }
+    }
+
+    private void dgMechanicList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        CancelUnwantedColumnHeaderName(e);
+    }
+
+    private void dgUserAccess_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        CancelUnwantedColumnHeaderName(e);
+    }
+
+    private void dgCommonView_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        CancelUnwantedColumnHeaderName(e);
+    }
+
+    private void dgVeichleList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        CancelUnwantedColumnHeaderName(e);
+    }
+
+    private void dgErrandList_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        CancelUnwantedColumnHeaderName(e);
+    }
+    #endregion
+
+}
 }
 
