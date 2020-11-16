@@ -89,12 +89,12 @@ namespace GUI.Home
                 }
                 catch (FormatException)
                 {
-                    throw new Exception ("Du måste skriva in ett giltigt datum");
+                    MessageBox.Show("Du måste skriva in ett giltigt datum");
                 }
             }
             else
             {
-                throw new Exception ("Du måste ange ett namn");
+                MessageBox.Show("Du måste ange ett namn");
             }
         }
         private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
