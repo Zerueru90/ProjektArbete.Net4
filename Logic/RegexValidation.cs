@@ -150,8 +150,8 @@ namespace Logic
 
         public static void MaxLoadWeight(string number)
         {
-            var prop = new Regex(@"^\d*[\.\,]\d*$");
-
+            //var prop = new Regex(@"^\d*[\.\,]\d*$");
+            var prop = new Regex(@"^[0-9]+$");
             if (!prop.IsMatch(number))
             {
                 throw new ExceptionHandling.MaxLoadWeight();

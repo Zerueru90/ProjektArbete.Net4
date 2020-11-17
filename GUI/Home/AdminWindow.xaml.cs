@@ -94,17 +94,20 @@ namespace GUI.Home
             {
                 MessageBox.Show(text.ToString());
             }
-
+            NullDataGrids();
         }
         private void BtnDeleteMechanic_Click(object sender, RoutedEventArgs e)
         {
             if (CheckDataGridDoesNotEqualNull(dgMechanicList))
             {
+                var obj = dgMechanicList.SelectedItem as Mechanic;
                 _crud.RemoveMechanic(dgMechanicList.SelectedItem as Mechanic);
                 UpdateMechanicCheckBox();
-                UpdateDataGrid();
+                RemoveTraceOfMechanicInErrand(obj.ID);
+                //UpdateDataGrid();
                 MessageBox.Show("Raderat mekaniker");
             }
+            NullDataGrids();
         }
         private void BtnUpdateMechanic_Click(object sender, RoutedEventArgs e)
         {
@@ -113,6 +116,29 @@ namespace GUI.Home
                 _crud.UpdateMechanic(dgMechanicList.SelectedItem as Mechanic);
                 MessageBox.Show("Uppdaterad");
             }
+            NullDataGrids();
+        }
+        private void RemoveTraceOfMechanicInErrand(Guid mecID)
+        {
+            var obj = ErrandList.ErrandsList.Any(x => x.MechanicID == mecID);
+            if (obj == true)
+            {
+                var obj2 = ErrandList.ErrandsList.Where(x => x.MechanicID == mecID);
+                var objSource = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.MechanicID == mecID);
+                foreach (var item in obj2)
+                {
+                    item.MechanicID = Guid.Empty;
+                }
+                objSource.MechanicID = Guid.Empty;
+            }
+            dgErrandList.ItemsSource = null; ;
+            dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
+        }
+        private void NullDataGrids()
+        {
+            dgCommonViewList.ItemsSource = null;
+            dgMechanicHistoric.ItemsSource = null;
+            cbBoxAppointMechanicAnErrand.SelectedItem = null;
         }
         #endregion
 
@@ -259,6 +285,7 @@ namespace GUI.Home
                 {
                     _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
                     MessageBox.Show("Sparad");
+                    NullDataGrids();
                 }
                 catch (NullReferenceException empty)
                 {
@@ -275,7 +302,7 @@ namespace GUI.Home
             {
                 _crud.RemoveErrand(dgErrandList.SelectedItem as CommonView);
             }
-
+            NullDataGrids();
         }
         private bool CheckDataGridDoesNotEqualNull(DataGrid dataGrid)
         {
@@ -308,6 +335,7 @@ namespace GUI.Home
                     else
                         MessageBox.Show("Ärendet är klart, går inte att ändra");
                 }
+                NullDataGrids();
             }
             else
                 MessageBox.Show("Måste välja ett reg nr och problem för att uppdatera");
@@ -414,7 +442,9 @@ namespace GUI.Home
         private void UpdateDataGrid()
         {
             _choosenComboBoxMechanicObject = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
-            MechanicSkill.AddAndRemoveMechanicSkill(_choosenComboBoxMechanicObject);
+            if (_choosenComboBoxMechanicObject != null)
+                MechanicSkill.AddAndRemoveMechanicSkill(_choosenComboBoxMechanicObject);
+
             List<CommonView> availableErrandList = new List<CommonView>();
             List<CommonView> tempListHistoricErrand = new List<CommonView>();
 
