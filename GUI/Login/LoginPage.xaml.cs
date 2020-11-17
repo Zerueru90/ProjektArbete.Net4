@@ -50,9 +50,9 @@ namespace GUI.Login
             string password = this.txtBoxPassword.Password;
             
             bool successfulBosse = _loginService.LoginBosse(username, password);
-            bool successful = _loginService.LoginMec(username, password);
+            //bool successful = _loginService.LoginMec(username, password);
 
-            if (successfulBosse)
+            if (successfulBosse && username == "Bosse@hotmail.com")
             {
                 adminWindow = new AdminWindow();
                 adminWindow.Show();
@@ -64,8 +64,7 @@ namespace GUI.Login
                     DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
                 };
             }
-
-            else if (successful && username != "Bosse@hotmail.com")
+            else if (_loginService.LoginMec(username, password) && username != "Bosse@hotmail.com")
             {
                 mecWindow = new MechanicWindow(_loginService.GetMechanicObj());
                 mecWindow.Show();

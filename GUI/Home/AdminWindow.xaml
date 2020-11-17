@@ -27,7 +27,7 @@
                         </DataGrid.Resources>
                     </DataGrid>
                     <Label FontSize="17" Content="Mekaniker" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top"/>
-                    <Label FontSize="10" FontStyle="Italic" Content="Vill du ändra namn, datum osv. Gör det direkt från listan och tryck sen uppdatera" HorizontalAlignment="Left" Margin="330,8,0,0" VerticalAlignment="Top"/>
+                    <Label FontSize="15" FontStyle="Italic" Content="Vill du ändra namn, datum osv. Gör det direkt från listan och tryck sen uppdatera" HorizontalAlignment="Center" Margin="0,2,0,0" VerticalAlignment="Top"/>
 
                     <GroupBox Header="Skapa ny mekaniker här" HorizontalAlignment="Left" VerticalAlignment="Top" Height="274" Width="174"/>
 
@@ -51,7 +51,7 @@
             </TabItem>
             <TabItem Header="User inlogg">
                 <Grid Background="#FFE5E5E5">
-                    <Label FontSize="10" FontStyle="Italic" Content="Välj en mekanikern från listan och ge hen ett användarn namn och lösenord" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top"/>
+                    <Label FontSize="17" FontStyle="Italic" Content="Välj en mekanikern från listan och ge hen ett användarn namn och lösenord" HorizontalAlignment="Left" Margin="217,0,0,0" VerticalAlignment="Top"/>
 
                     <Label Content="Emailadress" HorizontalAlignment="Left" Margin="10,26,0,0" VerticalAlignment="Top"/>
                     <TextBox TabIndex="0" x:Name="txtUserName" HorizontalAlignment="Left" Margin="11,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
@@ -62,7 +62,6 @@
                     <Button TabIndex="2" Content="Spara" HorizontalAlignment="Left" Margin="26,183,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnNewUser_Click"/>
                     <Button TabIndex="3" Content="Radera" HorizontalAlignment="Left" Margin="26,259,0,0" VerticalAlignment="Top" Height="33" Width="72" Click="BtnDeleteUser_Click"/>
                     <DataGrid Name="dgUserAccess" Margin="217,26,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgUserAccess_AutoGeneratingColumn"/>
-                    <Label FontSize="8" FontStyle="Italic" Content="Måste innehålla stor/liten bokstav och siffra" HorizontalAlignment="Left" Margin="7,117,0,0" VerticalAlignment="Top" Width="166"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Fordon och Ärenden">
@@ -75,7 +74,6 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Du måste först skapa ett fordon för att sen kunna skapa ett ärenden" FontSize="10" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" Width="320"/>
 
                     <Label Content="Fordons lista" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.Column="1" Grid.Row="0" Margin="0,1,0,0"/>
                     <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgVeichleList_AutoGeneratingColumn"/>

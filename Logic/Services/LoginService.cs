@@ -30,16 +30,16 @@ namespace Logic.Services
         {
             var obj = UserList.UserLists.FirstOrDefault(user => user.Username.Equals(username) && user.Password.Equals(password));
 
-            var obj1 = MechanicList.MechanicLists.Where(x => x.UserID == obj.ID).Select(x => x);
-            
-
-            foreach (var item in obj1)
-            {
-                Mechanic = item;
-            }
-
             if (obj != null)
+            {
+                var obj1 = MechanicList.MechanicLists.Where(x => x.UserID == obj.ID).Select(x => x);
+
+                foreach (var item in obj1)
+                {
+                    Mechanic = item;
+                }
                 return true;
+            }
             else
                 return false;
         }
@@ -50,3 +50,23 @@ namespace Logic.Services
         }
     }
 }
+/*
+    var ojbUser = from list in UserList.UserLists
+                          where list.Username == username && list.Password == password
+                          select list.ID;
+            if (ojbUser != null)
+            {
+                foreach (var key in ojbUser)
+                {
+                    var obj1 = MechanicList.MechanicLists.Where(x => x.UserID == key).Select(x => x);
+                    foreach (var item in obj1)
+                    {
+                        Mechanic = item;
+                    }
+                }
+                return true;
+            }
+            else
+                return false; 
+
+ */
