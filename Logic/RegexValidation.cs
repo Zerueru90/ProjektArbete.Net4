@@ -114,7 +114,7 @@ namespace Logic
         }
         #endregion
         #region IsNullorEmpty
-        private static void IsNullorEmpty(string input)
+        public static void IsNullorEmpty(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
             {

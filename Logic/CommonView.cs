@@ -9,6 +9,7 @@ namespace Logic
     {
         public Guid ErrandID { get; set; }
         public Guid MechanicID { get; set; }
+        public Guid VehicleID { get; set; }
         public string Model { get; set; }
         public string RegNb { get; set; }
         public string Description { get; set; }

@@ -129,9 +129,11 @@ namespace Logic
             ErrandMechanicViewCombine.BuildSource();
         }
 
-        public void RemoveErrand(Errand errand)
+        public void RemoveErrand(CommonView errand)
         {
-            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ID);
+            var obj2 = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.ErrandID == errand.ErrandID);
+
+            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ErrandID);
 
             if (obj.MechanicID != Guid.Empty)
             {
@@ -156,6 +158,7 @@ namespace Logic
             }
 
             ErrandList.ErrandsList.Remove(obj);
+            ErrandMechanicViewCombine.Source.Remove(obj2);
         }
 
         public void UpdateErrand(CommonView objCommonView, Vehicle objVehicle, string description, string problem)
