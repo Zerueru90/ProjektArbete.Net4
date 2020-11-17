@@ -11,29 +11,35 @@ namespace Logic
    {
         public static bool AddMechanicErrandList(Mechanic objMechanic, CommonView objCommonView)
         {
-            if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
+            if (objMechanic != null)
             {
-                //Denna ser till att GUI håller sig uppdaterad
-                objCommonView.ChangeMechanicID = objMechanic.ID;
-                objCommonView.ChangeName = objMechanic.Name;
-                objCommonView.ChangeStatus = "Pågående";
-
-                //Denna ser till att Datan sparas.
-                var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
-                foreach (var item in objErrands)
+                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
                 {
-                    item.MechanicID = objMechanic.ID;
-                    item.Status = "Pågående";
-                    objMechanic.ErrandID.Add(item.ID);
+                    //Denna ser till att GUI håller sig uppdaterad
+                    objCommonView.ChangeMechanicID = objMechanic.ID;
+                    objCommonView.ChangeName = objMechanic.Name;
+                    objCommonView.ChangeStatus = "Pågående";
 
-                    //Funkar
-                    MechanicSkill.AddProgressList(objMechanic, item.ID.ToString());
+                    //Denna ser till att Datan sparas.
+                    var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+                    foreach (var item in objErrands)
+                    {
+                        item.MechanicID = objMechanic.ID;
+                        item.Status = "Pågående";
+                        objMechanic.ErrandID.Add(item.ID);
+
+                        //Funkar
+                        MechanicSkill.AddProgressList(objMechanic, item.ID.ToString());
+                    }
+
+                    return true;
                 }
-
-                return true;
+                else
+                    return false;
             }
             else
                 return false;
+            
 
         }
 
