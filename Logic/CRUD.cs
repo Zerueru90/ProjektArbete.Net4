@@ -29,6 +29,7 @@ namespace Logic
         public void RemoveMechanic(Mechanic objMechanic)
         {
             MechanicList.MechanicLists.Remove(objMechanic);
+            RemoveErrand(objMechanic);
         }
 
         public void UpdateMechanic(Mechanic objMechanic)
@@ -70,41 +71,7 @@ namespace Logic
         }
         #endregion
         #region Fordon: Skapa.
-        public void CreateNewVehicle(string vehicletype, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, bool checkBoxCarHook, decimal maxLoadWeight, int maxPassangers)
-        {
-            switch (vehicletype)
-            {
-                case "Bil":
-                    Car _newCar = new Car();
-                    if (checkBoxCarHook)
-                    {
-                        _newCar.HasTowbar = true;
-                    }
-                    NewVehicleDataAndSave(_newCar, modelname, regnr, odometer, regdate, fuel, vehicletype);
-                    break;
-
-                case "Motorcyckel":
-                    Motorbike _newMotorbike = new Motorbike();
-                    NewVehicleDataAndSave(_newMotorbike, modelname, regnr, odometer, regdate, fuel, vehicletype);
-                    break;
-
-                case "Lastbil":
-                    Truck _newTruck = new Truck();
-                    _newTruck.MaxLoadWeight = maxLoadWeight;
-                    NewVehicleDataAndSave(_newTruck, modelname, regnr, odometer, regdate, fuel, vehicletype);
-                    break;
-
-                case "Buss":
-                    Bus _newBus = new Bus();
-                    _newBus.MaxTotalPassengers = maxPassangers;
-                    NewVehicleDataAndSave(_newBus, modelname, regnr, odometer, regdate, fuel, vehicletype);
-                    break;
-
-                default:
-                    break;
-            }
-        }
-        private void NewVehicleDataAndSave(Vehicle vehicle, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, string vehicletype)
+        public void CreateNewVehicle(Vehicle vehicle, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, string vehicletype)
         {
             vehicle.VehicleType = vehicletype;
             vehicle.ModelName = modelname;
@@ -114,6 +81,7 @@ namespace Logic
             vehicle.Fuel = fuel;
             VehicleList.VehicleLists.Add(vehicle);
         }
+
         #endregion
         #region Ärenden: Skapa/Radera/Uppdatera.
         public void CreateNewErrand(Vehicle objVehicle, string description, string problem)
@@ -134,28 +102,36 @@ namespace Logic
             var obj2 = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.ErrandID == errand.ErrandID);
 
             var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ErrandID);
-
+            var objErrandID = Guid.Empty;
             if (obj.MechanicID != Guid.Empty)
             {
                 //Anledningen för denna är att om en Mekaniker redan är tilldelad ett Ärende som ska raderas så måste Mechanic.ErrandsID nollställas.
-                Guid Key = Guid.Empty;
                 Mechanic mec = null;
-                int count = 0;
                 foreach (var item in MechanicList.MechanicLists)
                 {
                     foreach (var item2 in item.ErrandID)
                     {
-                        count++;
                         if (item2 == obj.ID)
                         {
+                            objErrandID = item2;
                             mec = item;
                         }
                     }
-                    count = 0;
                 }
+                //mec.ErrandID[mec.ErrandID.FindIndex(x => x.Equals(count))] = Guid.Empty;
 
-                mec.ErrandID[mec.ErrandID.FindIndex(x => x.Equals(count))] = Key;
+                mec.ErrandID.Remove(objErrandID);
+                mec.MechanicProgressList.Remove(objErrandID.ToString());
             }
+
+            ErrandList.ErrandsList.Remove(obj);
+            ErrandMechanicViewCombine.Source.Remove(obj2);
+        }
+        private void RemoveErrand(Mechanic mec)
+        {
+            var obj2 = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.MechanicID == mec.ID);
+
+            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.MechanicID == mec.ID);
 
             ErrandList.ErrandsList.Remove(obj);
             ErrandMechanicViewCombine.Source.Remove(obj2);

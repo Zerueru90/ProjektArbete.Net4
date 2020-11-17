@@ -8,7 +8,7 @@ namespace Logic
     {
         public class EmptyTextBoxException : Exception
         {
-            readonly string message = "Du måste skriva in något";
+            readonly string message = "Du måste fylla i alla uppgifter";
             public override string ToString() => message;
         }
 
@@ -45,7 +45,7 @@ namespace Logic
 
         public class NumbersOnlyException : Exception
         {
-            readonly string nonNumbers = "Nummer bara";
+            readonly string nonNumbers = "Mätarställning är felaktigt ifyllt";
             public override string ToString() => nonNumbers;
         }
         public class RegNumberException : Exception
@@ -53,6 +53,18 @@ namespace Logic
             readonly string regnumber = "Regnummber måste innehålla tre siffror och tre nummer";
             public override string ToString() => regnumber;
         }
-        
+
+        public class MaxLoadWeight : Exception
+        {
+            readonly string numberDecimal = "Lastvikt är felaktigt ifyllt";
+            public override string ToString() => numberDecimal;
+        }
+
+        public class MaxPassangersException : Exception
+        {
+            readonly string numberDecimal = "Max passagerare är felaktigt ifyllt";
+            public override string ToString() => numberDecimal;
+        }
+
     }
 }

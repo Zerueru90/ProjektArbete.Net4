@@ -147,6 +147,25 @@ namespace Logic
             
         }
         #endregion
+
+        public static void MaxLoadWeight(string number)
+        {
+            var prop = new Regex(@"^\d*[\.\,]\d*$");
+
+            if (!prop.IsMatch(number))
+            {
+                throw new ExceptionHandling.MaxLoadWeight();
+            }
+        }
+        public static void MaxPassangers(string number)
+        {
+            var prop = new Regex(@"^[0-9]+$");
+
+            if (!prop.IsMatch(number))
+            {
+                throw new ExceptionHandling.MaxPassangersException();
+            }
+        }
     }
 }
 

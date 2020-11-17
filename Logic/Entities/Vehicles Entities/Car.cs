@@ -9,6 +9,8 @@ namespace Logic.Entities.Vehicles_Entities
     {
         public bool HasTowbar { get; set; }
 
+        public string Cartype { get; set; }
+
         public enum CarType
         {
             Sedan,

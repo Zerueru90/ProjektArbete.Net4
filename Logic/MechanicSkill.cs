@@ -29,7 +29,7 @@ namespace Logic
                         objMechanic.ErrandID.Add(item.ID);
 
                         //Funkar
-                        MechanicSkill.AddProgressList(objMechanic, item.ID.ToString());
+                        AddProgressList(objMechanic, item.ID.ToString());
                     }
 
                     return true;
@@ -50,7 +50,9 @@ namespace Logic
                 var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
                 foreach (var item in objErrands)
                 {
-                    MechanicSkill.AddDoneList(objMechanic, item.ID.ToString());
+
+                    AddDoneList(objMechanic, item.ID.ToString());
+                    RemoveFromMechanicProgressList(objMechanic, item.ID.ToString());
                     item.Status = newStatus;
                 }
 
@@ -100,7 +102,6 @@ namespace Logic
         public static void AddDoneList(Mechanic mechanic, string ErrandID)
         {
             mechanic.MechanicDoneList.Add(ErrandID);
-            RemoveFromMechanicProgressList(mechanic, ErrandID);
         }
     }
 }

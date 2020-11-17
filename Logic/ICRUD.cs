@@ -9,7 +9,7 @@ namespace Logic
         void CreateNewErrand(Vehicle objVehicle, string description, string problem);
         void CreateNewMechanic(string name, DateTime birtday, DateTime employmentday, DateTime employmentend);
         void CreateNewUser(Mechanic objMechanic, string username, string password);
-        void CreateNewVehicle(string vehicletype, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, bool checkBoxCarHook, decimal maxLoadWeight, int maxPassangers);
+        void CreateNewVehicle(Vehicle vehicle, string modelname, string regnr, decimal odometer, DateTime regdate, string fuel, string vehicletype);
         void RemoveErrand(CommonView errand);
         void RemoveMechanic(Mechanic objMechanic);
         void RemoveUser(Mechanic objMechanic);

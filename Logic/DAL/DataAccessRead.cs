@@ -49,7 +49,8 @@ namespace Logic.DAL
                     return true;
                 case "Vehicle.json":
                     return true;
-
+                default:
+                    break;
             }
             return false;
         }

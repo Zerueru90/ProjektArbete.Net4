@@ -42,20 +42,15 @@ namespace GUI.Home
             dgErrends.ItemsSource = ErrandMechanicViewCombine.Source.Where(x => x.MechanicID == currentMech.ID);
 
             CheckingBoxes();
-            foreach (var item in Enum.GetValues(typeof(Enums.VehicelStatus)))
-            {
-                comboBoxErrands.Items.Add(item.ToString());
-            }
         }
 
         private void BtnUpdateStatus_Click(object sender, RoutedEventArgs e)
         {
             _crud = new CRUD();
-
-            var objCommonView = dgErrends.SelectedItem as CommonView;
-
-            if (comboBoxErrands.SelectedItem != null)
+            if (dgErrends.SelectedItem != null)
             {
+                var objCommonView = dgErrends.SelectedItem as CommonView;
+
                 var test = ErrandMechanicViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
                 var status = "";
                 foreach (var item in test)
@@ -65,12 +60,16 @@ namespace GUI.Home
 
                 if (status != "Klar")
                 {
-                    MechanicSkill.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, comboBoxErrands.SelectedItem.ToString());
+                    MechanicSkill.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, "Klar");
                 }
                 else
                     MessageBox.Show("Ärendet är klart och går inte att ändra.");
-            }
 
+
+            }
+        }
+        private void BtnUpdateKompetens_Click(object sender, RoutedEventArgs e)
+        {
             UpdatingBoxes();
             for (int i = 0; i < _skills.Length; i++)
             {

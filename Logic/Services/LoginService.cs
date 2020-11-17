@@ -11,19 +11,21 @@ namespace Logic.Services
 {
     public class LoginService
     {
-        public bool LoginAdmin(string username, string password)
-        {
-           var obj = UserList.UserLists.FirstOrDefault(user => user.Username.Equals(username) && user.Password.Equals(password));
+        private BosseDataAccess _db;
+        private Mechanic Mechanic;
 
-            if (obj != null)
-                return true;
-            else
-                return false;
+        public LoginService()
+        {
+            _db = new BosseDataAccess();
         }
 
+        public bool LoginBosse(string username, string password)
+        {
+            List<User> users = _db.GetUsers();
 
+            return users.Exists(user => user.Username.Equals(username) && user.Password.Equals(password));
+        }
 
-        private Mechanic Mechanic;
         public bool LoginMec(string username, string password)
         {
             var obj = UserList.UserLists.FirstOrDefault(user => user.Username.Equals(username) && user.Password.Equals(password));
@@ -42,11 +44,9 @@ namespace Logic.Services
                 return false;
         }
 
-        #region Tillfällig för att logga in enkelt.
         public Mechanic GetMechanicObj()
         {
             return Mechanic;
         }
-        #endregion
     }
 }
