@@ -320,7 +320,6 @@ namespace GUI.Home
         private void BtnAppointMechanicErrand_Click(object sender, RoutedEventArgs e)
         {
             Guid guid = Guid.Empty;
-
             if (dgCommonViewList.SelectedItem != null && cbBoxAppointMechanicAnErrand.SelectedItem != null)
             {
                 var objChosenMechanic = cbBoxAppointMechanicAnErrand.SelectedItem as Mechanic;
@@ -585,4 +584,3 @@ namespace GUI.Home
         #endregion
     }
 }
-

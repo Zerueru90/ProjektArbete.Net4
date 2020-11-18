@@ -31,12 +31,6 @@ namespace Logic
             public override string ToString() => shortPassword;
         }
 
-        public class BirthDateFormatException : Exception
-        {
-            readonly string date = "Birthdate can only contain numbers and '-' as seperator";
-            public override string ToString() => date;
-        }
-
         public class NameFormatException : Exception
         {
             readonly string name = "Kan bara innehålla bokstäver";

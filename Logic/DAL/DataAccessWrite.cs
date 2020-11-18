@@ -28,7 +28,6 @@ namespace Logic.DAL
                     File.Delete(jsonFileAddress); 
 
                     string jsonString = JsonSerializer.Serialize(observableData);
-                    //jsonString = JsonPrettify(jsonString);
                     using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
                     {
                         write.Write(jsonString);
@@ -38,7 +37,6 @@ namespace Logic.DAL
                 else
                 {
                     string jsonString = JsonSerializer.Serialize(observableData);
-                    //jsonString = JsonPrettify(jsonString);
                     using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
                     {
                         write.Write(jsonString);
@@ -47,18 +45,6 @@ namespace Logic.DAL
                 }
             }
         }
-
-        //private static string JsonPrettify(string json)
-        //{
-        //    using (var stringReader = new StringReader(json))
-        //    using (var stringWriter = new StringWriter())
-        //    {
-        //        var jsonReader = new JsonTextReader(stringReader);
-        //        var jsonWriter = new JsonTextWriter(stringWriter) { Formatting = Formatting.Indented };
-        //        jsonWriter.WriteToken(jsonReader);
-        //        return stringWriter.ToString();
-        //    }
-        //}
 
         private static void DeclareFileName(ObservableCollection<T> observableData)
         {

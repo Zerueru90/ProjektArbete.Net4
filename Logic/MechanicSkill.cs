@@ -13,7 +13,7 @@ namespace Logic
         {
             if (objMechanic != null)
             {
-                if (objMechanic.MechanicProgressList.Count != 2) //Så att man inte kan tilldela mer än 2 ärenden.
+                if (objMechanic.MechanicProgressList.Count != 2) 
                 {
                     //Denna ser till att GUI håller sig uppdaterad
                     objCommonView.ChangeMechanicID = objMechanic.ID;
@@ -95,7 +95,6 @@ namespace Logic
 
         public static void AddProgressList(Mechanic mechanic, string ErrandID)
         {
-            //Står att man ska kunna se den valda mekanikerns pågående och avslutade ärenden, så för att kunna koppla Errands så behöver vi ErrandsID så att vi sen kan hämta Ärendet för att visa på WPF.
             mechanic.MechanicProgressList.Add(ErrandID);
         }
 
