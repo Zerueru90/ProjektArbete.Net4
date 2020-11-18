@@ -11,7 +11,7 @@ namespace Logic.Entities.Vehicles_Entities
     {
         public Errand()
         {
-            ID = Guid.NewGuid(); // För att varje gång ett nytt ärende skapas så ska en ny Guid skapas, FAST NÄR MAN UPPDATERAR SÅ SKA DENNA INTE GÖRAS, VILKET DEN INTE GÖR DÅ CTOR BARA GÅR IGENOM MED = new Errand();
+            ID = Guid.NewGuid();
         }
 
         public Guid ID { get; set; }

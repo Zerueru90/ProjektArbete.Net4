@@ -79,7 +79,7 @@
                     <DataGrid x:Name="dgVeichleList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="0" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgVeichleList_AutoGeneratingColumn"/>
 
                     <Label Content="Ärende lista" FontSize="15" HorizontalAlignment="Left" Margin="0,1,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
-                    <DataGrid DisplayMemberPath="Name" Name="dgErrandList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrandList_AutoGeneratingColumn">
+                    <DataGrid MouseDoubleClick="dgErrandList_MouseDoubleClick" DisplayMemberPath="Name" Name="dgErrandList" CanUserAddRows="False" IsReadOnly="True" Grid.Column="1" Grid.Row="1" Margin="0,31,0,0" AutoGenerateColumns="True" AutoGeneratingColumn="dgErrandList_AutoGeneratingColumn">
 
                     </DataGrid>
 
@@ -128,9 +128,8 @@
                     <Label Content="Problem" FontSize="10" HorizontalAlignment="Left" Margin="20,135,0,0" VerticalAlignment="Top" Width="73" Grid.Column="0" Grid.Row="1"/>
                     <ComboBox Name="cbBoxProblemsErrand" HorizontalAlignment="Left" VerticalAlignment="Top" Height="22" Width="120" Margin="20,158,0,0" Grid.Column="0" Grid.Row="1"/>
 
-                    <Button Margin="214,113,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnSaveErrand_Click" Content="Spara"/>
-                    <Button Margin="214,206,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnDeleteErrand_Click" Content="Radera"/>
-                    <Button Margin="214,160,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnUpdateErrand_Click" Content="Uppdatera"/>
+                    <Button Margin="228,153,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="27" Width="158" Grid.Column="0" Grid.Row="1" Click="BtnSaveErrand_Click" Content="Spara"/>
+                    <Label Content="För att radera eller uppdatera ett ärende välj från listan" FontStyle="Italic" FontSize="10" HorizontalAlignment="Left" Margin="93,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.Row="1" />
 
                 </Grid>
             </TabItem>

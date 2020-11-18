@@ -64,8 +64,6 @@ namespace GUI.Home
                 }
                 else
                     MessageBox.Show("Ärendet är klart och går inte att ändra.");
-
-
             }
         }
         private void BtnUpdateKompetens_Click(object sender, RoutedEventArgs e)
@@ -165,6 +163,15 @@ namespace GUI.Home
                     e.Cancel = true;
                 }
             }
+        }
+
+        private void dgErrends_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CommonView objCommonView = (CommonView)dgErrends.SelectedItem;
+            var objVehicle = VehicleList.VehicleLists.Where(x => x.ID == objCommonView.VehicleID);
+
+            FullVehicleViewWindow fullVehicleViewWindow = new FullVehicleViewWindow(objVehicle);
+            fullVehicleViewWindow.Show();
         }
     }
 }

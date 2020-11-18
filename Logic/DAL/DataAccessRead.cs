@@ -16,7 +16,6 @@ namespace Logic.DAL
         private static string findMap = $@"{Directory.GetCurrentDirectory()}\DAL";
         private static string[] allFiles = Directory.GetFiles(findMap);
         private static string[] jsonfiles = { "Mechanic.json", "User.json", "Errand.json", "Vehicle.json" };
-        //private static List<Car> tempVehicleList = new List<Car>();
 
         public static void ReadJsonFile()
         {

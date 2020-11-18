@@ -126,9 +126,9 @@ namespace Logic
             ErrandMechanicViewCombine.BuildSource();
         }
 
-        public void RemoveErrand(CommonView errand)
+        public void RemoveErrand(CommonView commonview)
         {
-            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ErrandID);
+            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == commonview.ErrandID);
             var objErrandID = Guid.Empty;
             if (obj.MechanicID != Guid.Empty)
             {

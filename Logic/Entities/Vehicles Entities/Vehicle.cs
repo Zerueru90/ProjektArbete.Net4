@@ -45,7 +45,6 @@ namespace Logic.Entities.Vehicles_Entities
                 default:
                     throw new Exception("Feeeeeeeeeeeeeeeeeeel");
             }
-            return null;
         }
 
         public override void Write(Utf8JsonWriter writer, Vehicle value, JsonSerializerOptions options)

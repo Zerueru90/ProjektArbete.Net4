@@ -17,7 +17,6 @@ namespace Logic
         public string Namn { get; set; }
         public string Status { get; set; }
 
-
         public Guid ChangeMechanicID
         {
             get

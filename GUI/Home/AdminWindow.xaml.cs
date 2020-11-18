@@ -70,6 +70,21 @@ namespace GUI.Home
             UpdateMechanicCheckBox();
             UpdateVechileCheckBox();
         }
+        private void NullDataGrids()
+        {
+            dgCommonViewList.ItemsSource = null;
+            dgMechanicHistoric.ItemsSource = null;
+            cbBoxAppointMechanicAnErrand.SelectedItem = null;
+        }
+        private bool CheckDataGridDoesNotEqualNull(DataGrid dataGrid)
+        {
+            if (dataGrid.SelectedItem == null)
+            {
+                MessageBox.Show("Du måste välja något ifrån listan");
+                return false;
+            }
+            return true;
+        }
 
         #region Mekaniker: Skapa/Radera/Uppdatera. Första sidan.
         private void BtnSaveNewMechanic_Click(object sender, RoutedEventArgs e)
@@ -118,13 +133,13 @@ namespace GUI.Home
             }
             NullDataGrids();
         }
-        
-        private void NullDataGrids()
-        {
-            dgCommonViewList.ItemsSource = null;
-            dgMechanicHistoric.ItemsSource = null;
-            cbBoxAppointMechanicAnErrand.SelectedItem = null;
-        }
+        //private void dgMechanicList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    Mechanic objMechanic = (Mechanic)dgMechanicList.SelectedItem;
+        //    var iEnumbler = MechanicList.MechanicLists.Where(x => x.ID == objMechanic.ID);
+        //    MechanicEditWindow mechanicEditWindow = new MechanicEditWindow(iEnumbler);
+        //    mechanicEditWindow.Show();
+        //}
         #endregion
 
         #region User: Skapa/Radera User inlogg. Andra sidan.
@@ -281,49 +296,30 @@ namespace GUI.Home
                 MessageBox.Show("Du måste fylla i alla uppgifter");
 
         }
-        private void BtnDeleteErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (CheckDataGridDoesNotEqualNull(dgErrandList))
-            {
-                _crud.RemoveErrand(dgErrandList.SelectedItem as CommonView);
-            }
-            NullDataGrids();
-        }
-        private bool CheckDataGridDoesNotEqualNull(DataGrid dataGrid)
-        {
-            if (dataGrid.SelectedItem == null)
-            {
-                MessageBox.Show("Du måste välja något ifrån listan");
-                return false;
-            }
-            return true;
-        }
-        private void BtnUpdateErrand_Click(object sender, RoutedEventArgs e)
-        {
-            if (cbBoxVeichlesErrand.SelectedItem != null && cbBoxProblemsErrand.SelectedItem != null)
-            {
-                var objVehicle = cbBoxVeichlesErrand.SelectedItem as Vehicle;
 
-                var obj = ErrandMechanicViewCombine.Source.Where(x => x.VehicleID == objVehicle.ID);
-                foreach (var item in obj)
-                {
-                    if (item.Status != "Klar")
-                    {
-                        if (item.VehicleID != Guid.Empty)
-                        {
-                            _crud.UpdateErrand(item, objVehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                            MessageBox.Show("Uppdaterad");
-                        }
-                        else
-                            MessageBox.Show("Finns inget ärende att uppdatera, välj rätt reg nr.");
-                    }
-                    else
-                        MessageBox.Show("Ärendet är klart, går inte att ändra");
-                }
-                NullDataGrids();
+        private void dgErrandList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            CommonView objCommonView = (CommonView)dgErrandList.SelectedItem;
+
+            var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
+
+            Errand errand = null;
+            Guid key = Guid.Empty;
+            foreach (var item in objErrand)
+            {
+                errand = item;
+                key = item.VeichleID;
             }
-            else
-                MessageBox.Show("Måste välja ett reg nr och problem för att uppdatera");
+            var iEnumearbleVehicle = VehicleList.VehicleLists.Where(x => x.ID == key);
+            Vehicle objVehicle = null;
+            foreach (var item in iEnumearbleVehicle)
+            {
+                objVehicle = item;
+            }
+
+            EditWindow editWindow = new EditWindow(objErrand, objVehicle, objCommonView);
+            editWindow.Show();
+            NullDataGrids();
         }
         #endregion
 
@@ -342,7 +338,7 @@ namespace GUI.Home
 
                 if (trueorfalse)
                 {
-                    //Om Bosse väljer att ge en mekaniker ett ärende som en annan mekaniker har och är pågående, så måste den gamla mekanikers progresslista ta bort 1 ärende.
+                    //Om Bosse väljer att ge en mekaniker ett ärende som en annan mekaniker har och är pågående, så måste den gamla mekanikers progresslista ta bort det ärende ID från Errand.ErrandID Array.
                     if (objChosenMechanic.ID != guid)
                     {
                         var objMechanic = MechanicList.MechanicLists.Where(x => x.ID == guid);
@@ -353,6 +349,7 @@ namespace GUI.Home
                     }
 
                     UpdateDataGrid();
+                    ErrandMechanicViewCombine.BuildSource();
                     MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
                 }
                 else
@@ -593,7 +590,6 @@ namespace GUI.Home
             CancelUnwantedColumnHeaderName(e);
         }
         #endregion
-
     }
 }
 
