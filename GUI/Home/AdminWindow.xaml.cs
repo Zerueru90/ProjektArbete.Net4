@@ -133,13 +133,6 @@ namespace GUI.Home
             }
             NullDataGrids();
         }
-        //private void dgMechanicList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        //{
-        //    Mechanic objMechanic = (Mechanic)dgMechanicList.SelectedItem;
-        //    var iEnumbler = MechanicList.MechanicLists.Where(x => x.ID == objMechanic.ID);
-        //    MechanicEditWindow mechanicEditWindow = new MechanicEditWindow(iEnumbler);
-        //    mechanicEditWindow.Show();
-        //}
         #endregion
 
         #region User: Skapa/Radera User inlogg. Andra sidan.
