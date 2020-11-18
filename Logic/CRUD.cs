@@ -28,8 +28,37 @@ namespace Logic
 
         public void RemoveMechanic(Mechanic objMechanic)
         {
+            Guid mecID = objMechanic.ID;
             MechanicList.MechanicLists.Remove(objMechanic);
-            RemoveErrand(objMechanic);
+            RemoveTraceOfMechanicInErrand(mecID);
+        }
+        private void RemoveTraceOfMechanicInErrand(Guid ID)
+        {
+            List<Errand> _errandsOfSoonToBeDeletedMechanic = new List<Errand>();
+
+            var obj = ErrandList.ErrandsList.Any(x => x.MechanicID == ID);
+            if (obj == true)
+            {
+                var obj2 = ErrandList.ErrandsList.Where(x => x.MechanicID == ID);
+                foreach (var item in obj2)
+                {
+                    _errandsOfSoonToBeDeletedMechanic.Add(item);
+                }
+
+                var sortDeleted = _errandsOfSoonToBeDeletedMechanic.Where(x => x.Status == "Klar");
+                foreach (var item in sortDeleted)
+                {
+                    ErrandList.ErrandsList.Remove(item);
+                }
+
+                var sortOnGoingErrands = _errandsOfSoonToBeDeletedMechanic.Where(x => x.Status == "Pågående");
+                foreach (var item in sortOnGoingErrands)
+                {
+                    item.MechanicID = Guid.Empty;
+                    item.Status = "";
+                }
+                ErrandMechanicViewCombine.BuildSource();
+            }
         }
 
         public void UpdateMechanic(Mechanic objMechanic)
@@ -99,8 +128,6 @@ namespace Logic
 
         public void RemoveErrand(CommonView errand)
         {
-            var obj2 = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.ErrandID == errand.ErrandID);
-
             var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.ID == errand.ErrandID);
             var objErrandID = Guid.Empty;
             if (obj.MechanicID != Guid.Empty)
@@ -118,24 +145,14 @@ namespace Logic
                         }
                     }
                 }
-                //mec.ErrandID[mec.ErrandID.FindIndex(x => x.Equals(count))] = Guid.Empty;
-
                 mec.ErrandID.Remove(objErrandID);
                 mec.MechanicProgressList.Remove(objErrandID.ToString());
             }
 
             ErrandList.ErrandsList.Remove(obj);
-            ErrandMechanicViewCombine.Source.Remove(obj2);
+            ErrandMechanicViewCombine.BuildSource();
         }
-        private void RemoveErrand(Mechanic mec)
-        {
-            var obj2 = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.MechanicID == mec.ID);
-
-            var obj = ErrandList.ErrandsList.FirstOrDefault(x => x.MechanicID == mec.ID);
-
-            ErrandList.ErrandsList.Remove(obj);
-            ErrandMechanicViewCombine.Source.Remove(obj2);
-        }
+        
 
         public void UpdateErrand(CommonView objCommonView, Vehicle objVehicle, string description, string problem)
         {

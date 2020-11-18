@@ -103,8 +103,8 @@ namespace GUI.Home
                 var obj = dgMechanicList.SelectedItem as Mechanic;
                 _crud.RemoveMechanic(dgMechanicList.SelectedItem as Mechanic);
                 UpdateMechanicCheckBox();
-                RemoveTraceOfMechanicInErrand(obj.ID);
-                //UpdateDataGrid();
+                //dgErrandList.ItemsSource = null;
+                //dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
                 MessageBox.Show("Raderat mekaniker");
             }
             NullDataGrids();
@@ -118,22 +118,7 @@ namespace GUI.Home
             }
             NullDataGrids();
         }
-        private void RemoveTraceOfMechanicInErrand(Guid mecID)
-        {
-            var obj = ErrandList.ErrandsList.Any(x => x.MechanicID == mecID);
-            if (obj == true)
-            {
-                var obj2 = ErrandList.ErrandsList.Where(x => x.MechanicID == mecID);
-                var objSource = ErrandMechanicViewCombine.Source.FirstOrDefault(x => x.MechanicID == mecID);
-                foreach (var item in obj2)
-                {
-                    item.MechanicID = Guid.Empty;
-                }
-                objSource.MechanicID = Guid.Empty;
-            }
-            dgErrandList.ItemsSource = null; ;
-            dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
-        }
+        
         private void NullDataGrids()
         {
             dgCommonViewList.ItemsSource = null;
