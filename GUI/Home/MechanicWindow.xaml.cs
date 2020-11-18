@@ -24,7 +24,7 @@ namespace GUI.Home
         private CRUD _crud;
         private string[] _unwantedColumns = new string[]
         {
-            "ChangeMechanicID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName", "ChangeDescription", "ChangeProblem", "ChangeStatus"
+            "ChangeMechanicID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName", "ChangeDescription", "ChangeProblem", "ChangeStatus","ErrandID","MechanicID", "VehicleID"
         };
         private string[] _skills = new string[]
         {

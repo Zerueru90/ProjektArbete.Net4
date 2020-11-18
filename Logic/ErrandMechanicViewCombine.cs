@@ -57,12 +57,12 @@ namespace Logic
                     ErrandID = errandItem.ID,
                     MechanicID = MechanicId,
                     VehicleID = errandItem.VeichleID,
-                    Model = errandItem.ModelName,
-                    RegNb = errandItem.RegistrationNumber,
-                    Description = errandItem.Description,
+                    Modell = errandItem.ModelName,
+                    Regnummer = errandItem.RegistrationNumber,
+                    Beskrivning = errandItem.Description,
                     Problem = errandItem.Problem,
                     Status = errandItem.Status, 
-                    Name = MechanicName
+                    Namn = MechanicName
                 });
             }
         }

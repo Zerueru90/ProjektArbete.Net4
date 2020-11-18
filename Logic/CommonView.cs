@@ -10,11 +10,11 @@ namespace Logic
         public Guid ErrandID { get; set; }
         public Guid MechanicID { get; set; }
         public Guid VehicleID { get; set; }
-        public string Model { get; set; }
-        public string RegNb { get; set; }
-        public string Description { get; set; }
+        public string Modell { get; set; }
+        public string Regnummer { get; set; }
+        public string Beskrivning { get; set; }
         public string Problem { get; set; }
-        public string Name { get; set; }
+        public string Namn { get; set; }
         public string Status { get; set; }
 
 
@@ -39,15 +39,15 @@ namespace Logic
         {
             get
             {
-                if (string.IsNullOrEmpty(Model))
+                if (string.IsNullOrEmpty(Modell))
                 {
                     return " ";
                 }
-                return Model;
+                return Modell;
             }
             set
             {
-                Model = value;
+                Modell = value;
                 NotifyPropertyChanged("ModelName");
             }
         }
@@ -56,15 +56,15 @@ namespace Logic
         {
             get
             {
-                if (string.IsNullOrEmpty(RegNb))
+                if (string.IsNullOrEmpty(Regnummer))
                 {
                     return " ";
                 }
-                return RegNb;
+                return Regnummer;
             }
             set
             {
-                RegNb = value;
+                Regnummer = value;
                 NotifyPropertyChanged("RegistrationNumber");
             }
         }
@@ -73,15 +73,15 @@ namespace Logic
         {
             get
             {
-                if (string.IsNullOrEmpty(Name))
+                if (string.IsNullOrEmpty(Namn))
                 {
                     return " ";
                 }
-                return Name;
+                return Namn;
             }
             set
             {
-                Name = value;
+                Namn = value;
                 NotifyPropertyChanged("Name");
             }
         }
@@ -90,11 +90,11 @@ namespace Logic
         {
             get
             {
-                if (string.IsNullOrEmpty(Description))
+                if (string.IsNullOrEmpty(Beskrivning))
                 {
                     return " ";
                 }
-                return Description;
+                return Beskrivning;
             }
             set
             {

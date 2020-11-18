@@ -140,10 +140,10 @@
                     <ComboBox Name="cbBoxAppointMechanicAnErrand" DisplayMemberPath="Name" StaysOpenOnEdit="true" DropDownClosed="cbBoxAppointMechanicAnErrand_OnDropDownClosed" HorizontalAlignment="Left" Margin="40,41,0,0" VerticalAlignment="Top" Width="163" Height="31"/>
                     <Button Click="BtnAppointMechanicErrand_Click" Content="Tilldela ärende" HorizontalAlignment="Left" Margin="87,77,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
 
-                    <Label Content="Endast fordon med mekanikers kompetens visas" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,2,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Tillgängliga ärenden som matchar med meknikerns kompitens" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,2,0,0" VerticalAlignment="Top"/>
                     <DataGrid Name="dgCommonViewList" Margin="272,28,0,383" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgCommonView_AutoGeneratingColumn"/>
 
-                    <Label Content="Historik" FontStyle="Italic" FontSize="12" HorizontalAlignment="Left" Margin="272,345,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Meckanikerns Ärenden:" FontStyle="Italic" FontSize="15" HorizontalAlignment="Left" Margin="272,345,0,0" VerticalAlignment="Top"/>
                     <DataGrid x:Name="dgMechanicHistoric" Margin="272,371,0,0" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgCommonView_AutoGeneratingColumn"/>
                     <Button Click="BtnChangeStatusMechanicHistoric_Click" Content="Ändra status till klar" HorizontalAlignment="Left" Margin="87,644,0,0" VerticalAlignment="Top" Width="116" Height="29"/>
 
