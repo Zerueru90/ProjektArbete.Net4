@@ -43,16 +43,12 @@ namespace GUI.Login
             txtBoxUserName.Text = "Bosse@hotmail.com";
             txtBoxPassword.Password = "Meckarn123";
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string username = this.txtBoxUserName.Text;
             string password = this.txtBoxPassword.Password;
-            
-            bool successfulBosse = _loginService.LoginBosse(username, password);
-            //bool successful = _loginService.LoginMec(username, password);
 
-            if (successfulBosse && username == "Bosse@hotmail.com")
+            if (username == "Bosse@hotmail.com" && password == "Meckarn123")
             {
                 adminWindow = new AdminWindow();
                 adminWindow.Show();

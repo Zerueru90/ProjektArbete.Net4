@@ -11,20 +11,8 @@ namespace Logic.Services
 {
     public class LoginService
     {
-        private BosseDataAccess _db;
+      
         private Mechanic Mechanic;
-
-        public LoginService()
-        {
-            _db = new BosseDataAccess();
-        }
-
-        public bool LoginBosse(string username, string password)
-        {
-            List<User> users = _db.GetUsers();
-
-            return users.Exists(user => user.Username.Equals(username) && user.Password.Equals(password));
-        }
 
         public bool LoginMec(string username, string password)
         {
@@ -50,23 +38,4 @@ namespace Logic.Services
         }
     }
 }
-/*
-    var ojbUser = from list in UserList.UserLists
-                          where list.Username == username && list.Password == password
-                          select list.ID;
-            if (ojbUser != null)
-            {
-                foreach (var key in ojbUser)
-                {
-                    var obj1 = MechanicList.MechanicLists.Where(x => x.UserID == key).Select(x => x);
-                    foreach (var item in obj1)
-                    {
-                        Mechanic = item;
-                    }
-                }
-                return true;
-            }
-            else
-                return false; 
 
- */
