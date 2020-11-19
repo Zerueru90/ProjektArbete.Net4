@@ -36,18 +36,19 @@ namespace Logic
             }
             foreach (var errandItem in ErrandList.ErrandsList)
             {
-                string MechanicName = "";
-                Guid MechanicId = Guid.Empty;
-                
-                 foreach (var item in MechanicList.MechanicLists)
+                string mechanicName = "";
+                Guid mechanicId = Guid.Empty;
+                string vehicleType = VehicleType(errandItem.VehicleID);
+
+                foreach (var item in MechanicList.MechanicLists)
                  {
                      foreach (var item2 in item.ErrandID)
                      {
 
                          if (item2 == errandItem.ID)
                          {
-                            MechanicName = item.Name;
-                            MechanicId = item.ID;
+                            mechanicName = item.Name;
+                            mechanicId = item.ID;
                          }
                      }
 
@@ -55,17 +56,28 @@ namespace Logic
                 _source.Add(new CommonView()
                 {
                     ErrandID = errandItem.ID,
-                    MechanicID = MechanicId,
-                    VehicleID = errandItem.VeichleID,
-                    Modell = errandItem.ModelName,
-                    Regnummer = errandItem.RegistrationNumber,
-                    Beskrivning = errandItem.Description,
+                    MechanicID = mechanicId,
+                    VehicleID = errandItem.VehicleID,
+                    Model = errandItem.ModelName,
+                    RegistrationNumber = errandItem.RegistrationNumber,
+                    Description = errandItem.Description,
                     Problem = errandItem.Problem,
                     Status = errandItem.Status, 
-                    Namn = MechanicName
+                    Name = mechanicName,
+                    VehicleType = vehicleType
                 });
             }
         }
-        
+        private static string VehicleType(Guid id)
+        {
+            string vehicleType = "";
+            var obj = VehicleList.VehicleLists.Where(x => x.ID == id);
+
+            foreach (var item in obj)
+            {
+                vehicleType = item.VehicleType;
+            }
+            return vehicleType;
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using GUI.View;
+using Logic;
 using Logic.Entities.Person_Entities;
 using Logic.Entities.Vehicles_Entities;
 using System;
@@ -172,7 +173,7 @@ namespace GUI.Home
         }
         #endregion
 
-        #region Fordon: Skapa. har en metod för upprepande kod. Tredje sidan. (Antar att radera ej behövs, man ska ha koll på alla klargjorda fordon)
+        #region Fordon: Skapa. 
         private void BtnSaveVeichle_Click(object sender, RoutedEventArgs e)
         {
             if (cbBoxVeichleType.SelectedItem != null && cbBoxFuel.SelectedItem != null)
@@ -267,6 +268,16 @@ namespace GUI.Home
                 MessageBox.Show("Du måste fylla i alla uppgifter");
 
         }
+
+        private void dgVeichleList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Vehicle obj = (Vehicle)dgVeichleList.SelectedItem;
+
+            var objVehicle = VehicleList.VehicleLists.Where(x => x.ID == obj.ID);
+
+            FullVehicleViewWindow fullVehicleViewWindow = new FullVehicleViewWindow(objVehicle);
+            fullVehicleViewWindow.Show();
+        }
         #endregion
 
         #region Ärenden: Skapa/Radera/Uppdatera. Tredje sidan. (Fattas dock att ärendet GRIDEN ska visa info om fordon, namn, reg osv.)
@@ -293,7 +304,8 @@ namespace GUI.Home
         private void dgErrandList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CommonView objCommonView = (CommonView)dgErrandList.SelectedItem;
-
+            var testing = ErrandMechanicViewCombine.Source;
+            var testing2 = ErrandVehicleViewCombine.Source;
             var objErrand = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
 
             Errand errand = null;
@@ -301,7 +313,7 @@ namespace GUI.Home
             foreach (var item in objErrand)
             {
                 errand = item;
-                key = item.VeichleID;
+                key = item.VehicleID;
             }
             var iEnumearbleVehicle = VehicleList.VehicleLists.Where(x => x.ID == key);
             Vehicle objVehicle = null;
@@ -310,8 +322,11 @@ namespace GUI.Home
                 objVehicle = item;
             }
 
-            EditWindow editWindow = new EditWindow(objErrand, objVehicle, objCommonView);
-            editWindow.Show();
+            var objViewCombineEV = ErrandVehicleViewCombine.Source.Where(x => x.ErrandID == objCommonView.ErrandID);
+
+            FullErrandMechanicVehicleViewWindow errandVehicleFullView = new FullErrandMechanicVehicleViewWindow(objViewCombineEV, objVehicle, objCommonView);
+            errandVehicleFullView.Show();
+
             NullDataGrids();
         }
         #endregion
@@ -342,6 +357,7 @@ namespace GUI.Home
 
                     UpdateDataGrid();
                     ErrandMechanicViewCombine.BuildSource();
+                    ErrandVehicleViewCombine.BuildSource();
                     MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
                 }
                 else
@@ -582,5 +598,6 @@ namespace GUI.Home
             CancelUnwantedColumnHeaderName(e);
         }
         #endregion
+
     }
 }

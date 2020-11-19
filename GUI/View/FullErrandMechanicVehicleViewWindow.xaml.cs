@@ -14,45 +14,45 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GUI.Home
+namespace GUI.View
 {
     /// <summary>
-    /// Interaction logic for EditWindow.xaml
+    /// Interaction logic for FullErrandMechanicVehicleViewWindow.xaml
     /// </summary>
-    public partial class EditWindow : Window
+    public partial class FullErrandMechanicVehicleViewWindow : Window
     {
-        private Errand _objErrand;
+        private CommonViewEMV _objCommonViewVE;
         private Vehicle _objVehicle;
         private CommonView _objCommonView;
         private Mechanic _objMechanic;
         private ICRUD _crud = new CRUD();
         private string[] _unwantedColumns = new string[]
         {
-            "ChangeProblem", "ChangeDescription"
+            "VehicleID", "MechanicID"
         };
-        public EditWindow(IEnumerable<Errand> errand, Vehicle vehicle, CommonView commonView)
+        public FullErrandMechanicVehicleViewWindow(IEnumerable<CommonViewEMV> commonViewVE, Vehicle vehicle, CommonView commonView)
         {
             InitializeComponent();
-            dgErrandEditDelete.ItemsSource = errand;
+
+            dgErrandEditDelete.ItemsSource = commonViewVE;
             _objVehicle = vehicle;
             _objCommonView = commonView;
-            foreach (var item in errand)
+            foreach (var item in commonViewVE)
             {
-                _objErrand = item;
+                _objCommonViewVE = item;
             }
 
-            txtDescription.Text = _objErrand.Description;
-            cbBoxProblemsErrand.SelectedItem = _objErrand.Problem;
+            txtDescription.Text = _objCommonViewVE.Description;
+            cbBoxProblemsErrand.SelectedItem = _objCommonViewVE.Problem;
 
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelProblems)))
             {
                 cbBoxProblemsErrand.Items.Add(item.ToString());
             }
         }
-
         private void FirstStepDoesErrandHaveMechanic()
         {
-            var objMecID = _objErrand.MechanicID;
+            var objMecID = _objCommonViewVE.MechanicID;
             var iEnumbleMec = MechanicList.MechanicLists.Where(x => x.ID == objMecID);
             Mechanic mec = null;
             foreach (var item in iEnumbleMec)
@@ -68,12 +68,13 @@ namespace GUI.Home
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             FirstStepDoesErrandHaveMechanic();
-            if (_objErrand.Status != "Klar")
+            if (_objCommonViewVE.Status != "Klar")
             {
-                if (_objMechanic == null )
+                if (_objMechanic == null)
                 {
                     _crud.UpdateErrand(_objCommonView, _objVehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
                     ErrandMechanicViewCombine.BuildSource();
+                    ErrandVehicleViewCombine.BuildSource();
                     MessageBox.Show("Uppdaterad");
                 }
                 else
@@ -82,6 +83,7 @@ namespace GUI.Home
                     {
                         _crud.UpdateErrand(_objCommonView, _objVehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
                         ErrandMechanicViewCombine.BuildSource();
+                        ErrandVehicleViewCombine.BuildSource();
                         MessageBox.Show("Uppdaterad");
                     }
                     else
@@ -97,6 +99,7 @@ namespace GUI.Home
             _crud.RemoveErrand(_objCommonView);
             this.Close();
         }
+
         private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
         {
             string headername = e.Column.Header.ToString();
@@ -111,10 +114,10 @@ namespace GUI.Home
                 }
             }
         }
+
         private void dgErrandEditDelete_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {
             CancelUnwantedColumnHeaderName(e);
-
         }
     }
 }

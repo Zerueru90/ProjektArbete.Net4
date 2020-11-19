@@ -92,6 +92,7 @@ namespace Logic.DAL
                         ErrandList.ErrandsList.Add(ReadErrand);
                     }
                     ErrandMechanicViewCombine.BuildSource();
+                    ErrandVehicleViewCombine.BuildSource();
                     break;
                 default:
                     break;

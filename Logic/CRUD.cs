@@ -58,6 +58,7 @@ namespace Logic
                     item.Status = "";
                 }
                 ErrandMechanicViewCombine.BuildSource();
+                ErrandVehicleViewCombine.BuildSource();
             }
         }
 
@@ -118,12 +119,13 @@ namespace Logic
             Errand newErrand = new Errand();
             newErrand.Description = description;
             newErrand.Problem = problem;
-            newErrand.VeichleID = objVehicle.ID;
+            newErrand.VehicleID = objVehicle.ID;
             newErrand.ModelName = objVehicle.ModelName;
             newErrand.RegistrationNumber = objVehicle.RegistrationNumber;
 
             ErrandList.ErrandsList.Add(newErrand);
             ErrandMechanicViewCombine.BuildSource();
+            ErrandVehicleViewCombine.BuildSource();
         }
 
         public void RemoveErrand(CommonView commonview)
@@ -151,6 +153,7 @@ namespace Logic
 
             ErrandList.ErrandsList.Remove(obj);
             ErrandMechanicViewCombine.BuildSource();
+            ErrandVehicleViewCombine.BuildSource();
         }
         
 
@@ -167,7 +170,7 @@ namespace Logic
             foreach (var item in objErrand)
             {
                 item.Description = description;
-                item.VeichleID = objVehicle.ID;
+                item.VehicleID = objVehicle.ID;
                 item.Problem = problem;
                 item.ModelName = objVehicle.ModelName;
                 item.RegistrationNumber = objVehicle.RegistrationNumber;

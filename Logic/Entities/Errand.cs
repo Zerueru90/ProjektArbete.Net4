@@ -15,7 +15,7 @@ namespace Logic.Entities.Vehicles_Entities
         }
 
         public Guid ID { get; set; }
-        public Guid VeichleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
+        public Guid VehicleID { get; set; } //När man sparar ett Ärende så måste man ha ett fordon och en MEKANIKER
         public Guid MechanicID { get; set; }
         public string ModelName { get; set; }
         public string RegistrationNumber { get; set; }
