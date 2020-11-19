@@ -7,9 +7,9 @@ using Logic.Entities.Vehicles_Entities;
 
 namespace Logic
 {
-   public static class MechanicSkill
+   public static class MechanicProgress
    {
-        public static bool AddMechanicErrandList(Mechanic objMechanic, CommonView objCommonView)
+        public static bool AddToMechanicProgressList(Mechanic objMechanic, CommonView objCommonView)
         {
             if (objMechanic != null)
             {
@@ -26,10 +26,7 @@ namespace Logic
                     {
                         item.MechanicID = objMechanic.ID;
                         item.Status = "Pågående";
-                        objMechanic.ErrandID.Add(item.ID);
-
-                        //Funkar
-                        AddProgressList(objMechanic, item.ID.ToString());
+                        AddProgressList(objMechanic, item.ID);
                     }
 
                     return true;
@@ -39,23 +36,38 @@ namespace Logic
             }
             else
                 return false;
-            
-
         }
 
-        public static bool ChangeMechanicStatus(CommonView objCommonView, Mechanic objMechanic, string newStatus)
+        public static void RemoveFromProgressList(Mechanic mechanic, Guid ErrandID)
+        {
+            AddDoneList(mechanic, ErrandID);
+            mechanic.MechanicProgressList.Remove(ErrandID);
+        }
+
+        public static void AddProgressList(Mechanic mechanic, Guid ErrandID)
+        {
+            mechanic.MechanicProgressList.Add(ErrandID);
+            mechanic.ListContainingInProgressAndDoneErrendIDs.Add(ErrandID);
+        }
+
+        public static void AddDoneList(Mechanic mechanic, Guid ErrandID)
+        {
+            mechanic.MechanicDoneList.Add(ErrandID);
+        }
+
+
+        public static bool UpdateMechanicStatus(CommonView objCommonView, Mechanic objMechanic, string newStatus)
         {
             if (objCommonView.MechanicID != Guid.Empty)
             {
                 var objErrands = ErrandList.ErrandsList.Where(x => x.ID == objCommonView.ErrandID);
                 foreach (var item in objErrands)
                 {
-
-                    AddDoneList(objMechanic, item.ID.ToString());
-                    RemoveFromMechanicProgressList(objMechanic, item.ID.ToString());
+                    RemoveFromProgressList(objMechanic, item.ID);
+                    //sparar i datan.
                     item.Status = newStatus;
                 }
-
+                //ändrar i gui
                 objCommonView.ChangeStatus = newStatus;
                 return true;
             }
@@ -63,7 +75,7 @@ namespace Logic
                 return false;
         }
 
-        public static void AddAndRemoveMechanicSkill(Mechanic mec)
+        public static void UpdateMechanicSkill(Mechanic mec)
         {
             mec.SkillLista = new List<string>();
             if (mec.Breaks == true)
@@ -86,21 +98,6 @@ namespace Logic
             {
                 mec.SkillLista.Add("Däck");
             }
-        }
-
-        public static void RemoveFromMechanicProgressList(Mechanic mechanic, string ErrandID)
-        {
-            mechanic.MechanicProgressList.Remove(ErrandID);
-        }
-
-        public static void AddProgressList(Mechanic mechanic, string ErrandID)
-        {
-            mechanic.MechanicProgressList.Add(ErrandID);
-        }
-
-        public static void AddDoneList(Mechanic mechanic, string ErrandID)
-        {
-            mechanic.MechanicDoneList.Add(ErrandID);
         }
     }
 }

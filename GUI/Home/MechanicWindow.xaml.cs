@@ -60,7 +60,9 @@ namespace GUI.Home
 
                 if (status != "Klar")
                 {
-                    MechanicSkill.ChangeMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, "Klar");
+                    MechanicProgress.UpdateMechanicStatus(dgErrends.SelectedItem as CommonView, _currentMechanic, "Klar");
+                    //ErrandMechanicViewCombine.BuildSource();
+                    //ErrandMechanicVehicleViewCombine.BuildSource();
                 }
                 else
                     MessageBox.Show("Ärendet är klart och går inte att ändra.");
@@ -168,10 +170,13 @@ namespace GUI.Home
         private void dgErrends_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             CommonView objCommonView = (CommonView)dgErrends.SelectedItem;
-            var objVehicle = VehicleList.VehicleLists.Where(x => x.ID == objCommonView.VehicleID);
+            if (objCommonView != null)
+            {
+                var objVehicle = VehicleList.VehicleLists.Where(x => x.ID == objCommonView.VehicleID);
 
-            FullVehicleViewWindow fullVehicleViewWindow = new FullVehicleViewWindow(objVehicle);
-            fullVehicleViewWindow.Show();
+                FullVehicleViewWindow fullVehicleViewWindow = new FullVehicleViewWindow(objVehicle);
+                fullVehicleViewWindow.Show();
+            }
         }
     }
 }

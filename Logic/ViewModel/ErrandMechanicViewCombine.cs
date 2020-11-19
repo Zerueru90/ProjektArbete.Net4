@@ -42,30 +42,47 @@ namespace Logic
 
                 foreach (var item in MechanicList.MechanicLists)
                  {
-                     foreach (var item2 in item.ErrandID)
+                     foreach (var item2 in item.ListContainingInProgressAndDoneErrendIDs)
                      {
 
                          if (item2 == errandItem.ID)
                          {
-                            mechanicName = item.Name;
-                            mechanicId = item.ID;
-                         }
+                            //mechanicName = item.Name;
+                            //mechanicId = item.ID;
+                            _source.Add(new CommonView()
+                            {
+                                ErrandID = errandItem.ID,
+                                MechanicID = item.ID,
+                                VehicleID = errandItem.VehicleID,
+                                Model = errandItem.ModelName,
+                                RegistrationNumber = errandItem.RegistrationNumber,
+                                Description = errandItem.Description,
+                                Problem = errandItem.Problem,
+                                Status = errandItem.Status,
+                                Name = item.Name,
+                                VehicleType = vehicleType
+                            });
+                        }
                      }
 
                  }
-                _source.Add(new CommonView()
+                //Då vet vi att ett nytt ärende ska bara läggas till utan namn och id.
+                if (errandItem.Status == null)
                 {
-                    ErrandID = errandItem.ID,
-                    MechanicID = mechanicId,
-                    VehicleID = errandItem.VehicleID,
-                    Model = errandItem.ModelName,
-                    RegistrationNumber = errandItem.RegistrationNumber,
-                    Description = errandItem.Description,
-                    Problem = errandItem.Problem,
-                    Status = errandItem.Status, 
-                    Name = mechanicName,
-                    VehicleType = vehicleType
-                });
+                    _source.Add(new CommonView()
+                    {
+                        ErrandID = errandItem.ID,
+                        MechanicID = mechanicId,
+                        VehicleID = errandItem.VehicleID,
+                        Model = errandItem.ModelName,
+                        RegistrationNumber = errandItem.RegistrationNumber,
+                        Description = errandItem.Description,
+                        Problem = errandItem.Problem,
+                        Status = errandItem.Status,
+                        Name = mechanicName,
+                        VehicleType = vehicleType
+                    });
+                }
             }
         }
         private static string VehicleType(Guid id)

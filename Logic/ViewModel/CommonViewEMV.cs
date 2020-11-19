@@ -6,7 +6,7 @@ using System.Text;
 namespace Logic
 {
     //Denna klass är för GUI så att man ska kunna få fram lämplig info om ett ärende. Kombinerar båda Ärende, Mekaniker och Fordon.
-    public class CommonViewEMV
+    public class CommonViewEMV : ObservableObject
     {
         public Guid ErrandID { get; set; }
         public Guid MechanicID { get; set; }
@@ -25,5 +25,38 @@ namespace Logic
         public decimal MaxLoadWeight { get; set; }
         public int MaxTotalPassengers { get; set; }
 
+
+        public string ChangeProblem
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Problem))
+                {
+                    return " ";
+                }
+                return Problem;
+            }
+            set
+            {
+                Problem = value;
+                NotifyPropertyChanged("Problem");
+            }
+        }
+        public string ChangeDescription
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(Description))
+                {
+                    return " ";
+                }
+                return Description;
+            }
+            set
+            {
+                Description = value;
+                NotifyPropertyChanged("Description");
+            }
+        }
     }
 }

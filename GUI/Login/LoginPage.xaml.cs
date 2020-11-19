@@ -67,6 +67,7 @@ namespace GUI.Login
                 mecWindow.Closing += delegate
                 {
                     DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
+                    DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
                 };
             }
             else

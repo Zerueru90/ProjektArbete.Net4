@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="FullErrandMechanicVehicleViewWindow" Height="350" Width="1400">
     <Grid Background="#FFE5E5E5">
-        <DataGrid Name="dgErrandEditDelete" CanUserAddRows="False" IsReadOnly="True" Grid.Column="0" Margin="0,0,0,270" AutoGeneratingColumn="dgErrandEditDelete_AutoGeneratingColumn"/>
+        <DataGrid Name="dgErrandEditDelete" CanUserAddRows="False" IsReadOnly="True" Grid.Column="0" Margin="0,0,0,244" AutoGeneratingColumn="dgErrandEditDelete_AutoGeneratingColumn"/>
         <ComboBox Name="cbBoxProblemsErrand" HorizontalAlignment="Left" Margin="56,90,0,0" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txtDescription" HorizontalAlignment="Left" Margin="56,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="369" Height="56"/>
         <Label Content="Problem" HorizontalAlignment="Left" Margin="56,64,0,0" VerticalAlignment="Top"/>

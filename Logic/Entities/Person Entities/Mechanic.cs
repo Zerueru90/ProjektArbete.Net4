@@ -11,16 +11,16 @@ namespace Logic.Entities.Person_Entities
         public Mechanic()
         {
             ID = Guid.NewGuid(); 
-            MechanicProgressList = new List<string>();
             SkillLista = new List<string>();
-            MechanicDoneList = new List<string>();
-            ErrandID = new List<Guid>();
+            MechanicDoneList = new List<Guid>();
+            MechanicProgressList = new List<Guid>();
+            ListContainingInProgressAndDoneErrendIDs = new List<Guid>();
         }
         public Guid ID { get; set; }
 
         public Guid UserID { get; set; } 
 
-        public List<Guid> ErrandID { get; set; } 
+        public List<Guid> MechanicProgressList { get; set; } 
 
         public string Name { get; set; }
 
@@ -32,12 +32,11 @@ namespace Logic.Entities.Person_Entities
 
         public List<string> SkillLista { get; set; }
 
-        public List<string> MechanicProgressList { get; set; }
-
-        public List<string> MechanicDoneList { get; set; }
+        public List<Guid> MechanicDoneList { get; set; }
+        public List<Guid> ListContainingInProgressAndDoneErrendIDs { get; set; }
 
         #region Bättre för GUI
-       
+
         public bool Breaks { get; set; }
         public bool Engine { get; set; }
         public bool Carbody { get; set; }

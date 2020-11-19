@@ -57,8 +57,8 @@ namespace Logic
                     item.MechanicID = Guid.Empty;
                     item.Status = "";
                 }
-                ErrandMechanicViewCombine.BuildSource();
-                ErrandVehicleViewCombine.BuildSource();
+                //ErrandMechanicViewCombine.BuildSource();
+                //ErrandMechanicVehicleViewCombine.BuildSource();
             }
         }
 
@@ -75,7 +75,7 @@ namespace Logic
             objMechanic.NotifyPropertyChanged("Windshield");
             objMechanic.NotifyPropertyChanged("Tyre");
 
-            MechanicSkill.AddAndRemoveMechanicSkill(objMechanic);
+            MechanicProgress.UpdateMechanicSkill(objMechanic);
         }
         #endregion
         #region User: Skapa/Radera User inlogg. 
@@ -125,7 +125,7 @@ namespace Logic
 
             ErrandList.ErrandsList.Add(newErrand);
             ErrandMechanicViewCombine.BuildSource();
-            ErrandVehicleViewCombine.BuildSource();
+            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
 
         public void RemoveErrand(CommonView commonview)
@@ -138,7 +138,7 @@ namespace Logic
                 Mechanic mec = null;
                 foreach (var item in MechanicList.MechanicLists)
                 {
-                    foreach (var item2 in item.ErrandID)
+                    foreach (var item2 in item.MechanicProgressList)
                     {
                         if (item2 == obj.ID)
                         {
@@ -147,13 +147,12 @@ namespace Logic
                         }
                     }
                 }
-                mec.ErrandID.Remove(objErrandID);
-                mec.MechanicProgressList.Remove(objErrandID.ToString());
+                MechanicProgress.RemoveFromProgressList(mec, objErrandID);
             }
 
             ErrandList.ErrandsList.Remove(obj);
             ErrandMechanicViewCombine.BuildSource();
-            ErrandVehicleViewCombine.BuildSource();
+            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
         
 
@@ -175,7 +174,11 @@ namespace Logic
                 item.ModelName = objVehicle.ModelName;
                 item.RegistrationNumber = objVehicle.RegistrationNumber;
             }
+            ErrandMechanicViewCombine.BuildSource();
+            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
+
+
         #endregion
     }
 }

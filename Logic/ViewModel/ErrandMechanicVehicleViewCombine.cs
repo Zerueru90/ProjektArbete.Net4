@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Logic
 {
-    public class ErrandVehicleViewCombine
+    public class ErrandMechanicVehicleViewCombine
     {
         public static ObservableCollection<CommonViewEMV> _source { get; set; }
 
@@ -34,26 +34,36 @@ namespace Logic
             }
             foreach (var errandItem in ErrandList.ErrandsList)
             {
-                string MechanicName = "";
-                Guid MechanicId = Guid.Empty;
+                //string MechanicName = "";
+                //Guid MechanicId = Guid.Empty;
                 foreach (var item in MechanicList.MechanicLists)
                 {
-                    foreach (var item2 in item.ErrandID)
+                    foreach (var item2 in item.ListContainingInProgressAndDoneErrendIDs)
                     {
 
                         if (item2 == errandItem.ID)
                         {
-                            MechanicName = item.Name;
-                            MechanicId = item.ID;
+                            //MechanicName = item.Name;
+                            //MechanicId = item.ID;
+
+                            foreach (var item3 in VehicleList.VehicleLists)
+                            {
+                                if (item3.ID == errandItem.VehicleID)
+                                {
+                                    SortTypeOfVehicle(item3, item3.VehicleType, errandItem, item.Name, item.ID);
+                                }
+                            }
                         }
                     }
                 }
-                
-                foreach (var item in VehicleList.VehicleLists)
+                if (errandItem.Status == null)
                 {
-                    if (item.ID == errandItem.VehicleID)
+                    foreach (var item3 in VehicleList.VehicleLists)
                     {
-                        SortTypeOfVehicle(item,item.VehicleType, errandItem, MechanicName, MechanicId);
+                        if (item3.ID == errandItem.VehicleID)
+                        {
+                            SortTypeOfVehicle(item3, item3.VehicleType, errandItem, "", Guid.Empty);
+                        }
                     }
                 }
             }

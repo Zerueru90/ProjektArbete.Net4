@@ -21,29 +21,30 @@ namespace GUI.View
     /// </summary>
     public partial class FullErrandMechanicVehicleViewWindow : Window
     {
-        private CommonViewEMV _objCommonViewVE;
+        private CommonViewEMV _objCommonViewEMV;
         private Vehicle _objVehicle;
         private CommonView _objCommonView;
         private Mechanic _objMechanic;
         private ICRUD _crud = new CRUD();
         private string[] _unwantedColumns = new string[]
         {
-            "VehicleID", "MechanicID"
+            "VehicleID", "MechanicID", "ChangeProblem", "ChangeDescription"
         };
-        public FullErrandMechanicVehicleViewWindow(IEnumerable<CommonViewEMV> commonViewVE, Vehicle vehicle, CommonView commonView)
+        public FullErrandMechanicVehicleViewWindow(IEnumerable<CommonViewEMV> commonViewEMV, Vehicle vehicle, CommonView commonView)
         {
             InitializeComponent();
-
-            dgErrandEditDelete.ItemsSource = commonViewVE;
+            ErrandMechanicVehicleViewCombine.BuildSource();
+            var objtest = ErrandMechanicVehicleViewCombine.Source;
+            dgErrandEditDelete.ItemsSource = commonViewEMV;
             _objVehicle = vehicle;
             _objCommonView = commonView;
-            foreach (var item in commonViewVE)
+            foreach (var item in commonViewEMV)
             {
-                _objCommonViewVE = item;
+                _objCommonViewEMV = item;
             }
 
-            txtDescription.Text = _objCommonViewVE.Description;
-            cbBoxProblemsErrand.SelectedItem = _objCommonViewVE.Problem;
+            txtDescription.Text = _objCommonViewEMV.Description;
+            cbBoxProblemsErrand.SelectedItem = _objCommonViewEMV.Problem;
 
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelProblems)))
             {
@@ -52,7 +53,7 @@ namespace GUI.View
         }
         private void FirstStepDoesErrandHaveMechanic()
         {
-            var objMecID = _objCommonViewVE.MechanicID;
+            var objMecID = _objCommonViewEMV.MechanicID;
             var iEnumbleMec = MechanicList.MechanicLists.Where(x => x.ID == objMecID);
             Mechanic mec = null;
             foreach (var item in iEnumbleMec)
@@ -68,13 +69,19 @@ namespace GUI.View
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             FirstStepDoesErrandHaveMechanic();
-            if (_objCommonViewVE.Status != "Klar")
+            if (_objCommonViewEMV.Status != "Klar")
             {
                 if (_objMechanic == null)
                 {
                     _crud.UpdateErrand(_objCommonView, _objVehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                    ErrandMechanicViewCombine.BuildSource();
-                    ErrandVehicleViewCombine.BuildSource();
+                    var obj1 = ErrandMechanicViewCombine.Source;
+                    var obj = ErrandMechanicVehicleViewCombine.Source;
+
+                    _objCommonViewEMV.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
+                    _objCommonViewEMV.ChangeDescription = txtDescription.Text;
+
+                    //ErrandMechanicViewCombine.BuildSource();
+                    //ErrandMechanicVehicleViewCombine.BuildSource();
                     MessageBox.Show("Uppdaterad");
                 }
                 else
@@ -82,8 +89,12 @@ namespace GUI.View
                     if (_objMechanic.SkillLista.Any(x => x == cbBoxProblemsErrand.SelectedItem.ToString()))
                     {
                         _crud.UpdateErrand(_objCommonView, _objVehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                        ErrandMechanicViewCombine.BuildSource();
-                        ErrandVehicleViewCombine.BuildSource();
+
+                        _objCommonViewEMV.ChangeProblem = cbBoxProblemsErrand.SelectedItem.ToString();
+                        _objCommonViewEMV.ChangeDescription = txtDescription.Text;
+
+                        //ErrandMechanicViewCombine.BuildSource();
+                        //ErrandMechanicVehicleViewCombine.BuildSource();
                         MessageBox.Show("Uppdaterad");
                     }
                     else
