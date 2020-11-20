@@ -149,6 +149,20 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Verkstad">
+                <Grid Background="#FFE5E5E5" >
+                    <DataGrid Name="dgWorkshop" Margin="348,138,0,273" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="True" AutoGeneratingColumn="dgOngoingAndDone_AutoGeneratingColumn"/>
+
+                    <TextBox Name="txtAmountToBuy" HorizontalAlignment="Left" Margin="158,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="120"/>
+                    <Label Content="Välj typ av fordon" HorizontalAlignment="Left" Margin="158,112,0,0" VerticalAlignment="Top"/>
+                    <ComboBox Name="cbBoxVehicleTypeToBuy" HorizontalAlignment="Left" Margin="158,138,0,0" VerticalAlignment="Top" Width="120"/>
+                    <ComboBox Name="cbBoxCompontentToBuy" HorizontalAlignment="Left" Margin="158,233,0,0" VerticalAlignment="Top" Width="120"/>
+                    <Label Content="Vad ska köpas in" HorizontalAlignment="Left" Margin="158,202,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Antal" HorizontalAlignment="Left" Margin="158,313,0,0" VerticalAlignment="Top"/>
+                    <Button Click="BtnBuyCompontent_Click" Content="Köp" FontSize="25" HorizontalAlignment="Left" Margin="126,467,0,0" VerticalAlignment="Top" Height="47" Width="184"/>
+
+                </Grid>
+            </TabItem>
         </TabControl>
 
     </Grid>

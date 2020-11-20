@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -31,12 +32,17 @@ namespace GUI.Login
         private LoginService _loginService;
         private AdminWindow adminWindow;
         private MechanicWindow mecWindow;
+        private Workshop _workshop;
 
         public LoginPage()
         {
             InitializeComponent();
 
-            DataAccessRead.ReadJsonFile();
+            _workshop = new Workshop();
+
+            WorkshopLists.WorkshopList.Add(_workshop);
+
+            DataAccessRead.ReadJsonFile().ConfigureAwait(false);
 
             _loginService = new LoginService();
 
@@ -51,13 +57,11 @@ namespace GUI.Login
             if (username == "Bosse@hotmail.com" && password == "Meckarn123")
             {
                 adminWindow = new AdminWindow();
+                adminWindow.Workshop = _workshop;
                 adminWindow.Show();
                 adminWindow.Closing += delegate
                 {
-                    DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
-                    DataAccessWrite<User>.SaveData(UserList.UserLists);
-                    DataAccessWrite<Vehicle>.SaveData(VehicleList.VehicleLists);
-                    DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
+                    Saving().ConfigureAwait(false);
                 };
             }
             else if (_loginService.LoginMec(username, password) && username != "Bosse@hotmail.com")
@@ -66,8 +70,7 @@ namespace GUI.Login
                 mecWindow.Show();
                 mecWindow.Closing += delegate
                 {
-                    DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
-                    DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
+                    Saving().ConfigureAwait(false);
                 };
             }
             else
@@ -77,6 +80,14 @@ namespace GUI.Login
                 this.txtBoxUserName.Clear();
                 this.txtBoxPassword.Clear();
             }
+        }
+
+        public async Task Saving()
+        {
+            await DataAccessWrite<Mechanic>.SaveData(MechanicList.MechanicLists);
+            await DataAccessWrite<User>.SaveData(UserList.UserLists);
+            await DataAccessWrite<Vehicle>.SaveData(VehicleList.VehicleLists);
+            await DataAccessWrite<Errand>.SaveData(ErrandList.ErrandsList);
         }
     }
 }

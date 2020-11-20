@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Logic.DAL
 {
@@ -15,7 +16,7 @@ namespace Logic.DAL
         private static string findMap = $@"{Directory.GetCurrentDirectory()}\DAL";
         private static string filename = "";
 
-        public static void SaveData(ObservableCollection<T> observableData)
+        public static async Task SaveData(ObservableCollection<T> observableData)
         {
             if (observableData.Count != 0)
             {
@@ -30,7 +31,7 @@ namespace Logic.DAL
                     string jsonString = JsonSerializer.Serialize(observableData);
                     using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
                     {
-                        write.Write(jsonString);
+                        await write.WriteAsync(jsonString);
                         write.Close();
                     }
                 }
@@ -39,7 +40,7 @@ namespace Logic.DAL
                     string jsonString = JsonSerializer.Serialize(observableData);
                     using (StreamWriter write = new StreamWriter(jsonFileAddress, true))
                     {
-                        write.Write(jsonString);
+                        await write.WriteAsync(jsonString);
                         write.Close();
                     }
                 }

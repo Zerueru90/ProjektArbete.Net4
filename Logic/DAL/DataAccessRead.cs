@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 //Ändra ordning på "allfiles" så att först Mek, User, Vechile, Errends.
 namespace Logic.DAL
 {
@@ -17,7 +18,7 @@ namespace Logic.DAL
         private static string[] allFiles = Directory.GetFiles(findMap);
         private static string[] jsonfiles = { "Mechanic.json", "User.json", "Errand.json", "Vehicle.json" };
 
-        public static void ReadJsonFile()
+        public static async Task ReadJsonFile()
         {
             Array.Reverse(allFiles);
             string filename = "";
@@ -32,7 +33,7 @@ namespace Logic.DAL
                     }
                 }
 
-                StreamRead<Vehicle>(allFiles[i], filename);
+                await StreamRead<Vehicle>(allFiles[i], filename);
             }
         }
 
@@ -54,12 +55,12 @@ namespace Logic.DAL
             return false;
         }
 
-        private static void StreamRead<T>(string fileadress, string filename)
+        private static async Task StreamRead<T>(string fileadress, string filename)
         {
             string json = "";
             using (StreamReader read = new StreamReader(fileadress, true))
             {
-                json = read.ReadToEnd();
+                json = await read.ReadToEndAsync();
             }
 
             switch (filename)

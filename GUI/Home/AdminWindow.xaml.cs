@@ -23,6 +23,7 @@ namespace GUI.Home
     public partial class AdminWindow : Window
     {
         private ICRUD _crud = new CRUD();
+        public Workshop Workshop { get; set; }
         private string[] _unwantedColumns = new string[]
         {
             "SkillLista", "MechanicProgressList", "MechanicDoneList", "UserID", "ErrandID", "OngoingErrands", "finnishedErrands", "Isfinnished", "MechanicID", "VehicleID", "ChangeStatus", "ChangeVeichleID", "ChangeMechanicID", "ChangeMechanic", "ChangeDescription", "ChangeProblem", "ID", "ChangeModelName", "ChangeRegistrationNumber", "ChangeName", "ListContainingInProgressAndDoneErrendIDs"
@@ -36,6 +37,7 @@ namespace GUI.Home
             dgUserAccess.ItemsSource = MechanicList.MechanicLists;
             dgVeichleList.ItemsSource = VehicleList.VehicleLists;
             dgErrandList.ItemsSource = ErrandMechanicViewCombine.Source;
+            dgWorkshop.ItemsSource = WorkshopLists.WorkshopList;
 
             #region DummyData
 
@@ -282,16 +284,24 @@ namespace GUI.Home
         {
             if (cbBoxVeichlesErrand.SelectedItem != null && cbBoxProblemsErrand.SelectedItem != null)
             {
-                try
+                var objVe = cbBoxVeichlesErrand.SelectedItem as Vehicle;
+                if (WorkshopWarehouse.CheckWarehouse(objVe.VehicleType.ToString(), cbBoxProblemsErrand.SelectedItem.ToString(), Workshop))
                 {
-                    _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
-                    MessageBox.Show("Sparad");
-                    NullDataGrids();
+                    try
+                    {
+                        _crud.CreateNewErrand(cbBoxVeichlesErrand.SelectedItem as Vehicle, txtDescription.Text, cbBoxProblemsErrand.SelectedItem.ToString());
+
+                        Workshop.UpdateWorkshopDataGrid();
+                        MessageBox.Show("Sparad");
+                        NullDataGrids();
+                    }
+                    catch (NullReferenceException empty)
+                    {
+                        MessageBox.Show(empty.ToString());
+                    }
                 }
-                catch (NullReferenceException empty)
-                {
-                    MessageBox.Show(empty.ToString());
-                }
+                else
+                    MessageBox.Show($"Aaapapap.. tyvärr är det slut med {cbBoxProblemsErrand.SelectedItem.ToString()} i lagret, beställ fler för att fortsätta");
             }
             else
                 MessageBox.Show("Du måste fylla i alla uppgifter");
@@ -350,8 +360,6 @@ namespace GUI.Home
                         }
                     }
                     UpdateDataGrid(objChosenMechanic);
-                    //ErrandMechanicViewCombine.BuildSource();
-                    //ErrandMechanicVehicleViewCombine.BuildSource();
                     MessageBox.Show($"Mekanikern har blivit tilldelat ett ärende");
                 }
                 else
@@ -434,7 +442,6 @@ namespace GUI.Home
         {
             if (objMec != null)
                 ExtensionMethods.MechanicSkill.UpdateMechanicSkill(objMec);
-            //MechanicProgress.UpdateMechanicSkill(objMec);
 
             List<CommonView> availableErrandList = new List<CommonView>();
             List<CommonView> tempListHistoricErrand = new List<CommonView>();
@@ -555,6 +562,34 @@ namespace GUI.Home
 
         #endregion
 
+        private void BtnBuyCompontent_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (cbBoxVehicleTypeToBuy.SelectedItem != null && cbBoxCompontentToBuy.SelectedItem != null)
+                {
+                    RegexValidation.IsNullorEmpty(txtAmountToBuy.Text);
+                    RegexValidation.NumberOnly(txtAmountToBuy.Text);
+
+                    WorkshopWarehouse.OrderToWarehouse(
+                        cbBoxVehicleTypeToBuy.SelectedItem.ToString(), 
+                        cbBoxCompontentToBuy.SelectedItem.ToString(),
+                        Convert.ToInt32(txtAmountToBuy.Text),
+                        Workshop);
+                    Workshop.UpdateWorkshopDataGrid();
+                    MessageBox.Show($"Du har köpt {cbBoxCompontentToBuy.SelectedItem.ToString()}");
+                }
+            }
+            catch (ExceptionHandling.EmptyTextBoxException message)
+            {
+                MessageBox.Show(message.ToString());
+            }
+            catch(ExceptionHandling.NumbersOnlyException message)
+            {
+                MessageBox.Show(message.ToString());
+            }
+        }
+
         #region Kolumer: Tar bort dom man inte vill ha med.
 
         private void CancelUnwantedColumnHeaderName(DataGridAutoGeneratingColumnEventArgs e)
@@ -597,6 +632,5 @@ namespace GUI.Home
             CancelUnwantedColumnHeaderName(e);
         }
         #endregion
-
     }
 }
