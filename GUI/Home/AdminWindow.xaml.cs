@@ -433,7 +433,8 @@ namespace GUI.Home
         private void UpdateDataGrid(Mechanic objMec)
         {
             if (objMec != null)
-                MechanicProgress.UpdateMechanicSkill(objMec);
+                ExtensionMethods.MechanicSkill.UpdateMechanicSkill(objMec);
+            //MechanicProgress.UpdateMechanicSkill(objMec);
 
             List<CommonView> availableErrandList = new List<CommonView>();
             List<CommonView> tempListHistoricErrand = new List<CommonView>();

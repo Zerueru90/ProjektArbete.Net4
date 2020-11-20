@@ -75,7 +75,8 @@ namespace Logic
             objMechanic.NotifyPropertyChanged("Windshield");
             objMechanic.NotifyPropertyChanged("Tyre");
 
-            MechanicProgress.UpdateMechanicSkill(objMechanic);
+            ExtensionMethods.MechanicSkill.UpdateMechanicSkill(objMechanic);
+            //MechanicProgress.UpdateMechanicSkill(objMechanic);
         }
         #endregion
         #region User: Skapa/Radera User inlogg. 
