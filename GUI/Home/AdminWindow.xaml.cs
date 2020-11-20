@@ -59,10 +59,12 @@ namespace GUI.Home
             foreach (var item in Enum.GetValues(typeof(Enums.VeichleType)))
             {
                 cbBoxVeichleType.Items.Add(item.ToString());
+                cbBoxVehicleTypeToBuy.Items.Add(item.ToString());
             }
             foreach (var item in Enum.GetValues(typeof(Enums.VehicelProblems)))
             {
                 cbBoxProblemsErrand.Items.Add(item.ToString());
+                cbBoxCompontentToBuy.Items.Add(item.ToString());
             }
             foreach (var item in Enum.GetValues(typeof(Enums.FuelType)))
             {

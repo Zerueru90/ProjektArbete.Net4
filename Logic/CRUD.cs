@@ -57,8 +57,6 @@ namespace Logic
                     item.MechanicID = Guid.Empty;
                     item.Status = "";
                 }
-                //ErrandMechanicViewCombine.BuildSource();
-                //ErrandMechanicVehicleViewCombine.BuildSource();
             }
         }
 
@@ -76,7 +74,6 @@ namespace Logic
             objMechanic.NotifyPropertyChanged("Tyre");
 
             ExtensionMethods.MechanicSkill.UpdateMechanicSkill(objMechanic);
-            //MechanicProgress.UpdateMechanicSkill(objMechanic);
         }
         #endregion
         #region User: Skapa/Radera User inlogg. 
@@ -126,7 +123,6 @@ namespace Logic
 
             ErrandList.ErrandsList.Add(newErrand);
             ErrandMechanicViewCombine.BuildSource();
-            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
 
         public void RemoveErrand(CommonView commonview)
@@ -139,7 +135,7 @@ namespace Logic
                 Mechanic mec = null;
                 foreach (var item in MechanicList.MechanicLists)
                 {
-                    foreach (var item2 in item.MechanicProgressList)
+                    foreach (var item2 in item.ListContainingInProgressAndDoneErrendIDs)
                     {
                         if (item2 == obj.ID)
                         {
@@ -153,7 +149,6 @@ namespace Logic
 
             ErrandList.ErrandsList.Remove(obj);
             ErrandMechanicViewCombine.BuildSource();
-            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
         
 
@@ -176,7 +171,6 @@ namespace Logic
                 item.RegistrationNumber = objVehicle.RegistrationNumber;
             }
             ErrandMechanicViewCombine.BuildSource();
-            //ErrandMechanicVehicleViewCombine.BuildSource();
         }
 
 
